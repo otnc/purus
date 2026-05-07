@@ -1,10 +1,10 @@
-// Whitebox feature tests — operators, range, slice, destructuring,
+// Whitebox feature tests  Eoperators, range, slice, destructuring,
 // optional chaining, computed access, imports, async, stdlib
 // Run `moon test` to execute and `moon test --update` to refresh snapshots.
 
 ///|
-fn tokenize_f(src : String) -> Array[Token] {
-  Lexer::new(src).tokenize()
+fn tokenize_f(src : String) -> Array[@lexer.Token] {
+  @lexer.Lexer::new(src).tokenize()
 }
 
 ///|
@@ -107,7 +107,7 @@ test "parser: exclusive range [0...5]" {
 
 ///|
 test "parser: inclusive slice" {
-  let stmts = Parser::new(Lexer::new("numbers[\\2..4]").tokenize()).parse()
+  let stmts = Parser::new(@lexer.Lexer::new("numbers[\\2..4]").tokenize()).parse()
   match stmts[0] {
     ExprStmt(Slice(Ident(name), IntLit(2), IntLit(4), inclusive)) => {
       assert_eq(name, "numbers")
@@ -119,7 +119,7 @@ test "parser: inclusive slice" {
 
 ///|
 test "parser: exclusive slice" {
-  let stmts = Parser::new(Lexer::new("numbers[\\2...4]").tokenize()).parse()
+  let stmts = Parser::new(@lexer.Lexer::new("numbers[\\2...4]").tokenize()).parse()
   match stmts[0] {
     ExprStmt(Slice(Ident(name), IntLit(2), IntLit(4), inclusive)) => {
       assert_eq(name, "numbers")
@@ -131,7 +131,7 @@ test "parser: exclusive slice" {
 
 ///|
 test "parser: slice with dot access" {
-  let stmts = Parser::new(Lexer::new("obj.arr[\\1..3]").tokenize()).parse()
+  let stmts = Parser::new(@lexer.Lexer::new("obj.arr[\\1..3]").tokenize()).parse()
   match stmts[0] {
     ExprStmt(Slice(DotAccess(Ident(obj), field), IntLit(1), IntLit(3), _)) => {
       assert_eq(obj, "obj")
@@ -144,7 +144,7 @@ test "parser: slice with dot access" {
 ///|
 test "parser: splice assignment" {
   let stmts = Parser::new(
-    Lexer::new("numbers[\\2..4] be [///a///; ///b///]").tokenize(),
+    @lexer.Lexer::new("numbers[\\2..4] be [///a///; ///b///]").tokenize(),
   ).parse()
   match stmts[0] {
     Assign(Slice(Ident(name), IntLit(2), IntLit(4), inclusive), ArrayLit(elems)) => {
@@ -160,7 +160,7 @@ test "parser: splice assignment" {
 
 ///|
 test "parser: const destructuring" {
-  let stmts = Parser::new(Lexer::new("const [a; b] be weather").tokenize()).parse()
+  let stmts = Parser::new(@lexer.Lexer::new("const [a; b] be weather").tokenize()).parse()
   match stmts[0] {
     DestructDecl(Const_, names, Ident(src)) => {
       assert_eq(names.length(), 2)
@@ -174,7 +174,7 @@ test "parser: const destructuring" {
 
 ///|
 test "parser: let destructuring" {
-  let stmts = Parser::new(Lexer::new("let [x; y; z] be arr").tokenize()).parse()
+  let stmts = Parser::new(@lexer.Lexer::new("let [x; y; z] be arr").tokenize()).parse()
   match stmts[0] {
     DestructDecl(Let_, names, Ident(src)) => {
       assert_eq(names.length(), 3)
@@ -189,7 +189,7 @@ test "parser: let destructuring" {
 
 ///|
 test "parser: destructuring swap" {
-  let stmts = Parser::new(Lexer::new("[a; b] be [b; a]").tokenize()).parse()
+  let stmts = Parser::new(@lexer.Lexer::new("[a; b] be [b; a]").tokenize()).parse()
   match stmts[0] {
     Assign(ArrayLit(lhs), ArrayLit(rhs)) => {
       assert_eq(lhs.length(), 2)
@@ -203,7 +203,7 @@ test "parser: destructuring swap" {
 
 ///|
 test "parser: optional dot access" {
-  let stmts = Parser::new(Lexer::new("obj\\.name").tokenize()).parse()
+  let stmts = Parser::new(@lexer.Lexer::new("obj\\.name").tokenize()).parse()
   match stmts[0] {
     ExprStmt(OptDotAccess(Ident(obj), field)) => {
       assert_eq(obj, "obj")
@@ -215,7 +215,7 @@ test "parser: optional dot access" {
 
 ///|
 test "parser: optional method call" {
-  let stmts = Parser::new(Lexer::new("obj\\.method[1; 2]").tokenize()).parse()
+  let stmts = Parser::new(@lexer.Lexer::new("obj\\.method[1; 2]").tokenize()).parse()
   match stmts[0] {
     ExprStmt(OptMethodCall(Ident(obj), meth, args)) => {
       assert_eq(obj, "obj")
@@ -230,7 +230,7 @@ test "parser: optional method call" {
 
 ///|
 test "parser: computed access" {
-  let stmts = Parser::new(Lexer::new("arr[\\i]").tokenize()).parse()
+  let stmts = Parser::new(@lexer.Lexer::new("arr[\\i]").tokenize()).parse()
   match stmts[0] {
     ExprStmt(ComputedAccess(Ident(name), Ident(key))) => {
       assert_eq(name, "arr")
@@ -242,7 +242,7 @@ test "parser: computed access" {
 
 ///|
 test "parser: computed access with number" {
-  let stmts = Parser::new(Lexer::new("arr[\\0]").tokenize()).parse()
+  let stmts = Parser::new(@lexer.Lexer::new("arr[\\0]").tokenize()).parse()
   match stmts[0] {
     ExprStmt(ComputedAccess(Ident(name), IntLit(0))) => assert_eq(name, "arr")
     _ => fail("expected ComputedAccess with number")
@@ -253,7 +253,7 @@ test "parser: computed access with number" {
 
 ///|
 test "parser: side-effect import" {
-  let stmts = Parser::new(Lexer::new("import ///dotenv/config///").tokenize()).parse()
+  let stmts = Parser::new(@lexer.Lexer::new("import ///dotenv/config///").tokenize()).parse()
   match stmts[0] {
     ImportDecl(SideEffectImport(path, _)) => assert_eq(path, "dotenv/config")
     _ => fail("expected SideEffectImport")
@@ -265,7 +265,7 @@ test "parser: side-effect import" {
 ///|
 test "parser: import with attributes" {
   let stmts = Parser::new(
-    Lexer::new(
+    @lexer.Lexer::new(
       "import pkg from ///./package.json/// with [ type be ///json/// ]",
     ).tokenize(),
   ).parse()
@@ -285,7 +285,7 @@ test "parser: import with attributes" {
 ///|
 test "parser: named import with attributes" {
   let stmts = Parser::new(
-    Lexer::new(
+    @lexer.Lexer::new(
       "import [name; version] from ///./package.json/// with [ type be ///json/// ]",
     ).tokenize(),
   ).parse()
@@ -304,7 +304,7 @@ test "parser: named import with attributes" {
 ///|
 test "parser: async fn expression to" {
   let stmts = Parser::new(
-    Lexer::new("const h be async fn x to x add 1").tokenize(),
+    @lexer.Lexer::new("const h be async fn x to x add 1").tokenize(),
   ).parse()
   match stmts[0] {
     VarDecl(_, _, AsyncFnExprTo(params, _)) => {

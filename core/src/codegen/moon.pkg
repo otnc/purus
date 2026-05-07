@@ -1,0 +1,4 @@
+import {
+  "username/core/src/lexer" @lexer,
+  "username/core/src/parser" @parser,
+}

@@ -2,7 +2,7 @@
 /// Expression code generation for the purus JS codegen.
 
 ///|
-fn JsCodegen::gen_expr(self : JsCodegen, expr : Expr) -> Unit {
+fn JsCodegen::gen_expr(self : JsCodegen, expr : @parser.Expr) -> Unit {
   match expr {
     IntLit(n) => self.write(n.to_string())
     BigIntLit(s) => {
@@ -524,7 +524,7 @@ fn JsCodegen::gen_expr(self : JsCodegen, expr : Expr) -> Unit {
 
 ///|
 /// Wrap expression in parens if it's a binary op, unary, or other compound expr
-fn JsCodegen::gen_expr_wrap(self : JsCodegen, expr : Expr) -> Unit {
+fn JsCodegen::gen_expr_wrap(self : JsCodegen, expr : @parser.Expr) -> Unit {
   match expr {
     BinOp(_, _, _)
     | UnaryNeg(_)
@@ -542,7 +542,7 @@ fn JsCodegen::gen_expr_wrap(self : JsCodegen, expr : Expr) -> Unit {
 
 ///|
 /// Convert a binary operator to its JS equivalent
-fn js_binop(op : BinOp) -> String {
+fn js_binop(op : @parser.BinOp) -> String {
   match op {
     Add => "+"
     Sub => "-"
@@ -577,8 +577,8 @@ fn js_ident(name : String) -> String {
 }
 
 ///|
-/// Convert BinOp to compound assignment operator string
-fn compound_op_str(op : BinOp) -> String {
+/// Convert @parser.BinOp to compound assignment operator string
+fn compound_op_str(op : @parser.BinOp) -> String {
   match op {
     Add => " += "
     Sub => " -= "

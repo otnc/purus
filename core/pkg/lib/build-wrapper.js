@@ -183,6 +183,10 @@ if (
 
   let count = 0;
   for (const f of files) {
+    // Skip config.purus itself - it's the build config, not a source file
+    if (configResult && path.resolve(f) === path.resolve(configResult.configPath)) {
+      continue;
+    }
     const source = fs.readFileSync(f, "utf8");
     const resolvedModule = resolveModuleType(f, moduleType, configResult);
     const js = compile(source, {

@@ -1,9 +1,0 @@
-import {
-  "username/core" @core,
-  "moonbitlang/x/sys" @sys,
-  "moonbitlang/x/fs" @fs,
-}
-
-options(
-  "is-main": true,
-)

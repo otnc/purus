@@ -2,5 +2,5 @@
 _build/
 .mooncakes/
 .moonagent/
-lib/purus-compiler.js
+pkg/lib/purus-compiler.js
 node_modules/

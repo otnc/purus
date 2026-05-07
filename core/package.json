@@ -1,27 +1,23 @@
 {
   "name": "purus",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Purus - /ˈpuː.rus/ means pure✨ in Latin - is a beautiful, simple, and easy-to-use language. It compiles to JavaScript. It makes your fingers free from the Shift key. With Purus, you can write code almost without pressing the Shift key.",
-  "main": "index.js",
-  "module": "index.mjs",
-  "types": "index.d.ts",
+  "main": "pkg/index.js",
+  "module": "pkg/index.mjs",
+  "types": "pkg/index.d.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./index.js"
+      "types": "./pkg/index.d.ts",
+      "import": "./pkg/index.mjs",
+      "require": "./pkg/index.js"
     }
   },
   "bin": {
     "purus": "bin/purus.js"
   },
   "files": [
-    "index.js",
-    "index.mjs",
-    "index.d.ts",
+    "pkg/",
     "bin/",
-    "lib/",
-    "stdlib/",
     "LICENSE",
     "README.md",
     "README-ja.md"
@@ -33,8 +29,8 @@
     "build": "npm run build:compiler && npm run build:copy",
     "lint": "moon check",
     "lint:fix": "moon fmt",
-    "format": "moon fmt && prettier --write ./bin ./lib ./scripts ./stdlib ./index.d.ts ./index.js ./index.mjs",
-    "format:check": "moon fmt --check && prettier --check ./bin ./lib ./scripts ./stdlib ./index.d.ts ./index.js ./index.mjs",
+    "format": "moon fmt && prettier --write ./bin ./pkg ./scripts",
+    "format:check": "moon fmt --check && prettier --check ./bin ./pkg ./scripts",
     "typecheck": "moon check",
     "check": "npm run lint && npm run format:check && npm run build && npm run typecheck",
     "sync": "node scripts/sync-version.js",

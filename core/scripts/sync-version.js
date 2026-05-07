@@ -37,7 +37,7 @@ const docsFiles = [
     "content",
     "docs",
     "getting-started",
-    "cli.md",
+    "cli.mdx",
   ),
   path.join(
     root,
@@ -48,7 +48,7 @@ const docsFiles = [
     "docs",
     "ja",
     "getting-started",
-    "cli.md",
+    "cli.mdx",
   ),
 ];
 

@@ -51,17 +51,17 @@ function printHelp() {
 switch (cmd) {
   case "new":
   case "create":
-    require("../lib/create.js");
+    require("../pkg/lib/create.js");
     break;
   case "build":
   case "compile":
-    require("../lib/build-wrapper.js");
+    require("../pkg/lib/build-wrapper.js");
     break;
   case "run":
-    require("../lib/run-wrapper.js");
+    require("../pkg/lib/run-wrapper.js");
     break;
   case "check":
-    require("../lib/check-wrapper.js");
+    require("../pkg/lib/check-wrapper.js");
     break;
   case "version":
   case "--version":
@@ -75,6 +75,6 @@ switch (cmd) {
     printHelp();
     break;
   default:
-    require("../lib/purus-compiler.js");
+    require("../pkg/lib/purus-compiler.js");
     break;
 }

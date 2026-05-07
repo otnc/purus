@@ -1,9 +1,9 @@
-// Whitebox parser tests — internal helpers and invariants
+// Whitebox parser tests  Einternal helpers and invariants
 // Run `moon test` to execute and `moon test --update` to refresh snapshots.
 
 ///|
-fn tokenize(src : String) -> Array[Token] {
-  Lexer::new(src).tokenize()
+fn tokenize(src : String) -> Array[@lexer.Token] {
+  @lexer.Lexer::new(src).tokenize()
 }
 
 ///|
@@ -387,7 +387,7 @@ test "parser: typeof" {
 ///|
 test "parser: is is now an identifier" {
   let _stmts = parse("const r be x is y")
-  let lexer = Lexer::new("is")
+  let lexer = @lexer.Lexer::new("is")
   let tokens = lexer.tokenize()
   assert_eq(tokens[1].kind, Ident("is"))
 }

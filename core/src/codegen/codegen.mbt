@@ -14,7 +14,7 @@ pub fn JsCodegen::new(cjs? : Bool = false) -> JsCodegen {
 }
 
 ///|
-fn body_has_yield(body : FnBody) -> Bool {
+fn body_has_yield(body : @parser.FnBody) -> Bool {
   match body {
     Block(stmts) => stmts_have_yield(stmts)
     ToExpr(expr) | ToReturnExpr(expr) => expr_has_yield(expr)
@@ -22,7 +22,7 @@ fn body_has_yield(body : FnBody) -> Bool {
 }
 
 ///|
-fn stmts_have_yield(stmts : Array[Stmt]) -> Bool {
+fn stmts_have_yield(stmts : Array[@parser.Stmt]) -> Bool {
   for s in stmts {
     if stmt_has_yield(s) {
       return true
@@ -32,7 +32,7 @@ fn stmts_have_yield(stmts : Array[Stmt]) -> Bool {
 }
 
 ///|
-fn stmt_has_yield(stmt : Stmt) -> Bool {
+fn stmt_has_yield(stmt : @parser.Stmt) -> Bool {
   match stmt {
     ExprStmt(e) | Return(Some(e)) | Throw(e) | DeleteStmt(e) =>
       expr_has_yield(e)
@@ -69,13 +69,13 @@ fn stmt_has_yield(stmt : Stmt) -> Bool {
       stmt_has_yield(s) || expr_has_yield(cond)
     PostfixFor(s, _, _) => stmt_has_yield(s)
     ExportDefault(s) | PublicDecl(s) => stmt_has_yield(s)
-    // Don't recurse into nested FnDecl/ClassDecl - yield in nested functions is separate
+    // Don't recurse into nested @parser.FnDecl/@parser.ClassDecl - yield in nested functions is separate
     _ => false
   }
 }
 
 ///|
-fn expr_has_yield(expr : Expr) -> Bool {
+fn expr_has_yield(expr : @parser.Expr) -> Bool {
   match expr {
     YieldExpr(_) => true
     BinOp(_, l, r) => expr_has_yield(l) || expr_has_yield(r)
@@ -151,7 +151,7 @@ fn JsCodegen::write_indent(self : JsCodegen) -> Unit {
 ///|
 pub fn JsCodegen::generate(
   self : JsCodegen,
-  stmts : Array[Stmt],
+  stmts : Array[@parser.Stmt],
   header? : String = "",
   shebang? : String = "",
   strict? : Bool = true,
@@ -174,7 +174,7 @@ pub fn JsCodegen::generate(
 }
 
 ///|
-fn JsCodegen::gen_stmt(self : JsCodegen, stmt : Stmt) -> Unit {
+fn JsCodegen::gen_stmt(self : JsCodegen, stmt : @parser.Stmt) -> Unit {
   match stmt {
     VarDecl(kind, name, value) => {
       let kw = match kind {
@@ -287,7 +287,7 @@ fn JsCodegen::gen_stmt(self : JsCodegen, stmt : Stmt) -> Unit {
         }
       }
     }
-    FnDecl(decl) => self.gen_fn_decl(decl)
+    @parser.FnDecl(decl) => self.gen_fn_decl(decl)
     If(cond, body, elifs, else_body) =>
       self.gen_if(cond, body, elifs, else_body)
     Unless(cond, body) => {
@@ -488,7 +488,7 @@ fn JsCodegen::gen_stmt(self : JsCodegen, stmt : Stmt) -> Unit {
       self.gen_expr(expr)
       self.write(";\n")
     }
-    ImportDecl(decl) => self.gen_import(decl)
+    @parser.ImportDecl(decl) => self.gen_import(decl)
     UseStdlib(module_name, binding) => {
       self.write_indent()
       self.write("// @purus-stdlib:whole:")
@@ -532,7 +532,7 @@ fn JsCodegen::gen_stmt(self : JsCodegen, stmt : Stmt) -> Unit {
             self.write(js_ident(name))
             self.write(";\n")
           }
-          FnDecl(decl) =>
+          @parser.FnDecl(decl) =>
             match decl.name {
               Some(n) => {
                 self.write_indent()
@@ -544,7 +544,7 @@ fn JsCodegen::gen_stmt(self : JsCodegen, stmt : Stmt) -> Unit {
               }
               None => ()
             }
-          ClassDecl(decl) => {
+          @parser.ClassDecl(decl) => {
             self.write_indent()
             self.write("exports.")
             self.write(js_ident(decl.name))
@@ -561,7 +561,7 @@ fn JsCodegen::gen_stmt(self : JsCodegen, stmt : Stmt) -> Unit {
         self.write("\n")
       }
     TypeDecl(_, _) => () // Type declarations are erased at runtime
-    ClassDecl(decl) => self.gen_class_decl(decl)
+    @parser.ClassDecl(decl) => self.gen_class_decl(decl)
     DeleteStmt(expr) => {
       self.write_indent()
       self.write("delete ")
@@ -573,7 +573,7 @@ fn JsCodegen::gen_stmt(self : JsCodegen, stmt : Stmt) -> Unit {
 
 ///|
 /// Generate a statement inline (without leading indent, without trailing newline)
-fn JsCodegen::gen_stmt_inline(self : JsCodegen, stmt : Stmt) -> Unit {
+fn JsCodegen::gen_stmt_inline(self : JsCodegen, stmt : @parser.Stmt) -> Unit {
   match stmt {
     VarDecl(kind, name, value) => {
       let kw = match kind {
@@ -658,7 +658,7 @@ fn JsCodegen::gen_stmt_inline(self : JsCodegen, stmt : Stmt) -> Unit {
 }
 
 ///|
-fn JsCodegen::gen_for_part(self : JsCodegen, stmt : Stmt) -> Unit {
+fn JsCodegen::gen_for_part(self : JsCodegen, stmt : @parser.Stmt) -> Unit {
   match stmt {
     VarDecl(kind, name, value) => {
       let kw = match kind {
@@ -699,7 +699,7 @@ fn JsCodegen::gen_for_part(self : JsCodegen, stmt : Stmt) -> Unit {
 }
 
 ///|
-fn JsCodegen::gen_fn_decl(self : JsCodegen, decl : FnDecl) -> Unit {
+fn JsCodegen::gen_fn_decl(self : JsCodegen, decl : @parser.FnDecl) -> Unit {
   self.write_indent()
   if decl.is_async {
     self.write("async ")
@@ -750,7 +750,7 @@ fn JsCodegen::gen_fn_decl(self : JsCodegen, decl : FnDecl) -> Unit {
 }
 
 ///|
-fn JsCodegen::gen_class_decl(self : JsCodegen, decl : ClassDecl) -> Unit {
+fn JsCodegen::gen_class_decl(self : JsCodegen, decl : @parser.ClassDecl) -> Unit {
   let saved_private = self.private_fields
   self.private_fields = []
   // Collect private field names
@@ -848,7 +848,7 @@ fn JsCodegen::gen_class_decl(self : JsCodegen, decl : ClassDecl) -> Unit {
 }
 
 ///|
-fn JsCodegen::gen_class_body(self : JsCodegen, body : FnBody) -> Unit {
+fn JsCodegen::gen_class_body(self : JsCodegen, body : @parser.FnBody) -> Unit {
   match body {
     ToExpr(expr) => {
       self.write("{ ")
@@ -875,10 +875,10 @@ fn JsCodegen::gen_class_body(self : JsCodegen, body : FnBody) -> Unit {
 ///|
 fn JsCodegen::gen_if(
   self : JsCodegen,
-  cond : Expr,
-  body : Array[Stmt],
-  elifs : Array[ElIfBranch],
-  else_body : Array[Stmt]?,
+  cond : @parser.Expr,
+  body : Array[@parser.Stmt],
+  elifs : Array[@parser.ElIfBranch],
+  else_body : Array[@parser.Stmt]?,
 ) -> Unit {
   self.write_indent()
   self.write("if (")
@@ -917,8 +917,8 @@ fn JsCodegen::gen_if(
 ///|
 fn JsCodegen::gen_match(
   self : JsCodegen,
-  subject : Expr,
-  arms : Array[MatchArm],
+  subject : @parser.Expr,
+  arms : Array[@parser.MatchArm],
 ) -> Unit {
   // Check if any arm has named BindPat with guard (needs pre-declaration)
   let mut has_bind_guard = false
@@ -1032,7 +1032,7 @@ fn JsCodegen::gen_match(
 }
 
 ///|
-fn JsCodegen::gen_import(self : JsCodegen, decl : ImportDecl) -> Unit {
+fn JsCodegen::gen_import(self : JsCodegen, decl : @parser.ImportDecl) -> Unit {
   match decl {
     EsImport(default_name, named, ns_name, module_name, attrs) =>
       if self.cjs {
@@ -1184,7 +1184,7 @@ fn JsCodegen::gen_import(self : JsCodegen, decl : ImportDecl) -> Unit {
 ///|
 fn JsCodegen::gen_import_attributes(
   self : JsCodegen,
-  attrs : Array[(String, Expr)]?,
+  attrs : Array[(String, @parser.Expr)]?,
 ) -> Unit {
   match attrs {
     Some(pairs) => {

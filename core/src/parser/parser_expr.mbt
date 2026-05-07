@@ -144,7 +144,7 @@ fn Parser::parse_equality(self : Parser) -> Expr {
         left = BinOp(Neq, left, right)
       }
       Not =>
-        // "not eq" → Neq
+        // "not eq" ↁENeq
         if self.pos + 1 < self.tokens.length() {
           match self.tokens[self.pos + 1].kind {
             Eq => {
@@ -174,7 +174,7 @@ fn Parser::parse_comparison(self : Parser) -> Expr {
   while self.pos < self.tokens.length() {
     match self.peek() {
       Lt => {
-        // Check for "lt eq" → Le
+        // Check for "lt eq" ↁELe
         if self.pos + 1 < self.tokens.length() {
           match self.tokens[self.pos + 1].kind {
             Eq => {
@@ -191,7 +191,7 @@ fn Parser::parse_comparison(self : Parser) -> Expr {
         left = BinOp(Lt, left, right)
       }
       Gt => {
-        // Check for "gt eq" → Ge
+        // Check for "gt eq" ↁEGe
         if self.pos + 1 < self.tokens.length() {
           match self.tokens[self.pos + 1].kind {
             Eq => {
@@ -324,7 +324,7 @@ fn Parser::parse_unary(self : Parser) -> Expr {
     }
     Neg => {
       self.pos += 1
-      // neg infinity → InfinityLit(false) directly
+      // neg infinity ↁEInfinityLit(false) directly
       if self.peek() == Infinity_ {
         self.pos += 1
         InfinityLit(false)
@@ -337,7 +337,7 @@ fn Parser::parse_unary(self : Parser) -> Expr {
       UnaryBnot(self.parse_unary())
     }
     Add =>
-      // add\ x → ++x (prefix increment)
+      // add\ x ↁE++x (prefix increment)
       if self.pos + 1 < self.tokens.length() &&
         self.tokens[self.pos + 1].kind == Backslash {
         self.pos += 2
@@ -346,7 +346,7 @@ fn Parser::parse_unary(self : Parser) -> Expr {
         self.parse_postfix()
       }
     Sub =>
-      // sub\ x → --x (prefix decrement)
+      // sub\ x ↁE--x (prefix decrement)
       if self.pos + 1 < self.tokens.length() &&
         self.tokens[self.pos + 1].kind == Backslash {
         self.pos += 2
@@ -506,7 +506,7 @@ fn Parser::parse_postfix(self : Parser) -> Expr {
         expr = AsCast(expr, type_name)
       }
       Backslash =>
-        // x \add → x++ (postfix increment), x \sub → x-- (postfix decrement)
+        // x \add ↁEx++ (postfix increment), x \sub ↁEx-- (postfix decrement)
         if self.pos + 1 < self.tokens.length() {
           match self.tokens[self.pos + 1].kind {
             Add => {
@@ -598,7 +598,7 @@ fn Parser::parse_primary(self : Parser) -> Expr {
           }
         } else {
           // Expression part - lex and parse it
-          let expr_tokens = Lexer::new(segments[i]).tokenize()
+          let expr_tokens = @lexer.Lexer::new(segments[i]).tokenize()
           let sub_parser = Parser::new(expr_tokens)
           sub_parser.skip_newlines_and_indent() |> ignore
           let expr = sub_parser.parse_expr()
@@ -788,7 +788,7 @@ fn Parser::parse_object_literal(self : Parser) -> Expr {
       let value = self.parse_expr()
       pairs.push((key, value))
     } else {
-      // shorthand: key only → key be key
+      // shorthand: key only ↁEkey be key
       pairs.push((key, Ident(key)))
     }
     self.skip_bracket_ws()
@@ -811,12 +811,12 @@ fn Parser::parse_object_literal(self : Parser) -> Expr {
 fn Parser::parse_bracket_expr(self : Parser) -> Expr {
   self.pos += 1 // skip [
   self.skip_bracket_ws()
-  // Empty: [] → empty array
+  // Empty: [] ↁEempty array
   if self.peek() == RBracket {
     self.pos += 1
     return ArrayLit([])
   }
-  // [be] → empty object
+  // [be] ↁEempty object
   if self.peek() == Be {
     self.pos += 1
     self.skip_bracket_ws()
