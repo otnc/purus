@@ -2,17 +2,17 @@
 /// Parser for the purus language.
 /// Converts a token stream into an AST.
 pub(all) struct Parser {
-  tokens : Array[Token]
+  tokens : Array[@lexer.Token]
   mut pos : Int
 }
 
 ///|
-pub fn Parser::new(tokens : Array[Token]) -> Parser {
+pub fn Parser::new(tokens : Array[@lexer.Token]) -> Parser {
   { tokens, pos: 0 }
 }
 
 ///|
-fn Parser::peek(self : Parser) -> TokenKind {
+fn Parser::peek(self : Parser) -> @lexer.TokenKind {
   if self.pos >= self.tokens.length() {
     Eof
   } else {
@@ -21,14 +21,14 @@ fn Parser::peek(self : Parser) -> TokenKind {
 }
 
 ///|
-fn Parser::advance(self : Parser) -> TokenKind {
+fn Parser::advance(self : Parser) -> @lexer.TokenKind {
   let tok = self.peek()
   self.pos += 1
   tok
 }
 
 ///|
-fn Parser::expect(self : Parser, expected : TokenKind) -> Unit {
+fn Parser::expect(self : Parser, expected : @lexer.TokenKind) -> Unit {
   let got = self.advance()
   // We just skip if it doesn't match for now (permissive parsing)
   let _ = got

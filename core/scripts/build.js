@@ -1,6 +1,6 @@
 /**
  * Build script: copies the MoonBit JS-compiled purus compiler
- * from core/_build/js/debug/build/cmd/main/main.js to lib/purus-compiler.js
+ * from core/_build/js/debug/build/src/cmd/main/main.js to pkg/lib/purus-compiler.js
  */
 
 const fs = require("fs");
@@ -13,11 +13,12 @@ const src = path.join(
   "js",
   "debug",
   "build",
+  "src",
   "cmd",
   "main",
   "main.js",
 );
-const dest = path.join(root, "lib", "purus-compiler.js");
+const dest = path.join(root, "pkg", "lib", "purus-compiler.js");
 
 if (!fs.existsSync(src)) {
   console.error(
