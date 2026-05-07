@@ -343,6 +343,18 @@ fn Parser::parse_var_decl(self : Parser, kind : DeclKind) -> Stmt {
     return self.maybe_postfix(DestructDecl(kind, names, value))
   }
   let name = self.parse_ident_name()
+  // Handle dotted declaration: const x.y be val → x.y = val (property assignment)
+  if self.peek() == Dot {
+    self.pos += 1 // skip .
+    let prop = self.parse_ident_name()
+    if self.peek() == Of {
+      self.pos += 1
+      self.skip_type_annotation()
+    }
+    self.expect(Be)
+    let value = self.parse_expr()
+    return self.maybe_postfix(Assign(DotAccess(Ident(name), prop), value))
+  }
   // Optional type annotation: of TYPE
   if self.peek() == Of {
     // Skip type annotation for now
