@@ -180,7 +180,7 @@ fn main {
   }
   let cmd = args[1]
   match cmd {
-    "build" | "compile" => cmd_build(args[2:].to_array())
+    "build" | "compile" => cmd_build(args[2:].to_owned())
     "check" => {
       let file = if args.length() > 2 { args[2] } else { "" }
       cmd_check(file)

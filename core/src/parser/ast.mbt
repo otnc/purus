@@ -115,7 +115,7 @@ pub(all) enum BinOp {
   Shr
   Ushr
   Fdiv
-} derive(Show)
+} derive(Debug)
 
 ///|
 pub(all) struct MatchArm {
