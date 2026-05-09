@@ -1,6 +1,6 @@
 # 行動規範 (Code of Conduct)
 
-[English version](https://github.com/otoneko1102/purus/blob/main/CODE_OF_CONDUCT.md)
+[English version](https://github.com/otnc/purus/blob/main/CODE_OF_CONDUCT.md)
 
 ## 私たちの誓い
 
