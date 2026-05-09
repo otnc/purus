@@ -58,11 +58,11 @@ export default defineConfig({
         },
       ],
       social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/otoneko1102/purus' },
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/otnc/purus' },
         { icon: 'npm', label: 'npm', href: 'https://www.npmjs.com/package/purus' },
       ],
       editLink: {
-        baseUrl: 'https://github.com/otoneko1102/purus/edit/main/pages/',
+        baseUrl: 'https://github.com/otnc/purus/edit/main/pages/',
       },
       defaultLocale: 'root',
       locales: {
@@ -101,8 +101,8 @@ export default defineConfig({
           label: 'Resources',
           translations: { ja: 'リソース' },
           items: [
-            { label: 'RFC', link: 'https://github.com/otoneko1102/purus/blob/main/RFC.md', attrs: { target: '_blank' } },
-            { label: 'Changelog', translations: { ja: '変更履歴' }, link: 'https://github.com/otoneko1102/purus/blob/main/CHANGELOG.md', attrs: { target: '_blank' } },
+            { label: 'RFC', link: 'https://github.com/otnc/purus/blob/main/RFC.md', attrs: { target: '_blank' } },
+            { label: 'Changelog', translations: { ja: '変更履歴' }, link: 'https://github.com/otnc/purus/blob/main/CHANGELOG.md', attrs: { target: '_blank' } },
           ],
         },
       ],
