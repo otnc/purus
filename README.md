@@ -2,20 +2,20 @@
 
 [![Logo](https://raw.githubusercontent.com/otoneko1102/purus/refs/heads/main/logo.png)](https://purus.work)
 
-**English** | [日本語](https://github.com/otoneko1102/purus/blob/main/README-ja.md)
+**English** | [日本語](https://github.com/otnc/purus/blob/main/README-ja.md)
 
 </div>
 
 ---
 
-[![CI](https://github.com/otoneko1102/purus/actions/workflows/ci.yml/badge.svg)](https://github.com/otoneko1102/purus/actions/workflows/ci.yml)
+[![CI](https://github.com/otnc/purus/actions/workflows/ci.yml/badge.svg)](https://github.com/otnc/purus/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/purus)](https://www.npmjs.com/package/purus)
 [![npm downloads](https://img.shields.io/npm/dm/purus)](https://www.npmjs.com/package/purus)
-[![License](https://img.shields.io/github/license/otoneko1102/purus)](https://github.com/otoneko1102/purus/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/otoneko1102/purus)](https://github.com/otnc/purus/blob/main/LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
 [![VS Code Extension](https://img.shields.io/visual-studio-marketplace/i/otoneko1102.purus)](https://marketplace.visualstudio.com/items?itemName=otoneko1102.purus)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/otoneko1102/purus)](https://github.com/otoneko1102/purus/pulse)
-[![GitHub last commit](https://img.shields.io/github/last-commit/otoneko1102/purus)](https://github.com/otoneko1102/purus/commits/main)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/otoneko1102/purus)](https://github.com/otnc/purus/pulse)
+[![GitHub last commit](https://img.shields.io/github/last-commit/otoneko1102/purus)](https://github.com/otnc/purus/commits/main)
 ![US layout](https://img.shields.io/badge/US_layout-Supported-green)
 ![JIS layout](https://img.shields.io/badge/JIS_layout-Supported-green)
 
@@ -63,9 +63,9 @@ The documentation is available on [purus.work](https://purus.work).
 
 ## Contribute
 
-The guide is [here](https://github.com/otoneko1102/purus/blob/main/CONTRIBUTING.md)!
+The guide is [here](https://github.com/otnc/purus/blob/main/CONTRIBUTING.md)!
 
-<a href="https://github.com/otoneko1102/purus/graphs/contributors">
+<a href="https://github.com/otnc/purus/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=otoneko1102/purus" />
 </a>
 
@@ -73,8 +73,8 @@ Made with [contrib.rocks](https://contrib.rocks).
 
 ## Author
 
-otoneko. https://github.com/otoneko1102
+otoneko. https://github.com/otnc
 
 ## License
 
-Distributed under the Apache 2.0 License. See [LICENSE](https://github.com/otoneko1102/purus/blob/main/LICENSE) for more information.
+Distributed under the Apache 2.0 License. See [LICENSE](https://github.com/otnc/purus/blob/main/LICENSE) for more information.
