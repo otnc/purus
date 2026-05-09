@@ -4,6 +4,27 @@ Purus の構文・仕様・予約語に関する変更履歴です。
 
 ---
 
+## v0.10.1 (2026/05/09)
+
+### New Features
+
+- **`purus config` コマンド**: 現在のディレクトリにデフォルト設定の `config.purus` を生成します。`config.purus` が既に存在する場合は上書きするか確認します。
+  ```sh
+  purus config
+  ```
+
+- **`purus init` の強化**: `src/main.purus` に加え、`config.purus`・`.prettierrc`・`.gitignore` も生成するようになりました。`package.json` が存在する場合はビルド・リント用スクリプトを自動追加します。既存ファイルはすべてスキップされます。
+
+  | ファイル | 動作 |
+  |---|---|
+  | `config.purus` | 存在しない場合に作成 |
+  | `.prettierrc` | 存在しない場合に作成 |
+  | `.gitignore` | 存在しない場合に作成 |
+  | `src/main.purus` | 存在しない場合に作成 |
+  | `package.json` | 存在する場合にスクリプトを追加 |
+
+---
+
 ## v0.10.0 (2026/05/09)
 
 ### Breaking Changes

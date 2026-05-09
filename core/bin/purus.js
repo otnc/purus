@@ -42,6 +42,9 @@ function printHelp() {
   console.log(
     "  purus init                           Initialize project in current directory",
   );
+  console.log(
+    "  purus config                         Generate config.purus in current directory",
+  );
   console.log("  purus version                        Show version");
   console.log("  purus help                           Show this help");
   console.log("");
@@ -52,6 +55,12 @@ switch (cmd) {
   case "new":
   case "create":
     require("../pkg/lib/create.js");
+    break;
+  case "init":
+    require("../pkg/lib/init.js");
+    break;
+  case "config":
+    require("../pkg/lib/generate-config.js");
     break;
   case "build":
   case "compile":

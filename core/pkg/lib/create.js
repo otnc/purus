@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const readline = require("readline");
 const { spawnSync } = require("child_process");
+const { CONFIG_PURUS, PRETTIERRC, MAIN_PURUS, GITIGNORE } = require("./templates.js");
 
 function question(rl, text) {
   return new Promise((resolve) => rl.question(text, (a) => resolve(a.trim())));
@@ -47,53 +48,13 @@ async function run() {
     fs.mkdirSync(path.join(projectDir, "src"), { recursive: true });
 
     // config.purus
-    const configPurus = `-- Purus Configuration
-const entry be ///src///
-const output be ///dist///
-const type be ///module///
-const header be true
-
--- Linter settings
-const lint.no-var be ///warn///
-const lint.no-nil be ///warn///
-const lint.bare-assignment be ///warn///
-const lint.no-function be ///warn///
-const lint.no-protected be ///warn///
-const lint.no-else-if be ///warn///
-const lint.no-js-chars be ///error///
-const lint.no-js-operators be ///error///
-const lint.no-for-range be ///warn///
-const lint.bracket-match be ///error///
-const lint.const-reassign be ///error///
-const lint.duplicate-use be ///warn///
-const lint.indent-size be 2
-const lint.max-line-length be ///off///
-const lint.no-trailing-whitespace be ///warn///
-const lint.no-unused-import be ///warn///
-const lint.consistent-naming be ///warn///
-`;
-    fs.writeFileSync(path.join(projectDir, "config.purus"), configPurus);
+    fs.writeFileSync(path.join(projectDir, "config.purus"), CONFIG_PURUS);
 
     // .prettierrc
-    const prettierrc =
-      JSON.stringify(
-        {
-          tabWidth: 2,
-          semi: false,
-          plugins: ["@puruslang/prettier-plugin-purus"],
-        },
-        null,
-        2,
-      ) + "\n";
-    fs.writeFileSync(path.join(projectDir, ".prettierrc"), prettierrc);
+    fs.writeFileSync(path.join(projectDir, ".prettierrc"), PRETTIERRC);
 
     // src/main.purus
-    const mainPurus = `-- main.purus
-
-const message be ///Hello, World///
-console.log[message]
-`;
-    fs.writeFileSync(path.join(projectDir, "src/main.purus"), mainPurus);
+    fs.writeFileSync(path.join(projectDir, "src/main.purus"), MAIN_PURUS);
 
     // README.md
     const readme = `# ${projectName}
@@ -119,10 +80,7 @@ purus build
     fs.writeFileSync(path.join(projectDir, "README.md"), readme);
 
     // .gitignore
-    const gitignore = `dist/
-node_modules/
-`;
-    fs.writeFileSync(path.join(projectDir, ".gitignore"), gitignore);
+    fs.writeFileSync(path.join(projectDir, ".gitignore"), GITIGNORE);
 
     console.log("  config.purus");
     console.log("  .prettierrc");

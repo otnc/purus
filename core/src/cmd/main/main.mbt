@@ -145,33 +145,6 @@ fn cmd_check(file : String) -> Unit {
 }
 
 ///|
-fn cmd_init() -> Unit {
-  if !@fs.path_exists("src") {
-    @fs.create_dir("src") catch {
-      @fs.IOError(msg) => {
-        println("Error: cannot create src directory: " + msg)
-        return
-      }
-    }
-  }
-  if !@fs.path_exists("src/main.purus") {
-    let main_purus =
-      #|-- main.purus
-      #|
-      #|const message be ///Hello, World///
-      #|console.log[message]
-      #|
-    @fs.write_string_to_file("src/main.purus", main_purus) catch {
-      @fs.IOError(msg) => {
-        println("Error: " + msg)
-        return
-      }
-    }
-  }
-  println("Initialized purus project in current directory")
-}
-
-///|
 fn main {
   let args = @sys.get_cli_args()
   // args[0] is the program name
@@ -180,12 +153,11 @@ fn main {
   }
   let cmd = args[1]
   match cmd {
-    "build" | "compile" => cmd_build(args[2:].to_array())
+    "build" | "compile" => cmd_build(args[2:].to_owned())
     "check" => {
       let file = if args.length() > 2 { args[2] } else { "" }
       cmd_check(file)
     }
-    "init" => cmd_init()
     _ => println("Unknown command: " + cmd)
   }
 }

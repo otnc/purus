@@ -146,11 +146,21 @@ pub(all) enum TokenKind {
   Comment(String)
   BlockComment(String)
   Eof
-} derive(Show, Eq)
+} derive(Debug, Eq)
+
+///|
+pub impl Show for TokenKind with output(self, logger) {
+  logger.write_string(Show::to_string(self))
+}
 
 ///|
 pub(all) struct Token {
   kind : TokenKind
   line : Int
   col : Int
-} derive(Show)
+} derive(Debug)
+
+///|
+pub impl Show for Token with output(self, logger) {
+  logger.write_string(Show::to_string(self))
+}

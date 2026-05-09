@@ -168,7 +168,7 @@ test "parser: fn declaration with to" {
   assert_eq(stmts.length(), 1)
   match stmts[0] {
     FnDecl(decl) => {
-      assert_eq(decl.name, Some("double"))
+      assert_eq(decl.name.unwrap(), "double")
       assert_eq(decl.params.length(), 1)
       assert_eq(decl.params[0], "x")
       match decl.body {
@@ -186,7 +186,7 @@ test "parser: fn block declaration" {
   assert_eq(stmts.length(), 1)
   match stmts[0] {
     FnDecl(decl) => {
-      assert_eq(decl.name, Some("greet"))
+      assert_eq(decl.name.unwrap(), "greet")
       assert_eq(decl.params.length(), 1)
       match decl.body {
         Block(body) => assert_true(body.length() > 0)

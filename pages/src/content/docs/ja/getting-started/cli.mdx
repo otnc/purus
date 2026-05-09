@@ -18,6 +18,7 @@ Purus CLIはPurusプロジェクトのコンパイル、実行、チェック、
 | `purus check [file\|dir]` | 構文チェックのみ |
 | `purus new [name]` | 新しいプロジェクトを作成 |
 | `purus init` | 現在のディレクトリでプロジェクトを初期化 |
+| `purus config` | 現在のディレクトリに `config.purus` を生成 |
 | `purus version` | バージョンを表示 |
 | `purus help` | ヘルプを表示 |
 
@@ -236,10 +237,30 @@ purus new my-project -y
 
 ### `purus init`
 
-現在のディレクトリでPurusプロジェクトを初期化します。`src/` と `src/main.purus` が存在しない場合に作成します。
+現在のディレクトリでPurusプロジェクトを初期化します。各ファイルが存在しない場合のみ作成します。`package.json` が存在する場合はビルド・リント用スクリプトを自動追加します。
 
 ```sh
 purus init
+```
+
+#### 作成されるファイル
+
+| ファイル | 動作 |
+|---|---|
+| `config.purus` | 存在しない場合に作成 |
+| `.prettierrc` | 存在しない場合に作成 |
+| `.gitignore` | 存在しない場合に作成 |
+| `src/main.purus` | 存在しない場合に作成 |
+| `package.json` | 存在する場合にスクリプトを追加 |
+
+---
+
+### `purus config`
+
+現在のディレクトリにデフォルト設定の `config.purus` を生成します。`config.purus` が既に存在する場合は上書きするか確認します。
+
+```sh
+purus config
 ```
 
 ---
