@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to Purus! This guide will help you get started.
 
-[日本語版はこちら](https://github.com/otoneko1102/purus/blob/main/CONTRIBUTING-ja.md)
+[日本語版はこちら](https://github.com/otnc/purus/blob/main/CONTRIBUTING-ja.md)
 
 ## Project Structure
 
@@ -95,7 +95,7 @@ The site is available at `http://localhost:4321`. Documentation is bilingual (En
 
 ### Reporting Bugs
 
-Open an [issue](https://github.com/otoneko1102/purus/issues) with:
+Open an [issue](https://github.com/otnc/purus/issues) with:
 
 - A clear description of the problem
 - Steps to reproduce
@@ -104,7 +104,7 @@ Open an [issue](https://github.com/otoneko1102/purus/issues) with:
 
 ### Suggesting Features
 
-Open an [issue](https://github.com/otoneko1102/purus/issues) describing:
+Open an [issue](https://github.com/otnc/purus/issues) describing:
 
 - The feature you'd like
 - Why it would be useful
@@ -147,8 +147,8 @@ Releases are managed via git tags:
 
 ## Code of Conduct
 
-This project adheres to a [Code of Conduct](https://github.com/otoneko1102/purus/blob/main/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+This project adheres to a [Code of Conduct](https://github.com/otnc/purus/blob/main/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the [Apache 2.0 License](https://github.com/otoneko1102/purus/blob/main/LICENSE).
+By contributing, you agree that your contributions will be licensed under the [Apache 2.0 License](https://github.com/otnc/purus/blob/main/LICENSE).
