@@ -45,12 +45,25 @@ test "parser: var declaration with string" {
 }
 
 ///|
-test "parser: assignment" {
+test "parser: bare ident assignment is discarded" {
   let stmts = parse("x be 10")
   assert_eq(stmts.length(), 1)
   match stmts[0] {
-    Assign(Ident(name), IntLit(10)) => assert_eq(name, "x")
-    _ => fail("expected Assign")
+    ExprStmt(Ident(name)) => assert_eq(name, "x")
+    _ => fail("expected ExprStmt(Ident) - bare assignment is not supported")
+  }
+}
+
+///|
+test "parser: property assignment" {
+  let stmts = parse("obj.field be 10")
+  assert_eq(stmts.length(), 1)
+  match stmts[0] {
+    Assign(DotAccess(Ident(obj), field), IntLit(10)) => {
+      assert_eq(obj, "obj")
+      assert_eq(field, "field")
+    }
+    _ => fail("expected Assign(DotAccess)")
   }
 }
 

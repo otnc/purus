@@ -265,9 +265,15 @@ test "codegen: hyphenated ident becomes underscore" {
 }
 
 ///|
-test "codegen: assignment" {
+test "codegen: bare ident assignment is discarded" {
   let js = compile("x be 42")
-  assert_eq(js, "x = 42;\n")
+  assert_eq(js, "x;\n") // bare ident assignment is not supported; emits identifier as expression
+}
+
+///|
+test "codegen: property assignment" {
+  let js = compile("obj.field be 42")
+  assert_eq(js, "obj.field = 42;\n")
 }
 
 ///|
@@ -746,8 +752,8 @@ test "do while basic" {
 
 ///|
 test "do while multi-line body" {
-  let js = compile("do\n  x be x add 1\n  console.log[x]\nwhile x lt 100")
-  assert_eq(js, "do {\n  x = x + 1;\n  console.log(x);\n} while (x < 100);\n")
+  let js = compile("do\n  x add be 1\n  console.log[x]\nwhile x lt 100")
+  assert_eq(js, "do {\n  x += 1;\n  console.log(x);\n} while (x < 100);\n")
 }
 
 ///|
@@ -1136,4 +1142,40 @@ test "codegen: void expression" {
 test "codegen: void 0" {
   let js = compile("const u be void 0")
   assert_eq(js, "const u = void 0;\n")
+}
+
+///|
+test "codegen: dotted var init - auto declares obj" {
+  let js = compile("const obj.x be 42")
+  assert_eq(js, "const obj = {};\nobj.x = 42;\n")
+}
+
+///|
+test "codegen: dotted var init - let" {
+  let js = compile("let cfg.host be ///localhost///")
+  assert_eq(js, "let cfg = {};\ncfg.host = \"localhost\";\n")
+}
+
+///|
+test "codegen: dotted var init - var" {
+  let js = compile("var state.count be 0")
+  assert_eq(js, "var state = {};\nstate.count = 0;\n")
+}
+
+///|
+test "codegen: dotted var init - no duplicate decl" {
+  let src =
+    #|const opts.a be 1
+    #|const opts.b be 2
+  let js = compile(src)
+  assert_eq(js, "const opts = {};\nopts.a = 1;\nopts.b = 2;\n")
+}
+
+///|
+test "codegen: dotted var init - after explicit decl no re-init" {
+  let src =
+    #|const opts be [a be 1]
+    #|const opts.b be 2
+  let js = compile(src)
+  assert_eq(js, "const opts = { a: 1 };\nopts.b = 2;\n")
 }

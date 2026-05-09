@@ -5,12 +5,13 @@ pub(all) struct JsCodegen {
   buf : StringBuilder
   mut indent_level : Int
   mut private_fields : Array[String] // tracks private field names in current class
+  mut declared_vars : Array[String] // tracks declared variable names for auto-init
   cjs : Bool // CommonJS mode
 }
 
 ///|
 pub fn JsCodegen::new(cjs? : Bool = false) -> JsCodegen {
-  { buf: StringBuilder::new(), indent_level: 0, private_fields: [], cjs }
+  { buf: StringBuilder::new(), indent_level: 0, private_fields: [], declared_vars: [], cjs }
 }
 
 ///|
@@ -37,6 +38,7 @@ fn stmt_has_yield(stmt : @parser.Stmt) -> Bool {
     ExprStmt(e) | Return(Some(e)) | Throw(e) | DeleteStmt(e) =>
       expr_has_yield(e)
     VarDecl(_, _, e) | Assign(_, e) => expr_has_yield(e)
+    DottedVarInit(_, _, _, e) => expr_has_yield(e)
     If(cond, body, elifs, else_body) => {
       if expr_has_yield(cond) || stmts_have_yield(body) {
         return true
@@ -186,6 +188,37 @@ fn JsCodegen::gen_stmt(self : JsCodegen, stmt : @parser.Stmt) -> Unit {
       self.write(kw)
       self.write(" ")
       self.write(js_ident(name))
+      self.write(" = ")
+      self.gen_expr(value)
+      self.write(";\n")
+      self.declared_vars.push(name)
+    }
+    DottedVarInit(kind, obj_name, prop, value) => {
+      let kw = match kind {
+        Const_ => "const"
+        Let_ => "let"
+        Var_ => "var"
+      }
+      // Auto-declare obj as {} if not yet declared in this scope
+      let mut is_declared = false
+      for v in self.declared_vars {
+        if v == obj_name {
+          is_declared = true
+          break
+        }
+      }
+      if !is_declared {
+        self.write_indent()
+        self.write(kw)
+        self.write(" ")
+        self.write(js_ident(obj_name))
+        self.write(" = {};\n")
+        self.declared_vars.push(obj_name)
+      }
+      self.write_indent()
+      self.write(js_ident(obj_name))
+      self.write(".")
+      self.write(js_ident(prop))
       self.write(" = ")
       self.gen_expr(value)
       self.write(";\n")

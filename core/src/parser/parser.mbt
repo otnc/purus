@@ -220,7 +220,12 @@ fn Parser::parse_stmt(self : Parser) -> Stmt? {
         Be => {
           self.pos += 1
           let value = self.parse_expr()
-          Some(self.maybe_postfix(Assign(expr, value)))
+          // Bare identifier assignment (x be val) is not supported.
+          // Use const/let/var for declarations. Property and index access assignments remain valid.
+          match expr {
+            Ident(_) => Some(ExprStmt(expr)) // discard; bare variable assignment is removed
+            _ => Some(self.maybe_postfix(Assign(expr, value)))
+          }
         }
         _ => Some(self.maybe_postfix(ExprStmt(expr)))
       }
@@ -343,7 +348,7 @@ fn Parser::parse_var_decl(self : Parser, kind : DeclKind) -> Stmt {
     return self.maybe_postfix(DestructDecl(kind, names, value))
   }
   let name = self.parse_ident_name()
-  // Handle dotted declaration: const x.y be val → x.y = val (property assignment)
+  // Handle dotted declaration: const x.y be val → auto-declare x if needed, then x.y = val
   if self.peek() == Dot {
     self.pos += 1 // skip .
     let prop = self.parse_ident_name()
@@ -353,7 +358,7 @@ fn Parser::parse_var_decl(self : Parser, kind : DeclKind) -> Stmt {
     }
     self.expect(Be)
     let value = self.parse_expr()
-    return self.maybe_postfix(Assign(DotAccess(Ident(name), prop), value))
+    return self.maybe_postfix(DottedVarInit(kind, name, prop, value))
   }
   // Optional type annotation: of TYPE
   if self.peek() == Of {

@@ -142,6 +142,7 @@ pub(all) enum Stmt {
   VarDecl(DeclKind, String, Expr)
   DestructDecl(DeclKind, Array[String], Expr) // const/let/var [a, b] = expr
   ObjDestructDecl(DeclKind, Array[String], Expr) // const/let/var object[a, b] = expr
+  DottedVarInit(DeclKind, String, String, Expr) // const/let/var obj.prop be val → auto-declare obj if needed
 
   // Assignment
   Assign(Expr, Expr)
