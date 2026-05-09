@@ -61,7 +61,7 @@
   },
   "homepage": "https://purus.work",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "devDependencies": {
     "prettier": "^3.8.1"
