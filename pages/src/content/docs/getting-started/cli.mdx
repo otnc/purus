@@ -18,6 +18,7 @@ The Purus CLI provides commands for compiling, running, checking, and managing P
 | `purus check [file\|dir]` | Syntax check only |
 | `purus new [name]` | Create a new project |
 | `purus init` | Initialize project in current directory |
+| `purus config` | Generate `config.purus` in current directory |
 | `purus version` | Show version |
 | `purus help` | Show help |
 
@@ -236,10 +237,30 @@ When prompted (or with `-y`), the following packages are installed:
 
 ### `purus init`
 
-Initialize a Purus project in the current directory. Creates `src/` and `src/main.purus` if they don't exist.
+Initialize a Purus project in the current directory. Creates project files if they don't already exist. If `package.json` is present, build and lint scripts are added automatically.
 
 ```sh
 purus init
+```
+
+#### What it creates
+
+| File | Behavior |
+|---|---|
+| `config.purus` | Created if missing |
+| `.prettierrc` | Created if missing |
+| `.gitignore` | Created if missing |
+| `src/main.purus` | Created if missing |
+| `package.json` | Scripts updated if present |
+
+---
+
+### `purus config`
+
+Generate a `config.purus` file with default settings in the current directory. If `config.purus` already exists, prompts for confirmation before overwriting.
+
+```sh
+purus config
 ```
 
 ---
