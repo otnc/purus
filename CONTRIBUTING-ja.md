@@ -2,7 +2,7 @@
 
 Purus に興味を持っていただきありがとうございます！このガイドでは、貢献の方法を説明します。
 
-[English version](https://github.com/otoneko1102/purus/blob/main/CONTRIBUTING.md)
+[English version](https://github.com/otnc/purus/blob/main/CONTRIBUTING.md)
 
 ## プロジェクト構成
 
@@ -95,7 +95,7 @@ npx astro dev
 
 ### バグ報告
 
-[Issue](https://github.com/otoneko1102/purus/issues) を作成し、以下を記載してください：
+[Issue](https://github.com/otnc/purus/issues) を作成し、以下を記載してください：
 
 - 問題の明確な説明
 - 再現手順
@@ -104,7 +104,7 @@ npx astro dev
 
 ### 機能提案
 
-[Issue](https://github.com/otoneko1102/purus/issues) を作成し、以下を記載してください：
+[Issue](https://github.com/otnc/purus/issues) を作成し、以下を記載してください：
 
 - 提案する機能の内容
 - なぜその機能が有用か
@@ -147,8 +147,8 @@ npx astro dev
 
 ## 行動規範
 
-このプロジェクトは[行動規範 (Code of Conduct)](https://github.com/otoneko1102/purus/blob/main/CODE_OF_CONDUCT-ja.md) に従っています。参加することで、この規範を守ることが求められます。
+このプロジェクトは[行動規範 (Code of Conduct)](https://github.com/otnc/purus/blob/main/CODE_OF_CONDUCT-ja.md) に従っています。参加することで、この規範を守ることが求められます。
 
 ## ライセンス
 
-貢献していただいたコードは [Apache 2.0 ライセンス](https://github.com/otoneko1102/purus/blob/main/LICENSE) のもとで公開されます。
+貢献していただいたコードは [Apache 2.0 ライセンス](https://github.com/otnc/purus/blob/main/LICENSE) のもとで公開されます。
