@@ -4,6 +4,23 @@ Change history for Purus syntax, specifications, and reserved keywords.
 
 ---
 
+## v0.9.1 (2026-05-07)
+
+### Bug Fixes
+
+- **`config.purus` excluded from build**: Fixed an issue where `config.purus` was incorrectly processed as a source file during the build.
+- **Dotted declaration support**: Fixed parsing of property assignments written with a declaration keyword. `const obj.prop be val` now correctly compiles to `obj.prop = val`.
+  ```purus
+  const this.x be 10    -- this.x = 10
+  let obj.prop be 42    -- obj.prop = 42
+  ```
+
+### Internal
+
+- **Directory restructure**: Reorganized `core/` source files into `src/lexer/`, `src/parser/`, `src/codegen/`, `src/cmd/main/`, and `pkg/`.
+
+---
+
 ## v0.9.0 (2026-04-21)
 
 ### Breaking Changes

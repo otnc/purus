@@ -4,6 +4,23 @@ Purus の構文・仕様・予約語に関する変更履歴です。
 
 ---
 
+## v0.9.1 (2026/05/07)
+
+### バグ修正
+
+- **`config.purus` のビルド除外**: ビルド処理において `config.purus` がソースファイルとして誤って処理されてしまう問題を修正しました。
+- **宣言キーワード付きプロパティ代入**: `const obj.prop be val` のようにドット記法のプロパティへの代入を宣言キーワードと組み合わせて書けるよう修正しました。プロパティ代入 `obj.prop = val` にコンパイルされます。
+  ```purus
+  const this.x be 10    -- this.x = 10
+  let obj.prop be 42    -- obj.prop = 42
+  ```
+
+### 内部変更
+
+- **ディレクトリ構造の再編**: `core/` 内のソースファイルを `src/lexer/`、`src/parser/`、`src/codegen/`、`src/cmd/main/`、`pkg/` にそれぞれ移動しました。
+
+---
+
 ## v0.9.0 (2026-04-21)
 
 ### Breaking Changes

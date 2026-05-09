@@ -1,6 +1,6 @@
 # Purus Language Specification
 
-**RFC — v0.9.0**
+**RFC — v0.9.1**
 
 > Purus — _/ˈpuː.rus/_ — means _pure_ in Latin.
 > A beautiful, simple, and easy-to-use language that compiles to JavaScript.
@@ -612,6 +612,13 @@ Non-declaration assignment uses `be` without a declaration keyword:
 ```
 x be 42
 obj.field be ///new value///
+```
+
+A declaration keyword may also be used with dotted property access. In this case the keyword is ignored and the expression is treated as a plain property assignment:
+
+```
+const this.x be 10    -- this.x = 10
+let obj.prop be 42    -- obj.prop = 42
 ```
 
 Compiles to:
