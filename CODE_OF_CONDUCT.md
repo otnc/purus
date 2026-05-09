@@ -1,6 +1,6 @@
 # Code of Conduct
 
-[日本語版はこちら](https://github.com/otoneko1102/purus/blob/main/CODE_OF_CONDUCT-ja.md)
+[日本語版はこちら](https://github.com/otnc/purus/blob/main/CODE_OF_CONDUCT-ja.md)
 
 ## Our Pledge
 
