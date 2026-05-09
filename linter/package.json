@@ -16,15 +16,15 @@
     "language",
     "noshift"
   ],
-  "author": "otoneko1102 (https://github.com/otoneko1102)",
+  "author": "otoneko1102 (https://github.com/otnc)",
   "homepage": "https://purus.work",
   "repository": {
     "type": "git",
-    "url": "https://github.com/otoneko1102/purus",
+    "url": "https://github.com/otnc/purus",
     "directory": "linter"
   },
   "bugs": {
-    "url": "https://github.com/otoneko1102/purus/issues"
+    "url": "https://github.com/otnc/purus/issues"
   },
   "funding": {
     "url": "https://github.com/sponsors/otoneko1102"
