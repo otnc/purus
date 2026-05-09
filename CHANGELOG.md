@@ -4,6 +4,27 @@ Change history for Purus syntax, specifications, and reserved keywords.
 
 ---
 
+## v0.10.1 (2026-05-09)
+
+### New Features
+
+- **`purus config` command**: Generates a `config.purus` file with default settings in the current directory. If `config.purus` already exists, prompts for confirmation before overwriting.
+  ```sh
+  purus config
+  ```
+
+- **Enhanced `purus init`**: `purus init` now creates `config.purus`, `.prettierrc`, and `.gitignore` in addition to `src/main.purus`. If `package.json` already exists, build and lint scripts are added automatically. All files are skipped if they already exist.
+
+  | File | Behavior |
+  |---|---|
+  | `config.purus` | Created if missing |
+  | `.prettierrc` | Created if missing |
+  | `.gitignore` | Created if missing |
+  | `src/main.purus` | Created if missing |
+  | `package.json` | Scripts updated if present |
+
+---
+
 ## v0.10.0 (2026-05-09)
 
 ### Breaking Changes
