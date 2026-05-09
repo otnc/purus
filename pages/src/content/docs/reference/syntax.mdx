@@ -109,6 +109,39 @@ const d be nil       -- alias for null
 const e be undefined
 ```
 
+## Variables
+
+Variables must always be declared with `const`, `let`, or `var`:
+
+```purus
+const pi be 3.14          -- constant (cannot reassign)
+let count be 0            -- mutable variable
+var legacy be ///old///   -- var-scoped (discouraged)
+```
+
+Property and index assignment do **not** require a declaration keyword:
+
+```purus
+const obj.x be 10   -- auto-initializes obj = {} if not yet declared
+obj.x be 20         -- reassigns property
+arr[\0] be 99       -- index assignment
+```
+
+:::caution[Bare variable assignment is not supported (since v0.10.0)]
+Assigning to a bare identifier without a declaration keyword is a **compile error**:
+
+```purus
+-- ERROR: bare identifier assignment is not supported
+x be 42
+
+-- OK: use const or let
+const x be 42
+let x be 42
+```
+
+This restriction prevents accidental implicit global variable creation.
+:::
+
 ## Separators: `;` vs `,`
 
 Purus has two separators with distinct roles:

@@ -14,6 +14,23 @@ sidebar:
 | `var` | `var` | Var declaration (discouraged) |
 | `be` | `=` | Assignment / reassignment (must be preceded by `const`, `let`, `var`, or a property/index target) |
 
+:::caution[Bare variable assignment is not supported (since v0.10.0)]
+Using `be` on a bare identifier without a declaration keyword is a compile error. Always declare variables with `const`, `let`, or `var`:
+
+```purus
+-- ERROR
+x be 42
+
+-- OK
+const x be 42
+let x be 42
+
+-- OK (property / index targets do not need a declaration keyword)
+obj.prop be value
+arr[\0] be value
+```
+:::
+
 ## Functions
 
 | Keyword | JS Output | Description |
