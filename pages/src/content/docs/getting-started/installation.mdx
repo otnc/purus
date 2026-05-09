@@ -7,6 +7,31 @@ sidebar:
 
 import NpmVersion from '../../../components/NpmVersion.astro';
 
+## Prerequisites
+
+:::caution[Node.js v20 or later required]
+Purus requires **Node.js v20 or later** (since v0.10.0). Older versions are not supported.
+:::
+
+Install Node.js from one of the following:
+
+- [Node.js v20](https://nodejs.org/en/download/archive/v20) — specific v20 release
+- [Node.js LTS](https://nodejs.org/en/download) — latest LTS release
+- [nvm](https://github.com/nvm-sh/nvm) *(recommended)* — Node Version Manager (macOS / Linux)
+- [nvm-windows](https://github.com/coreybutler/nvm-windows) *(recommended)* — Node Version Manager (Windows)
+
+:::tip[Using nvm]
+```sh
+# Install and use Node.js v20
+nvm install 20
+nvm use 20
+
+# Or install and use the latest LTS
+nvm install --lts
+nvm use --lts
+```
+:::
+
 ## Install via npm
 
 Latest version: <NpmVersion package="purus" /> — [View on npm](https://www.npmjs.com/package/purus)

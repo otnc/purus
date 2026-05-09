@@ -8,6 +8,8 @@ Change history for Purus syntax, specifications, and reserved keywords.
 
 ### Breaking Changes
 
+- **Node.js ≥ 20 required**: The minimum supported Node.js version has been raised from v18 to v20. Older versions are no longer supported.
+
 - **Bare variable assignment removed**: Assignment to a bare identifier without a declaration keyword (`x be 42`) is no longer supported. This prevents accidental implicit global variable creation and conflicts with runtime-provided globals such as Node.js's `process`.
   - Property assignments (`obj.field be val`, `this.x be val`) remain valid
   - Index assignments (`arr[\i] be val`) remain valid
