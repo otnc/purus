@@ -164,7 +164,7 @@ function tokenize(source) {
 
 const defaultRules = {
   "no-var": { severity: "warn", message: "Avoid 'var'; use 'const' or 'let' instead" },
-  "bare-assignment": { severity: "warn", message: "Bare assignment without 'const'/'let'; use 'const x be ...' or 'let x be ...' instead" },
+  "bare-assignment": { severity: "error", message: "Bare identifier assignment is not supported; use 'const x be ...' or 'let x be ...' instead" },
   "no-nil": { severity: "warn", message: "Use 'null' instead of 'nil'" },
   "no-function": { severity: "warn", message: "'function' is deprecated; use 'fn' instead" },
   "no-protected": { severity: "warn", message: "'protected' is deprecated; use 'private' instead" },

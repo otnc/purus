@@ -376,8 +376,8 @@ function analyzePurus(text) {
           } else {
             diagnostics.push(diag(
               prev.line, prev.col, tok.line, tokEnd,
-              "Bare assignment without `const` / `let`. Use `const " + prev.value + " be ...` or `let " + prev.value + " be ...`",
-              vscode.DiagnosticSeverity.Warning, "bare-assignment"
+              "Bare identifier assignment is not supported. Use `const " + prev.value + " be ...` or `let " + prev.value + " be ...`",
+              vscode.DiagnosticSeverity.Error, "bare-assignment"
             ));
           }
         }
