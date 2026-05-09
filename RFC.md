@@ -1,6 +1,6 @@
 # Purus Language Specification
 
-**RFC — v0.9.1**
+**RFC — v0.10.0**
 
 > Purus — _/ˈpuː.rus/_ — means _pure_ in Latin.
 > A beautiful, simple, and easy-to-use language that compiles to JavaScript.
@@ -607,25 +607,34 @@ let { host, port } = config;
 
 ### 6.4 Assignment
 
-Non-declaration assignment uses `be` without a declaration keyword:
+Property and index assignments use `be` without a declaration keyword:
 
 ```
-x be 42
 obj.field be ///new value///
-```
-
-A declaration keyword may also be used with dotted property access. In this case the keyword is ignored and the expression is treated as a plain property assignment:
-
-```
-const this.x be 10    -- this.x = 10
-let obj.prop be 42    -- obj.prop = 42
+this.x be 10
+arr[\i] be 0
 ```
 
 Compiles to:
 
 ```js
-x = 42;
 obj.field = "new value";
+this.x = 10;
+arr[i] = 0;
+```
+
+> **Note:** Bare identifier assignment (`x be 42`) is **not supported**. Use `const x be 42` or `let x be 42` instead. This restriction prevents accidental implicit global creation and conflicts with runtime-provided globals (e.g. `process` in Node.js).
+
+A declaration keyword may be used with dotted property access. When `obj` has not yet been declared in the current scope, it is automatically initialized to `{}` with the same keyword before the assignment. Subsequent dotted declarations on the same name reuse the existing binding.
+
+```
+const p.x be 10    -- const p = {}; p.x = 10;
+const p.y be 20    -- p.y = 20;  (no re-init)
+
+let cfg.host be ///localhost///   -- let cfg = {}; cfg.host = "localhost";
+let cfg.port be 3000              -- cfg.port = 3000;
+
+var state.count be 0              -- var state = {}; state.count = 0;
 ```
 
 **Compound assignment** combines an operation with assignment. Supported operators:
@@ -647,8 +656,6 @@ obj.field = "new value";
 | `x and be v` | `x &&= v` | Logical |
 | `x or be v` | `x \|\|= v` | Logical |
 | `x coal be v` | `x ??= v` | Nullish |
-
-> **Deprecation Warning:** Bare variable assignment (`x be 42`) without a declaration keyword (`const`/`let`) is discouraged. Property assignments (`obj.field be value`, `arr[\i] be value`) are still valid without a declaration keyword. Use `const` for immutable bindings and `let` for mutable variables.
 
 ### 6.5 Type Alias
 

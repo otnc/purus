@@ -4,6 +4,47 @@ Purus の構文・仕様・予約語に関する変更履歴です。
 
 ---
 
+## v0.10.0 (2026/05/09)
+
+### Breaking Changes
+
+- **裸の変数代入を廃止**: 宣言キーワード（`const`/`let`/`var`）なしの識別子代入（`x be 42`）はサポートされなくなりました。Node.js の `process` など実行環境が提供するグローバル変数との競合・暗黙のグローバル変数生成を防ぐための変更です。
+  - プロパティ代入（`obj.field be val`、`this.x be val`）は引き続き有効
+  - 配列インデックス代入（`arr[\i] be val`）は引き続き有効
+  - 複合代入演算子（`x add be 1`、`x sub be 1` 等）は引き続き有効
+  ```purus
+  -- 廃止 (v0.9.x まで):
+  x be 42
+
+  -- 代わりに:
+  const x be 42   -- 不変
+  let x be 42     -- 可変
+
+  -- これらは引き続き有効:
+  obj.field be ///new value///
+  arr[\i] be 0
+  x add be 1
+  ```
+
+### New Features
+
+- **宣言キーワード付きドット代入の自動オブジェクト初期化**: `const obj.prop be val`、`let obj.prop be val`、`var obj.prop be val` を使用した際に、`obj` がまだ宣言されていない場合は対応する宣言キーワードで `{}` に初期化します。同名変数に対する重複初期化は発生しません。宣言キーワードなし（`obj.prop be val`）の挙動は従来通りです。
+  ```purus
+  const p.x be 10
+  const p.y be 20
+  -- const p = {};
+  -- p.x = 10;
+  -- p.y = 20;
+
+  let cfg.host be ///localhost///
+  let cfg.port be 3000
+  -- let cfg = {};
+  -- cfg.host = "localhost";
+  -- cfg.port = 3000;
+  ```
+
+---
+
 ## v0.9.1 (2026/05/07)
 
 ### バグ修正

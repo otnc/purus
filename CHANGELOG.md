@@ -4,6 +4,47 @@ Change history for Purus syntax, specifications, and reserved keywords.
 
 ---
 
+## v0.10.0 (2026-05-09)
+
+### Breaking Changes
+
+- **Bare variable assignment removed**: Assignment to a bare identifier without a declaration keyword (`x be 42`) is no longer supported. This prevents accidental implicit global variable creation and conflicts with runtime-provided globals such as Node.js's `process`.
+  - Property assignments (`obj.field be val`, `this.x be val`) remain valid
+  - Index assignments (`arr[\i] be val`) remain valid
+  - Compound assignment operators (`x add be 1`, `x sub be 1`, etc.) remain valid
+  ```purus
+  -- Removed (was valid in v0.9.x):
+  x be 42
+
+  -- Use instead:
+  const x be 42   -- immutable
+  let x be 42     -- mutable
+
+  -- Still valid:
+  obj.field be ///new value///
+  arr[\i] be 0
+  x add be 1
+  ```
+
+### New Features
+
+- **Auto-initialize object for dotted declaration**: When using `const obj.prop be val`, `let obj.prop be val`, or `var obj.prop be val`, if `obj` has not yet been declared, it is automatically initialized to `{}` with the corresponding keyword. Subsequent dotted declarations on the same name do not re-initialize. Bare assignment (`obj.prop be val` without a keyword) behaves as before.
+  ```purus
+  const p.x be 10
+  const p.y be 20
+  -- const p = {};
+  -- p.x = 10;
+  -- p.y = 20;
+
+  let cfg.host be ///localhost///
+  let cfg.port be 3000
+  -- let cfg = {};
+  -- cfg.host = "localhost";
+  -- cfg.port = 3000;
+  ```
+
+---
+
 ## v0.9.1 (2026-05-07)
 
 ### Bug Fixes
