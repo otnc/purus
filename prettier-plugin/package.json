@@ -16,7 +16,7 @@
   "peerDependencies": {
     "prettier": "^3.0.0"
   },
-  "author": "otoneko1102 (https://github.com/otnc)",
+  "author": "otoneko. (https://github.com/otnc)",
   "homepage": "https://purus.work",
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
     "url": "https://github.com/otnc/purus/issues"
   },
   "funding": {
-    "url": "https://github.com/sponsors/otoneko1102"
+    "url": "https://github.com/sponsors/otnc"
   },
   "engines": {
     "node": ">=20"

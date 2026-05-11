@@ -46,7 +46,7 @@
     "purus",
     "noshift"
   ],
-  "author": "otoneko1102 (https://github.com/otnc)",
+  "author": "otoneko. (https://github.com/otnc)",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -57,7 +57,7 @@
     "url": "https://github.com/otnc/purus/issues"
   },
   "funding": {
-    "url": "https://github.com/sponsors/otoneko1102"
+    "url": "https://github.com/sponsors/otnc"
   },
   "homepage": "https://purus.work",
   "engines": {
