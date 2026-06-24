@@ -186,6 +186,8 @@ The following words are reserved and cannot be used as identifiers:
 
 **Class:** `class`, `extends`, `super`, `static`, `private`, `get`, `set`
 
+**Wildcard:** `blank`
+
 **Other:** `new`, `delete`, `this`
 
 ### 3.4 Literals
@@ -902,7 +904,32 @@ fn add a of Number; b of Number gives Number to a add b
 - `of Type` — parameter type annotation
 - `gives Type` — return type annotation
 
-### 7.12 Generator Functions
+### 7.12 Ignored Parameters (`blank`)
+
+Use `blank` as a parameter name to explicitly ignore that argument position. This is the Purus equivalent of the common `_` convention in JavaScript, chosen because `_` requires the Shift key.
+
+```
+-- Ignore the first argument (element), use only the index
+const indices be Array.from[[length be 5]; fn blank; i to i]
+```
+
+```js
+const indices = Array.from({ length: 5 }, (_, i) => i);
+```
+
+Multiple `blank` parameters receive unique JavaScript names (`_`, `_1`, `_2`, …) to avoid strict-mode duplicate-parameter errors:
+
+```
+fn f blank; blank; x to x
+```
+
+```js
+function f(_, _1, x) { return x; }
+```
+
+Works in all function forms: named, anonymous, async, and class methods.
+
+### 7.13 Generator Functions
 
 A function that contains `yield` is automatically compiled as a generator (`function*`):
 
@@ -1096,9 +1123,17 @@ const label be switch status
 Switch arms support:
 - **Literal patterns:** `case 1`, `case ///hello///`, `case true`
 - **Binding patterns:** `case n` (binds the value to `n`)
-- **Wildcard:** `default` (default arm, matches anything)
+- **Wildcard:** `default` (default arm, matches anything) or `case blank` (anonymous wildcard, no binding)
 - **Guards:** `case n if n gt 0` (additional condition)
 - **Body:** `then EXPR` (expression) or indented block
+
+`blank` in a `case` arm acts as a wildcard: it matches any value without creating a binding.
+
+```
+switch status
+  case ///ok/// then ///good///
+  case blank then ///unknown///
+```
 
 ### 8.10 Match / When (deprecated)
 
@@ -2091,6 +2126,7 @@ class Secret {
 | `default` | _(switch default)_ | Default arm |
 | `match` | if-else chain / IIFE | Match expression/statement (deprecated) |
 | `when` | _(match arm)_ | Match case (deprecated) |
+| `blank` | `_` | Wildcard — ignored parameter or anonymous catch-all pattern |
 
 ### Modules
 
@@ -2249,7 +2285,7 @@ IdentList     = Ident { (";" | ",") Ident } ;
 FnDecl        = ["async"] "fn" [Ident] ParamList ["gives" Type]
                 ( "to" ["return"] Expr | INDENT Block DEDENT ) ;
 
-ParamList     = { Ident ["of" Type] ";" } [Ident ["of" Type]] ;
+ParamList     = { ("blank" | Ident ["of" Type]) ";" } [("blank" | Ident ["of" Type])] ;
 
 IfStmt        = "if" Expr (INDENT Block DEDENT | "then" Expr "else" Expr)
                 { ("elif" | "else" "if") Expr INDENT Block DEDENT }
@@ -2282,7 +2318,7 @@ MatchArm      = "when" Pattern ["if" Expr]
               | "else" ( Expr | INDENT Block DEDENT )
               ;
 
-Pattern       = IntLit | FloatLit | BigIntLit | StrLit | BoolLit | "null" | "nil" | Ident ;
+Pattern       = IntLit | FloatLit | BigIntLit | StrLit | BoolLit | "null" | "nil" | "blank" | Ident ;
 
 TryCatch      = "try" INDENT Block DEDENT
                 "catch" [Ident] INDENT Block DEDENT
