@@ -19,6 +19,7 @@ const KEYWORDS = new Set([
   "break", "continue",
   "list", "object",
   "function",
+  "blank",
 ]);
 
 function tokenize(source) {

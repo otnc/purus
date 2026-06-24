@@ -732,6 +732,33 @@ fn JsCodegen::gen_for_part(self : JsCodegen, stmt : @parser.Stmt) -> Unit {
 }
 
 ///|
+fn JsCodegen::gen_params(self : JsCodegen, params : Array[String]) -> Unit {
+  let mut blank_count = 0
+  let mut first = true
+  for p in params {
+    if !first {
+      self.write(", ")
+    }
+    if p == "blank" {
+      if blank_count == 0 {
+        self.write("_")
+      } else {
+        self.write("_" + blank_count.to_string())
+      }
+      blank_count += 1
+    } else {
+      self.write(js_ident(p))
+    }
+    first = false
+  }
+}
+
+///|
+fn is_blank(name : String) -> Bool {
+  name == "blank" || name == "_"
+}
+
+///|
 fn JsCodegen::gen_fn_decl(self : JsCodegen, decl : @parser.FnDecl) -> Unit {
   self.write_indent()
   if decl.is_async {
@@ -750,14 +777,7 @@ fn JsCodegen::gen_fn_decl(self : JsCodegen, decl : @parser.FnDecl) -> Unit {
     None => ()
   }
   self.write("(")
-  let mut first = true
-  for p in decl.params {
-    if !first {
-      self.write(", ")
-    }
-    self.write(js_ident(p))
-    first = false
-  }
+  self.gen_params(decl.params)
   self.write(") ")
   match decl.body {
     ToExpr(expr) => {
@@ -825,14 +845,7 @@ fn JsCodegen::gen_class_decl(self : JsCodegen, decl : @parser.ClassDecl) -> Unit
       Constructor(params, body) => {
         self.write_indent()
         self.write("constructor(")
-        let mut first = true
-        for p in params {
-          if !first {
-            self.write(", ")
-          }
-          self.write(js_ident(p))
-          first = false
-        }
+        self.gen_params(params)
         self.write(") ")
         self.gen_class_body(body)
       }
@@ -846,14 +859,7 @@ fn JsCodegen::gen_class_decl(self : JsCodegen, decl : @parser.ClassDecl) -> Unit
         }
         self.write(js_ident(name))
         self.write("(")
-        let mut first = true
-        for p in params {
-          if !first {
-            self.write(", ")
-          }
-          self.write(js_ident(p))
-          first = false
-        }
+        self.gen_params(params)
         self.write(") ")
         self.gen_class_body(body)
       }
@@ -959,7 +965,7 @@ fn JsCodegen::gen_match(
     match arm.pattern {
       BindPat(name) =>
         match arm.cond {
-          Some(_) => if name != "_" { has_bind_guard = true }
+          Some(_) => if !is_blank(name) { has_bind_guard = true }
           None => ()
         }
       _ => ()
@@ -975,7 +981,7 @@ fn JsCodegen::gen_match(
         BindPat(name) =>
           match arm.cond {
             Some(_) =>
-              if name != "_" {
+              if !is_blank(name) {
                 self.write_indent()
                 self.write("const ")
                 self.write(js_ident(name))
@@ -1012,7 +1018,7 @@ fn JsCodegen::gen_match(
         self.write(") {\n")
       }
       BindPat(name) =>
-        if name == "_" {
+        if is_blank(name) {
           match arm.cond {
             Some(c) => {
               self.write("if (")

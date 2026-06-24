@@ -670,6 +670,7 @@ fn Lexer::scan_ident(self : Lexer) -> Unit {
     "function" => Fn // JS compat (deprecated, use `fn`)
     "get" => Get_
     "set" => Set_
+    "blank" => Blank
     _ => Ident(word)
   }
   self.emit(kind, line, col)

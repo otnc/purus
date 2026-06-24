@@ -306,6 +306,24 @@ switch value
 }
 ```
 
+### `blank` によるワイルドカード
+
+`case blank` を使うと、変数にバインドせずに任意の値にマッチできます。JavaScriptの `_` ワイルドカード慣習のPurus版です：
+
+```purus
+switch status
+  case ///ok/// then ///good///
+  case blank then ///unknown///
+```
+
+```js
+if (status === "ok") {
+  "good";
+} else {
+  "unknown";
+}
+```
+
 ## Match / When
 
 :::caution[非推奨]

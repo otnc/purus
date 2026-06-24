@@ -1179,3 +1179,47 @@ test "codegen: dotted var init - after explicit decl no re-init" {
   let js = compile(src)
   assert_eq(js, "const opts = { a: 1 };\nopts.b = 2;\n")
 }
+
+// ===== blank wildcard =====
+
+///|
+test "codegen: blank as single fn param" {
+  let js = compile("fn f blank to 0")
+  assert_true(js.contains("function f(_)"))
+}
+
+///|
+test "codegen: blank as first of two fn params" {
+  let js = compile("fn f blank; x to x")
+  assert_true(js.contains("function f(_, x)"))
+}
+
+///|
+test "codegen: multiple blank fn params get unique names" {
+  let js = compile("fn f blank; blank; x to x")
+  assert_true(js.contains("function f(_, _1, x)"))
+}
+
+///|
+test "codegen: blank in fn expression" {
+  let js = compile("const f be fn blank; x to x add 1")
+  assert_true(js.contains("(_, x) => x + 1"))
+}
+
+///|
+test "codegen: blank in async fn expression" {
+  let js = compile("const f be async fn blank; x to x")
+  assert_true(js.contains("async (_, x) => x"))
+}
+
+///|
+test "codegen: blank in match wildcard arm" {
+  let src =
+    #|match x
+    #|  when 1 then ///one///
+    #|  when blank then ///other///
+  let js = compile(src)
+  assert_true(js.contains("if (x === 1)"))
+  assert_true(js.contains("\"other\""))
+  assert_false(js.contains("blank"))
+}

@@ -306,6 +306,24 @@ switch value
 }
 ```
 
+### Wildcard with `blank`
+
+Use `case blank` to match any value without creating a binding. This is the Purus equivalent of the `_` wildcard convention in JavaScript:
+
+```purus
+switch status
+  case ///ok/// then ///good///
+  case blank then ///unknown///
+```
+
+```js
+if (status === "ok") {
+  "good";
+} else {
+  "unknown";
+}
+```
+
 ## Match / When
 
 :::caution[Deprecated]

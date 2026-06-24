@@ -19,6 +19,7 @@ const KEYWORDS = new Set([
   "break", "continue",
   "list", "object",
   "function",
+  "blank",
 ]);
 
 const BLOCK_STARTERS = new Set([
