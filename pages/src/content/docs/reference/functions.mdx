@@ -233,6 +233,45 @@ fn(a(1, 2), b(3, 4), c);
 outer(inner1(x), inner2(y, z));
 ```
 
+## Ignored parameters (`blank`)
+
+Use `blank` to explicitly ignore a parameter position. This is useful for callbacks where the first argument (e.g. the element in `Array.from`) is irrelevant.
+
+```purus
+-- Ignore the first argument, use only the index
+const indices be Array.from[[length be 5]; fn blank; i to i]
+```
+
+```js
+const indices = Array.from({ length: 5 }, (_, i) => i);
+```
+
+Multiple `blank` parameters get unique JS names (`_`, `_1`, `_2`, …) to avoid strict-mode errors:
+
+```purus
+fn f blank; blank; x to x
+```
+
+```js
+function f(_, _1, x) { return x; }
+```
+
+`blank` also works as a catch-all arm in `switch`:
+
+```purus
+switch status
+  case ///ok/// then ///good///
+  case blank then ///unknown///
+```
+
+```js
+if (status === "ok") {
+  "good";
+} {
+  "unknown";
+}
+```
+
 ## Type annotations (erased)
 
 ```purus
