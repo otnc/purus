@@ -24,11 +24,22 @@ block comment ---
 
 ## Strings
 
-Strings use triple slashes `///`:
+Purus has two string syntaxes. Both compile to identical JavaScript output.
+
+**Triple-slash** `///text///`:
 
 ```purus
 const greeting be ///Hello, World///
 ```
+
+**Bracket string** `//[text]//`:
+
+```purus
+const greeting be //[Hello, World]//
+const url be //[https://api.example.com/v1]//
+```
+
+The bracket form is preferred when the content contains `//` (such as URLs) — the `[...]` wrapper prevents visual confusion with the `]//` closing delimiter.
 
 ### Escape sequences
 
@@ -38,12 +49,12 @@ const greeting be ///Hello, World///
 | `\t` | Tab |
 | `\\` | Backslash |
 | `\/` | `/` |
-| `\[` | `[` (literal bracket) |
-| `\]` | `]` (literal bracket) |
+| `\[` | `[` (literal bracket, prevents interpolation) |
+| `\]` | `]` (literal bracket; in `//[...]//` also prevents early `]//` close) |
 
 ### String interpolation
 
-Use `[expr]` inside a string to embed expressions:
+Use `[expr]` inside either string syntax to embed expressions:
 
 ```purus
 const name be ///Alice///

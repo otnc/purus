@@ -1223,3 +1223,41 @@ test "codegen: blank in match wildcard arm" {
   assert_true(js.contains("\"other\""))
   assert_false(js.contains("blank"))
 }
+
+// ===== Bracket string //[...]// =====
+
+///|
+test "codegen: bracket string plain" {
+  let js = compile("const s be //[hello]//")
+  assert_eq(js, "const s = \"hello\";\n")
+}
+
+///|
+test "codegen: bracket string with url" {
+  let js = compile("const url be //[https://example.com/api]//")
+  assert_eq(js, "const url = \"https://example.com/api\";\n")
+}
+
+///|
+test "codegen: bracket string interpolated" {
+  let js = compile("const s be //[hello [name]!]//")
+  assert_true(js.contains("`hello ${name}!`"))
+}
+
+///|
+test "codegen: bracket string with double slash inside" {
+  let js = compile("const s be //[see // for details]//")
+  assert_eq(js, "const s = \"see // for details\";\n")
+}
+
+///|
+test "codegen: bracket string in function arg" {
+  let js = compile("console.log[//[hello world]//]")
+  assert_true(js.contains("console.log(\"hello world\")"))
+}
+
+///|
+test "codegen: bracket string empty" {
+  let js = compile("const s be //[]//")
+  assert_eq(js, "const s = \"\";\n")
+}

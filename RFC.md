@@ -265,19 +265,30 @@ BigInt compiles directly to JavaScript BigInt literals. Arithmetic on BigInt req
 
 ### 4.2 Strings
 
-Strings are delimited by triple slashes `///`:
+Purus has two string syntaxes that produce identical output:
+
+**Triple-slash strings** `///...///`:
 
 ```
 const greeting be ///Hello, World///
+const url be ///https://api.example.com///
 ```
 
-Compiles to:
+**Bracket strings** `//[...]//` (since v0.11.0):
+
+```
+const greeting be //[Hello, World]//
+const url be //[https://api.example.com]//
+```
+
+Both compile to JavaScript string literals. The bracket form is preferred when the content contains `//` (such as URLs) to avoid visual confusion with the closing delimiter.
 
 ```js
 const greeting = "Hello, World";
+const url = "https://api.example.com";
 ```
 
-**Escape sequences:**
+**Escape sequences** (apply to both syntaxes):
 
 | Escape | Result |
 |--------|--------|
@@ -286,7 +297,7 @@ const greeting = "Hello, World";
 | `\\` | Backslash |
 | `\/` | `/` |
 | `\[` | `[` (literal bracket, prevents interpolation) |
-| `\]` | `]` (literal bracket) |
+| `\]` | `]` (literal bracket; in `//[...]//` also prevents early `]//` close) |
 
 ### 4.3 String Interpolation
 
@@ -316,6 +327,12 @@ Nested brackets are correctly handled — the lexer tracks bracket depth:
 
 ```
 const msg be ///first: [arr[0]]///
+```
+
+Both string syntaxes support interpolation:
+
+```
+const msg be //[Hello, [name]! You are [age] years old.]//
 ```
 
 To include a literal `[` or `]` in a string, use `\[` and `\]`.
@@ -2247,6 +2264,15 @@ class Secret {
 | `infinity` | `Infinity` | Infinity value |
 | `-infinity` | `-Infinity` | Negative infinity (special case) |
 | `100n` / `0xFFn` / `0b1n` | `100n` / `255n` / `1n` | BigInt literal (integer with `n` suffix) |
+
+### String Syntax
+
+| Syntax | Description |
+|--------|-------------|
+| `///text///` | String literal (triple-slash) |
+| `//[text]//` | String literal (bracket form — preferred when content contains `//`) |
+| `///text [expr] text///` | Interpolated string |
+| `//[text [expr] text]//` | Interpolated string (bracket form) |
 
 ### Punctuation
 
