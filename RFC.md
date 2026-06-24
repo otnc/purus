@@ -55,6 +55,8 @@
    - 7.9 [Async Function Expressions](#79-async-function-expressions)
    - 7.10 [Inline Callbacks](#710-inline-callbacks)
    - 7.11 [Type Annotations](#711-type-annotations)
+   - 7.12 [Ignored Parameters (`blank`)](#712-ignored-parameters-blank)
+   - 7.13 [Generator Functions](#713-generator-functions)
 8. [Control Flow](#8-control-flow)
    - 8.1 [If / Elif / Else](#81-if--elif--else)
    - 8.2 [Unless](#82-unless)
