@@ -112,17 +112,17 @@ function analyzePurus(text) {
     // Two-char patterns
     if (n1?.type === "other") {
       const pair = t.value + n1.value;
-      // //[ is the start of a bracket string //[...]// — skip the whole token range
-      if (pair === "//" && n2?.type === "punct" && n2.value === "[") {
+      // //; is the start of a semicolon string //;...;// — skip the whole token range
+      if (pair === "//" && n2?.type === "punct" && n2.value === ";") {
         jsOpSkip.add(i); jsOpSkip.add(i + 1);
-        // Scan forward and skip all tokens until we find ] followed by //
+        // Scan forward and skip all tokens until we find ; followed by //
         let k = i + 2;
         while (k < sig.length) {
           jsOpSkip.add(k);
           const sk = sig[k];
           const sk1 = k + 1 < sig.length ? sig[k + 1] : null;
           const sk2 = k + 2 < sig.length ? sig[k + 2] : null;
-          if (sk.type === "punct" && sk.value === "]" &&
+          if (sk.type === "punct" && sk.value === ";" &&
               sk1?.type === "other" && sk1.value === "/" &&
               sk2?.type === "other" && sk2.value === "/") {
             jsOpSkip.add(k + 1); jsOpSkip.add(k + 2);

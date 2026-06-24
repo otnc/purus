@@ -1,4 +1,4 @@
--- Variables and Data Types
+﻿-- Variables and Data Types
 
 -- Constants
 const name be ///Alice///
@@ -46,7 +46,7 @@ const user be ///World///
 const greeting be ///Hello, [user]!///
 const msg be ///[name] is [age] years old///
 
--- Bracket strings: //[...]// (preferred for URLs and content with //)
-const api-url be //[https://api.example.com/v1]//
-const endpoint be //[https://example.com/search?q=[query]]//
-const with-slash be //[path/to/file.js]//
+-- Semicolon strings: //;...;// (preferred for URLs and content with //)
+const api-url be //;https://api.example.com/v1;//
+const endpoint be //;https://example.com/search?q=[query];//
+const with-slash be //;path/to/file.js;//

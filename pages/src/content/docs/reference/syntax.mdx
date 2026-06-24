@@ -32,14 +32,14 @@ Purus has two string syntaxes. Both compile to identical JavaScript output.
 const greeting be ///Hello, World///
 ```
 
-**Bracket string** `//[text]//`:
+**Semicolon string** `//;text;//`:
 
 ```purus
-const greeting be //[Hello, World]//
-const url be //[https://api.example.com/v1]//
+const greeting be //;Hello, World;//
+const url be //;https://api.example.com/v1;//
 ```
 
-The bracket form is preferred when the content contains `//` (such as URLs) — the `[...]` wrapper prevents visual confusion with the `]//` closing delimiter.
+The semicolon form is preferred when the content contains `//` (such as URLs) — `;` as the inner delimiter does not conflict with interpolation `[expr]`.
 
 ### Escape sequences
 
@@ -50,7 +50,8 @@ The bracket form is preferred when the content contains `//` (such as URLs) — 
 | `\\` | Backslash |
 | `\/` | `/` |
 | `\[` | `[` (literal bracket, prevents interpolation) |
-| `\]` | `]` (literal bracket; in `//[...]//` also prevents early `]//` close) |
+| `\]` | `]` (literal bracket) |
+| `\;` | `;` (literal semicolon, prevents early `;//` close in `//;...;//`) |
 
 ### String interpolation
 

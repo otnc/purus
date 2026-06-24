@@ -274,14 +274,14 @@ const greeting be ///Hello, World///
 const url be ///https://api.example.com///
 ```
 
-**Bracket strings** `//[...]//` (since v0.11.0):
+**Semicolon strings** `//;...;//` (since v0.11.0):
 
 ```
-const greeting be //[Hello, World]//
-const url be //[https://api.example.com]//
+const greeting be //;Hello, World;//
+const url be //;https://api.example.com;//
 ```
 
-Both compile to JavaScript string literals. The bracket form is preferred when the content contains `//` (such as URLs) to avoid visual confusion with the closing delimiter.
+Both compile to JavaScript string literals. The semicolon form is preferred when the content contains `//` (such as URLs) to avoid visual confusion with the closing delimiter. `;` as the inner delimiter also avoids any conceptual overlap with `[expr]` interpolation.
 
 ```js
 const greeting = "Hello, World";
@@ -297,7 +297,8 @@ const url = "https://api.example.com";
 | `\\` | Backslash |
 | `\/` | `/` |
 | `\[` | `[` (literal bracket, prevents interpolation) |
-| `\]` | `]` (literal bracket; in `//[...]//` also prevents early `]//` close) |
+| `\]` | `]` (literal bracket) |
+| `\;` | `;` (literal semicolon; in `//;...;//` also prevents early `;//` close) |
 
 ### 4.3 String Interpolation
 
@@ -332,7 +333,7 @@ const msg be ///first: [arr[0]]///
 Both string syntaxes support interpolation:
 
 ```
-const msg be //[Hello, [name]! You are [age] years old.]//
+const msg be //;Hello, [name]! You are [age] years old.;//
 ```
 
 To include a literal `[` or `]` in a string, use `\[` and `\]`.
@@ -2270,9 +2271,9 @@ class Secret {
 | Syntax | Description |
 |--------|-------------|
 | `///text///` | String literal (triple-slash) |
-| `//[text]//` | String literal (bracket form — preferred when content contains `//`) |
+| `//;text;//` | String literal (semicolon form — preferred when content contains `//`) |
 | `///text [expr] text///` | Interpolated string |
-| `//[text [expr] text]//` | Interpolated string (bracket form) |
+| `//;text [expr] text;//` | Interpolated string (semicolon form) |
 
 ### Punctuation
 

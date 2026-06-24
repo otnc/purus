@@ -103,12 +103,12 @@ function tokenize(source) {
       continue;
     }
 
-    // Bracket string //[...]//
-    if (source[i] === "/" && source[i + 1] === "/" && source[i + 2] === "[") {
+    // Semicolon string //;...;//
+    if (source[i] === "/" && source[i + 1] === "/" && source[i + 2] === ";") {
       let j = i + 3;
       while (j < len) {
         if (source[j] === "\\" && j + 1 < len) { j += 2; continue; }
-        if (source[j] === "]" && source[j + 1] === "/" && source[j + 2] === "/") { j += 3; break; }
+        if (source[j] === ";" && source[j + 1] === "/" && source[j + 2] === "/") { j += 3; break; }
         j++;
       }
       tokens.push({ type: "string", value: source.slice(i, j) });

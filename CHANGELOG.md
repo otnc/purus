@@ -34,16 +34,16 @@ Change history for Purus syntax, specifications, and reserved keywords.
     case blank then ///unknown///
   ```
 
-- **`//[text]//` bracket string syntax**: An alternative to `///text///` that avoids visual confusion with URLs. The content is wrapped in `[...]`, so `//` inside (e.g. `https://`) never conflicts with the closing delimiter `]//`. Supports the same `[expr]` interpolation and escape sequences as `///...///`.
+- **`//;text;//` semicolon string syntax**: An alternative to `///text///` that avoids visual confusion with URLs. `;` serves as the inner delimiter, so `//` inside (e.g. `https://`) never conflicts with the closing `;//`. Supports the same `[expr]` interpolation and escape sequences as `///...///`.
 
   ```purus
-  const url be //[https://api.example.com/v1]//
-  const msg be //[Hello, [name]! Visit //[https://example.com]// today.]//
+  const url be //;https://api.example.com/v1;//
+  const msg be //;Hello, [name]!;//
   ```
 
-  Use `\]` to include a literal `]` before `//`:
+  Use `\;` to include a literal `;` followed by `//`:
   ```purus
-  const s be //[array\]// syntax]//   -- "array]// syntax"
+  const s be //;end\;// here;//   -- "end;// here"
   ```
 
 ---

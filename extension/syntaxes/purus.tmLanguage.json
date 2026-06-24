@@ -38,9 +38,9 @@
       "name": "comment.block.purus"
     },
     "string-bracket": {
-      "begin": "//\\[",
-      "end": "\\]//",
-      "name": "string.quoted.bracket.purus",
+      "begin": "//;",
+      "end": ";//",
+      "name": "string.quoted.semicolon.purus",
       "patterns": [
         {
           "match": "\\\\[nt\\\\/\\[\\]]",

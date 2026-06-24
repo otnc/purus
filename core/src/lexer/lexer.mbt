@@ -167,8 +167,8 @@ pub fn Lexer::tokenize(self : Lexer) -> Array[Token] {
       self.scan_string()
       continue
     }
-    // Bracket string //[...]//
-    if ch == '/' && self.peek_at(1) == '/' && self.peek_at(2) == '[' {
+    // Bracket string //;...;//
+    if ch == '/' && self.peek_at(1) == '/' && self.peek_at(2) == ';' {
       self.scan_string_bracket()
       continue
     }
@@ -425,12 +425,12 @@ fn Lexer::scan_string(self : Lexer) -> Unit {
 }
 
 ///|
-/// Scan a bracket string: //[content]//
+/// Scan a semicolon string: //;content;//
 /// Supports the same escape sequences and [expr] interpolation as ///...///
 fn Lexer::scan_string_bracket(self : Lexer) -> Unit {
   let line = self.line
   let col = self.col
-  // skip opening //[
+  // skip opening //;
   self.advance() |> ignore
   self.advance() |> ignore
   self.advance() |> ignore
@@ -438,14 +438,14 @@ fn Lexer::scan_string_bracket(self : Lexer) -> Unit {
   let mut buf = StringBuilder::new()
   let mut has_interp = false
   while self.pos < self.chars.length() {
-    // Closing: ]//
-    if self.peek() == ']' && self.peek_at(1) == '/' && self.peek_at(2) == '/' {
+    // Closing: ;//
+    if self.peek() == ';' && self.peek_at(1) == '/' && self.peek_at(2) == '/' {
       self.advance() |> ignore
       self.advance() |> ignore
       self.advance() |> ignore
       break
     }
-    // Escape sequences (same as ///...//)
+    // Escape sequences (same as ///...///, plus \; for literal semicolon)
     if self.peek() == '\\' {
       self.advance() |> ignore
       let esc = self.advance()
@@ -456,6 +456,7 @@ fn Lexer::scan_string_bracket(self : Lexer) -> Unit {
         '/' => buf.write_char('/')
         '[' => buf.write_char('[')
         ']' => buf.write_char(']')
+        ';' => buf.write_char(';')
         _ => {
           buf.write_char('\\')
           buf.write_char(esc)
