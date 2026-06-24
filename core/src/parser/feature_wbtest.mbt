@@ -455,3 +455,47 @@ test "parser: from...use is rejected" {
     _ => ()
   }
 }
+
+// ===== blank wildcard =====
+
+///|
+test "parser: blank as fn param" {
+  let stmts = parse_f("fn f blank; x to x")
+  match stmts[0] {
+    FnDecl(decl) => {
+      assert_eq(decl.params.length(), 2)
+      assert_eq(decl.params[0], "blank")
+      assert_eq(decl.params[1], "x")
+    }
+    _ => fail("expected FnDecl with blank param")
+  }
+}
+
+///|
+test "parser: blank in match pattern" {
+  let stmts = parse_f("match x\n  when blank then 0")
+  match stmts[0] {
+    MatchStmt(_, arms) => {
+      assert_eq(arms.length(), 1)
+      match arms[0].pattern {
+        BindPat(name) => assert_eq(name, "blank")
+        _ => fail("expected BindPat blank")
+      }
+    }
+    _ => fail("expected MatchStmt")
+  }
+}
+
+///|
+test "parser: multiple blank params" {
+  let stmts = parse_f("fn f blank; blank; x to x")
+  match stmts[0] {
+    FnDecl(decl) => {
+      assert_eq(decl.params.length(), 3)
+      assert_eq(decl.params[0], "blank")
+      assert_eq(decl.params[1], "blank")
+      assert_eq(decl.params[2], "x")
+    }
+    _ => fail("expected FnDecl with multiple blank params")
+  }
+}
