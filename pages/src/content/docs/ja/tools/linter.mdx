@@ -54,7 +54,7 @@ purus-lint
 | `no-protected` | `warn` | `protected` は非推奨、`private` を使用 |
 | `no-else-if` | `warn` | `else if` の代わりに `elif` を使用 |
 | `no-js-chars` | `error` | JavaScript文字（`(){}""''$#@`\``）は使用不可 |
-| `no-js-operators` | `error` | JavaScript演算子（`===`, `!==`, `&&`, `\|\|`, `+=`, `-=` など）は使用不可 |
+| `no-js-operators` | `error` | JavaScript演算子（`===`, `!==`, `&&`, `\|\|`, `+=`, `-=` など）は使用不可。`//;...;//` 文字列は有効として認識され、その内容はフラグされません。 |
 | `no-for-range` | `warn` | `for ... in range` は非推奨; JS スタイルの `for` ループを使用 |
 | `bracket-match` | `error` | `[` または `]` の括弧不一致 |
 | `const-reassign` | `error` | `const` 変数の再代入不可 |

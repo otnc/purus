@@ -23,7 +23,7 @@ Full TextMate grammar for `.purus`, `.cpurus`, and `.mpurus` files with highligh
 
 - Keywords (`fn`, `const`, `let`, `if`, `for`, `match`, etc.)
 - Operators (`be`, `add`, `sub`, `eq`, `and`, `pipe`, etc.)
-- Strings (`///...///`)
+- Strings (`///...///` and `//;...;//`)
 - Comments (`--` line, `---` block)
 - Numbers (integers, floats)
 - Function definitions and calls
@@ -52,6 +52,9 @@ Full TextMate grammar for `.purus`, `.cpurus`, and `.mpurus` files with highligh
 | `pub` | Export (pub) |
 | `mod` | Module namespace |
 | `log` | console.log |
+| `stri` | String with interpolation (`///[expr]///`) |
+| `str` | Semicolon string (`//;text;//`) |
+| `strs` | Semicolon string with interpolation |
 
 ### File Icons
 
@@ -61,6 +64,6 @@ Full TextMate grammar for `.purus`, `.cpurus`, and `.mpurus` files with highligh
 
 - **Comment toggle**: `Ctrl+/` inserts `--` line comments
 - **Block comments**: `--- ... ---`
-- **Auto-closing**: `[]` brackets and `///` strings
+- **Auto-closing**: `[]` brackets, `///` strings, and `//;` → `;//` strings
 - **Folding**: indent-based folding (off-side rule)
 - **Word pattern**: supports `kebab-case` identifiers

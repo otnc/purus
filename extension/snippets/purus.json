@@ -177,6 +177,16 @@
     "body": "///[${0}]///",
     "description": "String with interpolation"
   },
+  "Semicolon String": {
+    "prefix": "str",
+    "body": "//;${0};//",
+    "description": "Semicolon string //;...;// (preferred for URLs)"
+  },
+  "Semicolon String Interpolation": {
+    "prefix": "strs",
+    "body": "//;${1}[${0}]${2};//",
+    "description": "Semicolon string with interpolation"
+  },
   "Use (stdlib)": {
     "prefix": "use",
     "body": "use ${1|math,json,string,random,datetime,object,number,array,error,regexp,promise,set,map|} as ${2:alias}",

@@ -54,7 +54,7 @@ You can pass files and directories as positional arguments.
 | `no-protected` | `warn` | `protected` is deprecated; use `private` |
 | `no-else-if` | `warn` | Use `elif` instead of `else if` |
 | `no-js-chars` | `error` | JavaScript characters (`(){}""''$#@`\``) are not allowed |
-| `no-js-operators` | `error` | JavaScript operators (`===`, `!==`, `&&`, `\|\|`, `+=`, `-=`, etc.) are not allowed |
+| `no-js-operators` | `error` | JavaScript operators (`===`, `!==`, `&&`, `\|\|`, `+=`, `-=`, etc.) are not allowed. Note: `//;...;//` strings are recognized as valid and their contents are not flagged. |
 | `no-for-range` | `warn` | `for ... in range` is deprecated; use JS-style `for` loop |
 | `bracket-match` | `error` | Unmatched `[` or `]` brackets |
 | `const-reassign` | `error` | Cannot reassign a `const` variable |
