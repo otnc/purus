@@ -1,4 +1,4 @@
-# Purus Language Specification
+﻿# Purus Language Specification
 
 **RFC — v0.11.0**
 
@@ -230,7 +230,7 @@ A `#!` line at the beginning of a file is recognized and preserved:
 
 ```
 #!/usr/bin/env node
-const message be ///Hello///
+const message be //;Hello;//
 ```
 
 ---
@@ -270,8 +270,8 @@ Purus has two string syntaxes that produce identical output:
 **Triple-slash strings** `///...///`:
 
 ```
-const greeting be ///Hello, World///
-const url be ///https://api.example.com///
+const greeting be //;Hello, World;//
+const url be //;https://api.example.com;//
 ```
 
 **Semicolon strings** `//;...;//` (since v0.11.0):
@@ -305,9 +305,9 @@ const url = "https://api.example.com";
 Embed expressions inside strings using `[expr]`:
 
 ```
-const name be ///Alice///
+const name be //;Alice;//
 const age be 30
-const msg be ///Hello, [name]! You are [age] years old.///
+const msg be //;Hello, [name]! You are [age] years old.;//
 ```
 
 Compiles to:
@@ -321,13 +321,13 @@ const msg = `Hello, ${name}! You are ${age} years old.`;
 Any valid Purus expression can appear inside brackets:
 
 ```
-const result be ///[x] times 2 is [x mul 2]///
+const result be //;[x] times 2 is [x mul 2];//
 ```
 
 Nested brackets are correctly handled — the lexer tracks bracket depth:
 
 ```
-const msg be ///first: [arr[0]]///
+const msg be //;first: [arr[0]];//
 ```
 
 Both string syntaxes support interpolation:
@@ -396,14 +396,14 @@ const items be list[1; 2; 3]
 **Bracket syntax:**
 
 ```
-const obj be [name be ///Alice///, age be 30]
+const obj be [name be //;Alice;//, age be 30]
 const empty-obj be [be]    -- empty object
 ```
 
 **Explicit constructor:** `object[...]`:
 
 ```
-const person be object[name be ///Alice///, age be 30]
+const person be object[name be //;Alice;//, age be 30]
 ```
 
 **Shorthand properties:**
@@ -554,7 +554,7 @@ const result = obj?.method(arg);
 Combine with `coal` for default values:
 
 ```
-const display be user\.name coal ///anonymous///
+const display be user\.name coal //;anonymous;//
 ```
 
 ### 5.9 Type Check and Cast
@@ -632,7 +632,7 @@ let { host, port } = config;
 Property and index assignments use `be` without a declaration keyword:
 
 ```
-obj.field be ///new value///
+obj.field be //;new value;//
 this.x be 10
 arr[\i] be 0
 ```
@@ -653,7 +653,7 @@ A declaration keyword may be used with dotted property access. When `obj` has no
 const p.x be 10    -- const p = {}; p.x = 10;
 const p.y be 20    -- p.y = 20;  (no re-init)
 
-let cfg.host be ///localhost///   -- let cfg = {}; cfg.host = "localhost";
+let cfg.host be //;localhost;//   -- let cfg = {}; cfg.host = "localhost";
 let cfg.port be 3000              -- cfg.port = 3000;
 
 var state.count be 0              -- var state = {}; state.count = 0;
@@ -712,7 +712,7 @@ Simply omit the parameter list:
 
 ```
 fn say-hello
-  console.log[///Hello!///]
+  console.log[//;Hello!;//]
 ```
 
 ```js
@@ -724,7 +724,7 @@ function say_hello() {
 With expression body:
 
 ```
-fn say-hello to console.log[///Hello!///]
+fn say-hello to console.log[//;Hello!;//]
 ```
 
 ```js
@@ -825,9 +825,9 @@ async function fetch_data(url) {
 Use `[]` instead of `()`:
 
 ```
-greet[///world///]        -- greet("world")
+greet[//;world;//]        -- greet("world")
 add[1; 2]                -- add(1, 2)
-console.log[///hello///]  -- console.log("hello")
+console.log[//;hello;//]  -- console.log("hello")
 ```
 
 **Nested calls:** Use `;` to separate arguments to distinguish from nested function calls:
@@ -907,7 +907,7 @@ promise.then((result) => {
 With multi-line brackets, complex callback patterns become natural:
 
 ```
-app.get[///path///; async fn req; res
+app.get[//;path;//; async fn req; res
   const data be await fetch-data[]
   res.json[data]
 ]
@@ -989,11 +989,11 @@ fn infinite-ids
 
 ```
 if x lt 0
-  console.log[///negative///]
+  console.log[//;negative;//]
 elif x eq 0
-  console.log[///zero///]
+  console.log[//;zero;//]
 else
-  console.log[///positive///]
+  console.log[//;positive;//]
 ```
 
 `else if` is also accepted as an alternative to `elif`.
@@ -1028,8 +1028,8 @@ const result = condition ? 1 : 2;
 Statements can have postfix `if`, `unless`, or `for`:
 
 ```
-console.log[///debug///] if verbose
-console.log[///skip///] unless done
+console.log[//;debug;//] if verbose
+console.log[//;skip;//] unless done
 console.log[item] for item in list
 ```
 
@@ -1116,9 +1116,9 @@ for (let i = 0; i < 10; i++) {
 
 ```
 switch x
-  case 1 then ///one///
-  case 2 then ///two///
-  default ///other///
+  case 1 then //;one;//
+  case 2 then //;two;//
+  default //;other;//
 ```
 
 **Block body in arms:**
@@ -1126,18 +1126,18 @@ switch x
 ```
 switch value
   case n if n gt 0
-    console.log[///positive///]
+    console.log[//;positive;//]
   default
-    console.log[///non-positive///]
+    console.log[//;non-positive;//]
 ```
 
 **Expression form** (compiled to IIFE):
 
 ```
 const label be switch status
-  case 200 then ///ok///
-  case 404 then ///not found///
-  default ///unknown///
+  case 200 then //;ok;//
+  case 404 then //;not found;//
+  default //;unknown;//
 ```
 
 Switch arms support:
@@ -1151,8 +1151,8 @@ Switch arms support:
 
 ```
 switch status
-  case ///ok/// then ///good///
-  case blank then ///unknown///
+  case //;ok;// then //;good;//
+  case blank then //;unknown;//
 ```
 
 ### 8.10 Match / When (deprecated)
@@ -1164,9 +1164,9 @@ switch status
 
 ```
 match x
-  when 1 then ///one///
-  when 2 then ///two///
-  else ///other///
+  when 1 then //;one;//
+  when 2 then //;two;//
+  else //;other;//
 ```
 
 **Block body in arms:**
@@ -1174,18 +1174,18 @@ match x
 ```
 match value
   when n if n gt 0
-    console.log[///positive///]
+    console.log[//;positive;//]
   else
-    console.log[///non-positive///]
+    console.log[//;non-positive;//]
 ```
 
 **Expression form** (compiled to IIFE):
 
 ```
 const label be match status
-  when 200 then ///ok///
-  when 404 then ///not found///
-  else ///unknown///
+  when 200 then //;ok;//
+  when 404 then //;not found;//
+  else //;unknown;//
 ```
 
 Match arms support:
@@ -1235,7 +1235,7 @@ Compiles to an IIFE with try/catch.
 ### 9.3 Throw
 
 ```
-throw new Error[///something went wrong///]
+throw new Error[//;something went wrong;//]
 throw err if condition    -- postfix if
 ```
 
@@ -1246,11 +1246,11 @@ throw err if condition    -- postfix if
 ### 10.1 ESM Import
 
 ```
-import express from ///express///
-import [Hono] from ///hono///
-import [describe; it; expect] from ///vitest///
-import axios, [AxiosError] from ///axios///
-import all as fs from ///fs///
+import express from //;express;//
+import [Hono] from //;hono;//
+import [describe; it; expect] from //;vitest;//
+import axios, [AxiosError] from //;axios;//
+import all as fs from //;fs;//
 ```
 
 ```js
@@ -1266,10 +1266,10 @@ import * as fs from "fs";
 The `from...import` syntax places the module path first, followed by the import bindings:
 
 ```
-from ///express/// import express
-from ///react/// import [useState, useEffect]
-from ///fs/// import all as fs
-from ///axios/// import axios, [AxiosError]
+from //;express;// import express
+from //;react;// import [useState, useEffect]
+from //;fs;// import all as fs
+from //;axios;// import axios, [AxiosError]
 ```
 
 ```js
@@ -1536,9 +1536,9 @@ The `p-math` module is a direct alias for JS `Math` — all standard `Math` meth
 
 ```
 public fn helper to 42
-public const VERSION be ///1.0///
+public const VERSION be //;1.0;//
 export default fn main
-  console.log[///hi///]
+  console.log[//;hi;//]
 ```
 
 ```js
@@ -1569,8 +1569,8 @@ Compiles to an IIFE (Immediately Invoked Function Expression).
 Import a module purely for its side effects (e.g., polyfills, configuration):
 
 ```
-import ///dotenv/config///
-import ///./setup///
+import //;dotenv/config;//
+import //;./setup;//
 ```
 
 ```js
@@ -1585,8 +1585,8 @@ No bindings are introduced — the module is simply executed.
 Import attributes allow specifying additional metadata for module imports using the `with` keyword:
 
 ```
-import package from ///./package.json/// with [ type be ///json/// ]
-import [name; version] from ///./package.json/// with [ type be ///json/// ]
+import package from //;./package.json;// with [ type be //;json;// ]
+import [name; version] from //;./package.json;// with [ type be //;json;// ]
 ```
 
 ```js
@@ -1599,7 +1599,7 @@ The `with` clause uses Purus's bracket syntax `[ key be value ]`, which compiles
 ### 10.8 CommonJS
 
 ```
-const fs be require[///fs///]
+const fs be require[//;fs;//]
 ```
 
 ```js
@@ -1611,7 +1611,7 @@ const fs = require("fs");
 Dynamic imports are supported through standard function call syntax:
 
 ```
-const mod be await import[///./module.js///]
+const mod be await import[//;./module.js;//]
 ```
 
 ### 10.10 Module Type Configuration
@@ -1630,10 +1630,10 @@ Values match `package.json`'s `type` field: `module` or `commonjs`.
 **CommonJS output examples:**
 
 ```
-import express from ///express///
-import [Hono] from ///hono///
-import all as fs from ///fs///
-import ///dotenv/config///
+import express from //;express;//
+import [Hono] from //;hono;//
+import all as fs from //;fs;//
+import //;dotenv/config;//
 ```
 
 ```js
@@ -1644,7 +1644,7 @@ require("dotenv/config");
 ```
 
 ```
-public const VERSION be ///1.0///
+public const VERSION be //;1.0;//
 export default 42
 ```
 
@@ -1693,7 +1693,7 @@ const partial be numbers[\1...4]   -- numbers.slice(1, 4)  — exclusive
 Assign to a slice to replace elements:
 
 ```
-numbers[\2..4] be [///a///; ///b///; ///c///]
+numbers[\2..4] be [//;a;//; //;b;//; //;c;//]
 ```
 
 ```js
@@ -1710,9 +1710,9 @@ Bracket expressions (function calls, arrays, objects) can span multiple lines. N
 
 ```
 const items be [
-  ///apple///,
-  ///banana///,
-  ///cherry///
+  //;apple;//,
+  //;banana;//,
+  //;cherry;//
 ]
 ```
 
@@ -1721,7 +1721,7 @@ const items be [
 ```
 server.listen[
   port;
-  fn to console.log[///started///]
+  fn to console.log[//;started;//]
 ]
 ```
 
@@ -1729,7 +1729,7 @@ server.listen[
 
 ```
 const config be object[
-  host be ///localhost///,
+  host be //;localhost;//,
   port be 3000,
   debug be true
 ]
@@ -1752,9 +1752,9 @@ Purus uses **indentation-based block structure** (off-side rule):
 ```
 fn example x
   if x gt 0                -- block level 1
-    console.log[///pos///] -- block level 2
+    console.log[//;pos;//] -- block level 2
   else
-    console.log[///neg///] -- block level 2
+    console.log[//;neg;//] -- block level 2
 ```
 
 ---
@@ -1811,8 +1811,8 @@ purus build --type commonjs    -- CommonJS
 **Configuration file** (`config.purus`):
 
 ```
-const type be ///module///       -- ES Modules (default)
-const type be ///commonjs///     -- CommonJS
+const type be //;module;//       -- ES Modules (default)
+const type be //;commonjs;//     -- CommonJS
 ```
 
 Resolution order: CLI `--type` > `config.purus` `type` > `package.json` `type` > default (`module`).
@@ -1965,7 +1965,7 @@ Static async methods combine both prefixes:
 
 ```
 class Service
-  static async fn load to await fetch[///data///]
+  static async fn load to await fetch[//;data;//]
 ```
 
 ```js
@@ -2020,7 +2020,7 @@ class Dog extends Animal
 
   fn speak
     super.speak[]
-    console.log[///Woof!///]
+    console.log[//;Woof!;//]
 ```
 
 ```js

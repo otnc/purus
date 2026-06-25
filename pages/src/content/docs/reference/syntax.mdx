@@ -1,4 +1,4 @@
----
+ï»¿---
 title: Syntax Overview
 description: Overview of Purus syntax.
 sidebar:
@@ -29,7 +29,7 @@ Purus has two string syntaxes. Both compile to identical JavaScript output.
 **Triple-slash** `///text///`:
 
 ```purus
-const greeting be ///Hello, World///
+const greeting be //;Hello, World;//
 ```
 
 **Semicolon string** `//;text;//`:
@@ -58,9 +58,9 @@ The semicolon form is preferred when the content contains `//` (such as URLs) â€
 Use `[expr]` inside either string syntax to embed expressions:
 
 ```purus
-const name be ///Alice///
+const name be //;Alice;//
 const age be 30
-const msg be ///Hello, [name]! You are [age] years old.///
+const msg be //;Hello, [name]! You are [age] years old.;//
 ```
 
 Compiles to:
@@ -75,7 +75,7 @@ You can use any expression inside the brackets:
 
 ```purus
 const x be 10
-const result be ///[x] times 2 is [x mul 2]///
+const result be //;[x] times 2 is [x mul 2];//
 ```
 
 Compiles to:
@@ -128,7 +128,7 @@ Variables must always be declared with `const`, `let`, or `var`:
 ```purus
 const pi be 3.14          -- constant (cannot reassign)
 let count be 0            -- mutable variable
-var legacy be ///old///   -- var-scoped (discouraged)
+var legacy be //;old;//   -- var-scoped (discouraged)
 ```
 
 Property and index assignment do **not** require a declaration keyword:
@@ -176,7 +176,7 @@ fn add a; b
 
 -- Function arguments
 add[1; 2]
-console.log[///hello///; ///world///]
+console.log[//;hello;//; //;world;//]
 use p-math as m
 m.max[1; 2; 3]
 
@@ -194,7 +194,7 @@ Use `,` to separate **array elements** and **object properties**:
 const arr be [1, 2, 3]
 
 -- Objects
-const obj be [name be ///Alice///, age be 30]
+const obj be [name be //;Alice;//, age be 30]
 ```
 
 ### Why two separators?
@@ -257,7 +257,7 @@ const partial = numbers.slice(2, 5);
 Replace a portion of an array by assigning to a slice:
 
 ```purus
-numbers[\2..4] be [///a///; ///b///; ///c///]
+numbers[\2..4] be [//;a;//; //;b;//; //;c;//]
 -- numbers is now [0, 1, "a", "b", "c", 5, 6]
 ```
 
@@ -272,7 +272,7 @@ numbers.splice(2, 4 - 2 + 1, "a", "b", "c");
 Extract values from arrays into variables:
 
 ```purus
-const weather be [///Sunny///; ///Rainy///]
+const weather be [//;Sunny;//; //;Rainy;//]
 const [today; tomorrow] be weather
 
 -- Swap variables
@@ -289,7 +289,7 @@ const [today, tomorrow] = weather;
 ## Objects
 
 ```purus
-const obj be [name be ///Alice///, age be 30]
+const obj be [name be //;Alice;//, age be 30]
 const empty-obj be [be]    -- empty object
 ```
 
@@ -298,7 +298,7 @@ const empty-obj be [be]    -- empty object
 Use `object[...]` to destructure properties from an object:
 
 ```purus
-const person be [name be ///Alice///, age be 30]
+const person be [name be //;Alice;//, age be 30]
 const object[name; age] be person
 ```
 
@@ -352,7 +352,7 @@ const items be [
 ]
 
 const config be [
-  host be ///localhost///,
+  host be //;localhost;//,
   port be 8080
 ]
 
@@ -371,9 +371,9 @@ Blocks are defined by indentation (2 spaces recommended):
 
 ```purus
 if x gt 0
-  console.log[///positive///]
+  console.log[//;positive;//]
 else
-  console.log[///non-positive///]
+  console.log[//;non-positive;//]
 ```
 
 ## Identifiers
@@ -404,10 +404,10 @@ JavaScript uses backticks and `${}` for template literals. Purus uses `///` stri
 
 ```purus
 -- JavaScript: `Hello, ${name}! You are ${age} years old.`
-const msg be ///Hello, [name]! You are [age] years old.///
+const msg be //;Hello, [name]! You are [age] years old.;//
 
 -- JavaScript: `${a} + ${b} = ${a + b}`
-const result be ///[a] + [b] = [a add b]///
+const result be //;[a] + [b] = [a add b];//
 ```
 
 ```js
@@ -424,7 +424,7 @@ JavaScript's `??` operator becomes `coal` in Purus:
 const port be config.port coal 3000
 
 -- JavaScript: const name = user?.name ?? "Anonymous";
-const name be user\.name coal ///Anonymous///
+const name be user\.name coal //;Anonymous;//
 ```
 
 ```js
@@ -438,7 +438,7 @@ JavaScript's ternary `condition ? a : b` becomes `if condition then a else b`:
 
 ```purus
 -- JavaScript: const label = count > 0 ? "items" : "empty";
-const label be if count gt 0 then ///items/// else ///empty///
+const label be if count gt 0 then //;items;// else //;empty;//
 ```
 
 ```js

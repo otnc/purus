@@ -1,4 +1,4 @@
----
+﻿---
 title: Modules
 description: Import, export, and module system in Purus.
 sidebar:
@@ -8,11 +8,11 @@ sidebar:
 ## ESM Import
 
 ```purus
-import express from ///express///
-import [Hono] from ///hono///
-import [describe, it, expect] from ///vitest///
-import axios, [AxiosError] from ///axios///
-import all as fs from ///fs///
+import express from //;express;//
+import [Hono] from //;hono;//
+import [describe, it, expect] from //;vitest;//
+import axios, [AxiosError] from //;axios;//
+import all as fs from //;fs;//
 ```
 
 ```js
@@ -28,11 +28,11 @@ import * as fs from "fs";
 You can also write imports with the module path first:
 
 ```purus
-from ///express/// import express
-from ///hono/// import [Hono]
-from ///vitest/// import [describe, it, expect]
-from ///axios/// import axios, [AxiosError]
-from ///fs/// import all as fs
+from //;express;// import express
+from //;hono;// import [Hono]
+from //;vitest;// import [describe, it, expect]
+from //;axios;// import axios, [AxiosError]
+from //;fs;// import all as fs
 ```
 
 This compiles to the same JavaScript as the `import...from` syntax above.
@@ -42,8 +42,8 @@ This compiles to the same JavaScript as the `import...from` syntax above.
 Import a module for its side effects only (no bindings):
 
 ```purus
-import ///dotenv/config///
-import ///./polyfills///
+import //;dotenv/config;//
+import //;./polyfills;//
 ```
 
 ```js
@@ -56,8 +56,8 @@ import "./polyfills";
 Use the `with` keyword to specify import attributes:
 
 ```purus
-import package from ///./package.json/// with [ type be ///json/// ]
-import [name; version] from ///./package.json/// with [ type be ///json/// ]
+import package from //;./package.json;// with [ type be //;json;// ]
+import [name; version] from //;./package.json;// with [ type be //;json;// ]
 ```
 
 ```js
@@ -68,8 +68,8 @@ import { name, version } from "./package.json" with { type: "json" };
 The `from...import` syntax also supports `with`:
 
 ```purus
-from ///./data.json/// import data with [ type be ///json/// ]
-from ///./package.json/// import [name, version] with [ type be ///json/// ]
+from //;./data.json;// import data with [ type be //;json;// ]
+from //;./package.json;// import [name, version] with [ type be //;json;// ]
 ```
 
 ```js
@@ -122,9 +122,9 @@ const s = { upper(str) { ... }, reverse(str) { ... } };
 
 ```purus
 public fn greet name to console.log[name]
-public const VERSION be ///1.0///
+public const VERSION be //;1.0;//
 export default fn main
-  console.log[///hi///]
+  console.log[//;hi;//]
 ```
 
 ```js
@@ -172,13 +172,13 @@ purus build --type module
 ### config.purus
 
 ```purus
-const type be ///module///
+const type be //;module;//
 ```
 
 or
 
 ```purus
-const type be ///commonjs///
+const type be //;commonjs;//
 ```
 
 Values are the same as `package.json`'s `type` field: `module` (ESM) or `commonjs` (CJS).
@@ -188,10 +188,10 @@ Values are the same as `package.json`'s `type` field: `module` (ESM) or `commonj
 When module type is set to `commonjs`, imports and exports are compiled to CJS syntax:
 
 ```purus
-import express from ///express///
-import [Hono] from ///hono///
-import all as fs from ///fs///
-import ///dotenv/config///
+import express from //;express;//
+import [Hono] from //;hono;//
+import all as fs from //;fs;//
+import //;dotenv/config;//
 ```
 
 ```js
@@ -202,7 +202,7 @@ require("dotenv/config");
 ```
 
 ```purus
-public const VERSION be ///1.0///
+public const VERSION be //;1.0;//
 export default 42
 ```
 
@@ -219,7 +219,7 @@ module.exports = 42;
 ## CommonJS
 
 ```purus
-const fs be require[///fs///]
+const fs be require[//;fs;//]
 ```
 
 ```js
