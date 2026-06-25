@@ -1,4 +1,4 @@
----
+﻿---
 title: Control Flow
 description: Conditionals, loops, and pattern matching in Purus.
 sidebar:
@@ -11,11 +11,11 @@ Purus uses indentation to define blocks — no curly braces `{}` needed.
 
 ```purus
 if x lt 0
-  console.log[///negative///]
+  console.log[//;negative;//]
 elif x eq 0
-  console.log[///zero///]
+  console.log[//;zero;//]
 else
-  console.log[///positive///]
+  console.log[//;positive;//]
 ```
 
 ```js
@@ -33,11 +33,11 @@ if (x < 0) {
 
 ```purus
 if x lt 0
-  console.log[///negative///]
+  console.log[//;negative;//]
 else if x eq 0
-  console.log[///zero///]
+  console.log[//;zero;//]
 else
-  console.log[///positive///]
+  console.log[//;positive;//]
 ```
 
 This compiles to the same JavaScript as `elif`.
@@ -50,11 +50,11 @@ Any statements indented under `if`, `elif`, or `else` belong to that block:
 ```purus
 if logged-in
   const user be get-user[]
-  console.log[///Welcome, [user.name]///]
+  console.log[//;Welcome, [user.name];//]
   show-dashboard[]
 else
-  console.log[///Please log in///]
-  redirect[///login///]
+  console.log[//;Please log in;//]
+  redirect[//;login;//]
 ```
 
 ```js
@@ -98,8 +98,8 @@ const result = condition ? 1 : 2;
 Write short conditionals and loops on a single line:
 
 ```purus
-console.log[///debug///] if verbose
-console.log[///skip///] unless done
+console.log[//;debug;//] if verbose
+console.log[//;skip;//] unless done
 console.log[item] for item in list
 ```
 
@@ -268,9 +268,9 @@ for (let i = 9; i >= 0; i--) {
 
 ```purus
 switch x
-  case 1 then ///one///
-  case 2 then ///two///
-  default ///other///
+  case 1 then //;one;//
+  case 2 then //;two;//
+  default //;other;//
 ```
 
 ```js
@@ -290,9 +290,9 @@ In `case n if ...`, the variable `n` is bound to the switch subject (`value`), a
 ```purus
 switch value
   case n if n gt 0
-    console.log[///positive///]
+    console.log[//;positive;//]
   default
-    console.log[///non-positive///]
+    console.log[//;non-positive;//]
 ```
 
 ```js
@@ -312,8 +312,8 @@ Use `case blank` to match any value without creating a binding. This is the Puru
 
 ```purus
 switch status
-  case ///ok/// then ///good///
-  case blank then ///unknown///
+  case //;ok;// then //;good;//
+  case blank then //;unknown;//
 ```
 
 ```js
@@ -332,9 +332,9 @@ if (status === "ok") {
 
 ```purus
 match x
-  when 1 then ///one///
-  when 2 then ///two///
-  else ///other///
+  when 1 then //;one;//
+  when 2 then //;two;//
+  else //;other;//
 ```
 
 ```js
@@ -354,9 +354,9 @@ In `when n if ...`, the variable `n` is bound to the match subject (`value`), al
 ```purus
 match value
   when n if n gt 0
-    console.log[///positive///]
+    console.log[//;positive;//]
   else
-    console.log[///non-positive///]
+    console.log[//;non-positive;//]
 ```
 
 ```js
@@ -412,7 +412,7 @@ try {
 ## Throw
 
 ```purus
-throw new Error[///something went wrong///]
+throw new Error[//;something went wrong;//]
 throw err if condition
 ```
 

@@ -1,4 +1,4 @@
----
+﻿---
 title: p-object
 description: Object utility functions.
 sidebar:
@@ -33,12 +33,12 @@ Returns `true` if `a` and `b` are the same value (`Object.is` semantics).
 
 ```purus
 use p-object as o
-const obj be [name be ///Purus///, version be 1]
+const obj be [name be //;Purus;//, version be 1]
 o.keys[obj]        -- ["name", "version"]
 o.values[obj]      -- ["Purus", 1]
 o.entries[obj]     -- [["name", "Purus"], ["version", 1]]
 o.len[obj]         -- 2
-o.hasown[obj; ///name///]  -- true
+o.hasown[obj; //;name;//]  -- true
 ```
 
 ## Creation
@@ -65,7 +65,7 @@ const b be [y be 2]
 o.merge[a; b]      -- { x: 1, y: 2 }
 o.clone[a]         -- { x: 1 } (deep copy)
 
-const pairs be [[///a///; 1]; [///b///; 2]]
+const pairs be [[//;a;//; 1]; [//;b;//; 2]]
 o.fromentries[pairs]  -- { a: 1, b: 2 }
 ```
 
@@ -101,6 +101,6 @@ Returns a new object excluding the specified keys.
 ```purus
 use p-object as o
 const obj be [a be 1; b be 2; c be 3]
-o.pick[obj; [///a///; ///c///]]  -- { a: 1, c: 3 }
-o.omit[obj; [///b///]]           -- { a: 1, c: 3 }
+o.pick[obj; [//;a;//; //;c;//]]  -- { a: 1, c: 3 }
+o.omit[obj; [//;b;//]]           -- { a: 1, c: 3 }
 ```
