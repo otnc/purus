@@ -1,4 +1,4 @@
----
+﻿---
 title: 構文の概要
 description: Purusの構文の概要。
 sidebar:
@@ -24,11 +24,30 @@ sidebar:
 
 ## 文字列
 
-文字列はトリプルスラッシュ `///` で囲みます:
+Purusには同じJavaScriptに出力される2種類の文字列構文があります。
+
+### `//;text;//` — 推奨
+
+```purus
+const greeting be //;Hello, World;//
+const url be //;https://api.example.com/v1;//
+const tmpl be //;Hello, [name]!;//
+```
+
+`//;...;//` が**推奨**の構文です。`;` をデリミタとすることで `[expr]` 補完との概念的な重複を避け、URLなど `//` を含む内容でも視覚的な混乱が生じません。
+
+### `///text///` — 使用可能
 
 ```purus
 const greeting be ///Hello, World///
+const url be ///https://api.example.com/v1///
 ```
+
+`///...///` は完全にサポートされており、同一の出力を生成します。元々の構文で引き続き有効です。好みに応じて使用できます。
+
+:::note
+このドキュメントのコード例はすべて `//;...;//` を使用しています。どちらの形式も互換です。
+:::
 
 ### エスケープシーケンス
 
@@ -38,17 +57,18 @@ const greeting be ///Hello, World///
 | `\t` | タブ |
 | `\\` | バックスラッシュ |
 | `\/` | `/` |
-| `\[` | `[`（リテラルブラケット） |
+| `\[` | `[`（リテラルブラケット、補間を防ぐ） |
 | `\]` | `]`（リテラルブラケット） |
+| `\;` | `;`（リテラルセミコロン；`//;...;//` での早期終端を防ぐ） |
 
 ### 文字列補間（テンプレートリテラル）
 
-文字列内で `[式]` を使い、式を埋め込むことができます:
+どちらの構文でも `[式]` で式を埋め込めます:
 
 ```purus
-const name be ///Alice///
+const name be //;Alice;//
 const age be 30
-const msg be ///Hello, [name]! You are [age] years old.///
+const msg be //;Hello, [name]! You are [age] years old.;//
 ```
 
 コンパイル結果:
@@ -63,7 +83,7 @@ const msg = `Hello, ${name}! You are ${age} years old.`;
 
 ```purus
 const x be 10
-const result be ///[x] times 2 is [x mul 2]///
+const result be //;[x] times 2 is [x mul 2];//
 ```
 
 コンパイル結果:
@@ -116,7 +136,7 @@ const e be undefined
 ```purus
 const pi be 3.14          -- 定数（再代入不可）
 let count be 0            -- 変数（再代入可）
-var legacy be ///old///   -- varスコープ（非推奨）
+var legacy be //;old;//   -- varスコープ（非推奨）
 ```
 
 プロパティやインデックスへの代入は宣言キーワード不要です:
@@ -164,7 +184,7 @@ fn add a; b
 
 -- 関数の引数
 add[1; 2]
-console.log[///hello///; ///world///]
+console.log[//;hello;//; //;world;//]
 use p-math as m
 m.max[1; 2; 3]
 
@@ -182,7 +202,7 @@ const object[name; age] be person
 const arr be [1, 2, 3]
 
 -- オブジェクト
-const obj be [name be ///Alice///, age be 30]
+const obj be [name be //;Alice;//, age be 30]
 ```
 
 ### なぜ2つの区切り文字があるのか？
@@ -245,7 +265,7 @@ const partial = numbers.slice(2, 5);
 スライスに代入することで配列の一部を置換できます:
 
 ```purus
-numbers[\2..4] be [///a///; ///b///; ///c///]
+numbers[\2..4] be [//;a;//; //;b;//; //;c;//]
 -- numbers は [0, 1, "a", "b", "c", 5, 6] になります
 ```
 
@@ -260,7 +280,7 @@ numbers.splice(2, 4 - 2 + 1, "a", "b", "c");
 配列から変数に値を取り出します:
 
 ```purus
-const weather be [///Sunny///; ///Rainy///]
+const weather be [//;Sunny;//; //;Rainy;//]
 const [today; tomorrow] be weather
 
 -- 変数の値を入れ替える
@@ -277,7 +297,7 @@ const [today, tomorrow] = weather;
 ## オブジェクト
 
 ```purus
-const obj be [name be ///Alice///, age be 30]
+const obj be [name be //;Alice;//, age be 30]
 const empty-obj be [be]    -- 空のオブジェクト
 ```
 
@@ -286,7 +306,7 @@ const empty-obj be [be]    -- 空のオブジェクト
 `object[...]` を使ってオブジェクトからプロパティを取り出します:
 
 ```purus
-const person be [name be ///Alice///, age be 30]
+const person be [name be //;Alice;//, age be 30]
 const object[name; age] be person
 ```
 
@@ -340,7 +360,7 @@ const items be [
 ]
 
 const config be [
-  host be ///localhost///,
+  host be //;localhost;//,
   port be 8080
 ]
 
@@ -359,9 +379,9 @@ fetch[url].then[
 
 ```purus
 if x gt 0
-  console.log[///positive///]
+  console.log[//;positive;//]
 else
-  console.log[///non-positive///]
+  console.log[//;non-positive;//]
 ```
 
 ## 識別子
@@ -392,10 +412,10 @@ JavaScriptではバッククォートと `${}` を使いますが、Purusでは 
 
 ```purus
 -- JavaScript: `Hello, ${name}! You are ${age} years old.`
-const msg be ///Hello, [name]! You are [age] years old.///
+const msg be //;Hello, [name]! You are [age] years old.;//
 
 -- JavaScript: `${a} + ${b} = ${a + b}`
-const result be ///[a] + [b] = [a add b]///
+const result be //;[a] + [b] = [a add b];//
 ```
 
 ```js
@@ -412,7 +432,7 @@ JavaScriptの `??` 演算子はPurusでは `coal` になります:
 const port be config.port coal 3000
 
 -- JavaScript: const name = user?.name ?? "Anonymous";
-const name be user\.name coal ///Anonymous///
+const name be user\.name coal //;Anonymous;//
 ```
 
 ```js
@@ -426,7 +446,7 @@ JavaScriptの三項演算子 `condition ? a : b` は `if condition then a else b
 
 ```purus
 -- JavaScript: const label = count > 0 ? "items" : "empty";
-const label be if count gt 0 then ///items/// else ///empty///
+const label be if count gt 0 then //;items;// else //;empty;//
 ```
 
 ```js

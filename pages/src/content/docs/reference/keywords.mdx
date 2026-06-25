@@ -191,6 +191,17 @@ arr[\0] be value
 | `get` | `get` | Getter accessor |
 | `set` | `set` | Setter accessor |
 
+## Strings
+
+| Syntax | Description |
+|---|---|
+| `//;text;//` | String literal — **recommended** |
+| `///text///` | String literal — also valid (original syntax) |
+| `//;text [expr] text;//` | Interpolated string (recommended form) |
+| `///text [expr] text///` | Interpolated string (original form) |
+
+Both syntaxes produce identical JavaScript output. `//;...;//` is preferred for readability: the `;` delimiter does not conflict with `[expr]` interpolation, and `//` in content (e.g. URLs) is never confused with the closing `;//`.
+
 ## Punctuation
 
 | Symbol | Meaning |

@@ -1,2 +1,2 @@
--- Hello World in Purus
-console.log[///Hello, World!///]
+﻿-- Hello World in Purus
+console.log[//;Hello, World!;//]

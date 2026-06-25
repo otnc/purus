@@ -34,6 +34,18 @@ Change history for Purus syntax, specifications, and reserved keywords.
     case blank then ///unknown///
   ```
 
+- **`//;text;//` semicolon string syntax**: An alternative to `///text///` that avoids visual confusion with URLs. `;` serves as the inner delimiter, so `//` inside (e.g. `https://`) never conflicts with the closing `;//`. Supports the same `[expr]` interpolation and escape sequences as `///...///`.
+
+  ```purus
+  const url be //;https://api.example.com/v1;//
+  const msg be //;Hello, [name]!;//
+  ```
+
+  Use `\;` to include a literal `;` followed by `//`:
+  ```purus
+  const s be //;end\;// here;//   -- "end;// here"
+  ```
+
 ---
 
 ## v0.10.1 (2026-05-09)

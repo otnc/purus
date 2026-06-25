@@ -1,4 +1,4 @@
----
+﻿---
 title: p-random
 description: 乱数生成と確率分布。
 sidebar:
@@ -118,7 +118,7 @@ r.gauss[100; 15]    -- IQ的な分布
 
 ```purus
 use p-random as r
-r.choice[[///red///; ///green///; ///blue///]]  -- 例: "green"
+r.choice[[//;red;//; //;green;//; //;blue;//]]  -- 例: "green"
 ```
 
 ### `choices[arr; k]`
@@ -126,7 +126,7 @@ r.choice[[///red///; ///green///; ///blue///]]  -- 例: "green"
 
 ```purus
 use p-random as r
-r.choices[[///a///; ///b///; ///c///]; 5]  -- 例: ["b", "a", "c", "a", "b"]
+r.choices[[//;a;//; //;b;//; //;c;//]; 5]  -- 例: ["b", "a", "c", "a", "b"]
 ```
 
 ### `wchoices[arr; weights; k]`
@@ -134,7 +134,7 @@ r.choices[[///a///; ///b///; ///c///]; 5]  -- 例: ["b", "a", "c", "a", "b"]
 
 ```purus
 use p-random as r
-r.wchoices[[///rare///; ///common///]; [1; 9]; 10]
+r.wchoices[[//;rare;//; //;common;//]; [1; 9]; 10]
 -- ほとんど "common"
 ```
 

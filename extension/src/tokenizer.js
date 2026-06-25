@@ -93,6 +93,25 @@ function tokenize(source) {
       tokens.push({ type: "string", value: source.slice(i, j), line: sl, col: sc, endLine: line, endCol: col });
       i = j;
       continue;
+
+    // Semicolon string //;...;//
+    } else if (source[i] === "/" && source[i + 1] === "/" && source[i + 2] === ";") {
+      let j = i + 3; col += 3;
+      let closed = false;
+      while (j < len) {
+        if (source[j] === "\\" && j + 1 < len) { j += 2; col += 2; continue; }
+        if (source[j] === ";" && source[j + 1] === "/" && source[j + 2] === "/") {
+          j += 3; col += 3; closed = true; break;
+        }
+        if (source[j] === "\n") { line++; col = 0; } else { col++; }
+        j++;
+      }
+      if (!closed) {
+        errors.push({ line: sl, col: sc, endLine: line, endCol: col, msg: "Unclosed semicolon string `//;`" });
+      }
+      tokens.push({ type: "string", value: source.slice(i, j), line: sl, col: sc, endLine: line, endCol: col });
+      i = j;
+      continue;
     }
 
     // Regex /pattern/flags (single slash, not part of ///)

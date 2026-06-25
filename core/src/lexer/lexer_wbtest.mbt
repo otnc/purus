@@ -373,3 +373,73 @@ test "lexer: is is no longer a keyword" {
   assert_eq(tokens[0].kind, Indent(0))
   assert_eq(tokens[1].kind, Ident("is"))
 }
+
+// ===== Semicolon string //;...;// =====
+
+///|
+test "lexer: semicolon string plain" {
+  let tokens = Lexer::new("//;hello;//").tokenize()
+  assert_eq(tokens[1].kind, Str("hello"))
+}
+
+///|
+test "lexer: semicolon string with spaces" {
+  let tokens = Lexer::new("//;hello world;//").tokenize()
+  assert_eq(tokens[1].kind, Str("hello world"))
+}
+
+///|
+test "lexer: semicolon string empty" {
+  let tokens = Lexer::new("//;;//").tokenize()
+  assert_eq(tokens[1].kind, Str(""))
+}
+
+///|
+test "lexer: semicolon string with url" {
+  let tokens = Lexer::new("//;https://example.com/api;//").tokenize()
+  assert_eq(tokens[1].kind, Str("https://example.com/api"))
+}
+
+///|
+test "lexer: semicolon string with double slash inside" {
+  let tokens = Lexer::new("//;see // for details;//").tokenize()
+  assert_eq(tokens[1].kind, Str("see // for details"))
+}
+
+///|
+test "lexer: semicolon string interpolated" {
+  let tokens = Lexer::new("//;hello [name]!;//").tokenize()
+  match tokens[1].kind {
+    InterpStr(segs) => {
+      assert_eq(segs.length(), 3)
+      assert_eq(segs[0], "hello ")
+      assert_eq(segs[1], "name")
+      assert_eq(segs[2], "!")
+    }
+    _ => fail("expected InterpStr")
+  }
+}
+
+///|
+test "lexer: semicolon string escape semicolon" {
+  let tokens = Lexer::new("//;a\\;b;//").tokenize()
+  assert_eq(tokens[1].kind, Str("a;b"))
+}
+
+///|
+test "lexer: semicolon string does not affect triple slash" {
+  let tokens = Lexer::new("///hello///").tokenize()
+  assert_eq(tokens[1].kind, Str("hello"))
+}
+
+///|
+test "lexer: semicolon string does not affect regex" {
+  let tokens = Lexer::new("/[a-z]/gi").tokenize()
+  match tokens[1].kind {
+    Regex(pat, flags) => {
+      assert_eq(pat, "[a-z]")
+      assert_eq(flags, "gi")
+    }
+    _ => fail("expected Regex")
+  }
+}

@@ -84,6 +84,20 @@ function tokenize(source) {
       continue;
     }
 
+    // Semicolon string //;...;//
+    if (source[i] === "/" && source[i + 1] === "/" && source[i + 2] === ";") {
+      let j = i + 3; col += 3;
+      while (j < len) {
+        if (source[j] === "\\" && j + 1 < len) { j += 2; col += 2; continue; }
+        if (source[j] === ";" && source[j + 1] === "/" && source[j + 2] === "/") { j += 3; col += 3; break; }
+        if (source[j] === "\n") { line++; col = 1; } else { col++; }
+        j++;
+      }
+      tokens.push({ type: "string", value: source.slice(i, j), line: startLine, col: startCol });
+      i = j;
+      continue;
+    }
+
     // Punctuation
     if ("[],;".includes(source[i])) {
       tokens.push({ type: "punct", value: source[i], line: startLine, col: startCol });

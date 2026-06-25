@@ -1,4 +1,4 @@
----
+﻿---
 title: p-datetime
 description: Date and time utility functions.
 sidebar:
@@ -52,7 +52,7 @@ Parses an ISO 8601 date string and returns a timestamp.
 
 ```purus
 use p-datetime as dt
-const t be dt.fromiso[///2026-04-08T00:00:00Z///]
+const t be dt.fromiso[//;2026-04-08T00:00:00Z;//]
 ```
 
 ## Extract Components (Local)
@@ -105,8 +105,8 @@ Extract components for a specific IANA timezone.
 ```purus
 use p-datetime as dt
 const t be dt.now[]
-console.log[dt.tzhour[t; ///America/New_York///]]
-console.log[dt.tzhour[t; ///Asia/Tokyo///]]
+console.log[dt.tzhour[t; //;America/New_York;//]]
+console.log[dt.tzhour[t; //;Asia/Tokyo;//]]
 ```
 
 ## Format
@@ -134,9 +134,9 @@ Returns a formatted string for a specific timezone and locale.
 ```purus
 use p-datetime as dt
 const t be dt.now[]
-dt.tolocale[t; ///en-US///]
-dt.todate[t; ///ja-JP///]
-dt.format[t; ///Asia/Tokyo///; ///ja-JP///]
+dt.tolocale[t; //;en-US;//]
+dt.todate[t; //;ja-JP;//]
+dt.format[t; //;Asia/Tokyo;//; //;ja-JP;//]
 ```
 
 ## Arithmetic
