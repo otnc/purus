@@ -24,22 +24,30 @@ sidebar:
 
 ## 文字列
 
-Purusには2種類の文字列構文があります。どちらも同じJavaScriptに出力されます。
+Purusには同じJavaScriptに出力される2種類の文字列構文があります。
 
-**トリプルスラッシュ** `///text///`:
-
-```purus
-const greeting be //;Hello, World;//
-```
-
-**セミコロン文字列** `//;text;//`:
+### `//;text;//` — 推奨
 
 ```purus
 const greeting be //;Hello, World;//
 const url be //;https://api.example.com/v1;//
+const tmpl be //;Hello, [name]!;//
 ```
 
-URLなど `//` を含む内容を書く場合はセミコロン形式が推奨です。`;` を内側のデリミタとして使うため、補完 `[expr]` と競合しません。
+`//;...;//` が**推奨**の構文です。`;` をデリミタとすることで `[expr]` 補完との概念的な重複を避け、URLなど `//` を含む内容でも視覚的な混乱が生じません。
+
+### `///text///` — 使用可能
+
+```purus
+const greeting be ///Hello, World///
+const url be ///https://api.example.com/v1///
+```
+
+`///...///` は完全にサポートされており、同一の出力を生成します。元々の構文で引き続き有効です。好みに応じて使用できます。
+
+:::note
+このドキュメントのコード例はすべて `//;...;//` を使用しています。どちらの形式も互換です。
+:::
 
 ### エスケープシーケンス
 

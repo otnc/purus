@@ -265,23 +265,25 @@ BigInt compiles directly to JavaScript BigInt literals. Arithmetic on BigInt req
 
 ### 4.2 Strings
 
-Purus has two string syntaxes that produce identical output:
+Purus has two string syntaxes that produce identical output. The semicolon form `//;...;//` is **recommended**; the triple-slash form `///...///` remains fully supported for backward compatibility.
 
-**Triple-slash strings** `///...///`:
-
-```
-const greeting be //;Hello, World;//
-const url be //;https://api.example.com;//
-```
-
-**Semicolon strings** `//;...;//` (since v0.11.0):
+**Semicolon strings** `//;...;//` (recommended, since v0.11.0):
 
 ```
 const greeting be //;Hello, World;//
 const url be //;https://api.example.com;//
 ```
 
-Both compile to JavaScript string literals. The semicolon form is preferred when the content contains `//` (such as URLs) to avoid visual confusion with the closing delimiter. `;` as the inner delimiter also avoids any conceptual overlap with `[expr]` interpolation.
+**Triple-slash strings** `///...///` (original, fully supported):
+
+```
+const greeting be ///Hello, World///
+const url be ///https://api.example.com///
+```
+
+Both compile to identical JavaScript string literals. The semicolon form is preferred because:
+- `;` as delimiter does not conflict with `[expr]` interpolation
+- `//` inside the content (e.g. in URLs) cannot be confused with the closing delimiter `;//`
 
 ```js
 const greeting = "Hello, World";

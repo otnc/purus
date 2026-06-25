@@ -24,22 +24,30 @@ block comment ---
 
 ## Strings
 
-Purus has two string syntaxes. Both compile to identical JavaScript output.
+Purus has two string syntaxes that compile to identical JavaScript output.
 
-**Triple-slash** `///text///`:
-
-```purus
-const greeting be //;Hello, World;//
-```
-
-**Semicolon string** `//;text;//`:
+### `//;text;//` — Recommended
 
 ```purus
 const greeting be //;Hello, World;//
 const url be //;https://api.example.com/v1;//
+const tmpl be //;Hello, [name]!;//
 ```
 
-The semicolon form is preferred when the content contains `//` (such as URLs) — `;` as the inner delimiter does not conflict with interpolation `[expr]`.
+`//;...;//` is the **recommended** syntax. `;` as the delimiter does not conflict with `[expr]` interpolation and avoids visual confusion when content contains `//` (such as URLs).
+
+### `///text///` — Also valid
+
+```purus
+const greeting be ///Hello, World///
+const url be ///https://api.example.com/v1///
+```
+
+`///...///` is fully supported and produces identical output. It is the original syntax and remains valid — use it if you prefer.
+
+:::note
+All examples in this documentation use `//;...;//`. Both forms are interchangeable.
+:::
 
 ### Escape sequences
 
