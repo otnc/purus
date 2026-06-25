@@ -1,4 +1,4 @@
-﻿---
+---
 title: p-json
 description: JSONのパースとシリアライズ。
 sidebar:
@@ -18,7 +18,7 @@ JSON文字列をパースし、対応する値を返します。
 
 ```purus
 use p-json as j
-const data be j.parse[//;{"name": "Purus", "version": 1};//]
+const data be j.parse[///{"name": "Purus", "version": 1}///]
 console.log[data.name]  -- "Purus"
 ```
 
@@ -27,7 +27,7 @@ console.log[data.name]  -- "Purus"
 
 ```purus
 use p-json as j
-const obj be [name be //;Purus;//, version be 1]
+const obj be [name be ///Purus///, version be 1]
 const text be j.stringify[obj]
 console.log[text]  -- {"name":"Purus","version":1}
 ```
@@ -37,7 +37,7 @@ console.log[text]  -- {"name":"Purus","version":1}
 
 ```purus
 use p-json as j
-const obj be [name be //;Purus;//, version be 1]
+const obj be [name be ///Purus///, version be 1]
 console.log[j.prettify[obj]]
 -- {
 --   "name": "Purus",

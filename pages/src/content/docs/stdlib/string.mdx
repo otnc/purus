@@ -1,4 +1,4 @@
-﻿---
+---
 title: p-string
 description: String utility functions.
 sidebar:
@@ -18,7 +18,7 @@ Returns the length of the string.
 
 ```purus
 use p-string as s
-s.len[//;hello;//]  -- 5
+s.len[///hello///]  -- 5
 ```
 
 ### `contains[str; sub]`
@@ -26,7 +26,7 @@ Returns `true` if `str` contains `sub`.
 
 ```purus
 use p-string as s
-s.contains[//;hello world;//; //;world;//]  -- true
+s.contains[///hello world///; ///world///]  -- true
 ```
 
 ### `startswith[str; prefix]`
@@ -37,8 +37,8 @@ Returns `true` if `str` ends with `suffix`.
 
 ```purus
 use p-string as s
-s.startswith[//;hello;//; //;he;//]  -- true
-s.endswith[//;hello;//; //;lo;//]    -- true
+s.startswith[///hello///; ///he///]  -- true
+s.endswith[///hello///; ///lo///]    -- true
 ```
 
 ### `indexof[str; sub]`
@@ -46,8 +46,8 @@ Returns the index of the first occurrence of `sub` in `str`, or -1 if not found.
 
 ```purus
 use p-string as s
-s.indexof[//;hello;//; //;ll;//]  -- 2
-s.indexof[//;hello;//; //;xyz;//] -- -1
+s.indexof[///hello///; ///ll///]  -- 2
+s.indexof[///hello///; ///xyz///] -- -1
 ```
 
 ### `count[str; sub]`
@@ -55,7 +55,7 @@ Returns the number of non-overlapping occurrences of `sub` in `str`.
 
 ```purus
 use p-string as s
-s.count[//;banana;//; //;an;//]  -- 2
+s.count[///banana///; ///an///]  -- 2
 ```
 
 ## Transform
@@ -68,8 +68,8 @@ Returns the string converted to lowercase.
 
 ```purus
 use p-string as s
-s.upper[//;hello;//]  -- "HELLO"
-s.lower[//;HELLO;//]  -- "hello"
+s.upper[///hello///]  -- "HELLO"
+s.lower[///HELLO///]  -- "hello"
 ```
 
 ### `capitalize[str]`
@@ -80,8 +80,8 @@ Returns the string with the first character of each word capitalized.
 
 ```purus
 use p-string as s
-s.capitalize[//;hello world;//]  -- "Hello world"
-s.title[//;hello world;//]       -- "Hello World"
+s.capitalize[///hello world///]  -- "Hello world"
+s.title[///hello world///]       -- "Hello World"
 ```
 
 ### `trim[str]`
@@ -95,9 +95,9 @@ Removes whitespace from the end.
 
 ```purus
 use p-string as s
-s.trim[//;  hello  ;//]       -- "hello"
-s.trimstart[//;  hello  ;//]  -- "hello  "
-s.trimend[//;  hello  ;//]    -- "  hello"
+s.trim[///  hello  ///]       -- "hello"
+s.trimstart[///  hello  ///]  -- "hello  "
+s.trimend[///  hello  ///]    -- "  hello"
 ```
 
 ### `reverse[str]`
@@ -105,7 +105,7 @@ Returns the reversed string.
 
 ```purus
 use p-string as s
-s.reverse[//;hello;//]  -- "olleh"
+s.reverse[///hello///]  -- "olleh"
 ```
 
 ### `repeat[str; n]`
@@ -113,7 +113,7 @@ Returns the string repeated `n` times.
 
 ```purus
 use p-string as s
-s.repeat[//;ab;//; 3]  -- "ababab"
+s.repeat[///ab///; 3]  -- "ababab"
 ```
 
 ### `replace[str; old; new]`
@@ -124,8 +124,8 @@ Replaces the **first** occurrence of `old` with `new`.
 
 ```purus
 use p-string as s
-s.replace[//;aabaa;//; //;a;//; //;x;//]       -- "xxbxx"
-s.replacefirst[//;aabaa;//; //;a;//; //;x;//]   -- "xabaa"
+s.replace[///aabaa///; ///a///; ///x///]       -- "xxbxx"
+s.replacefirst[///aabaa///; ///a///; ///x///]   -- "xabaa"
 ```
 
 ### `padstart[str; len; fill]`
@@ -136,8 +136,8 @@ Pads the end of the string to reach `len`. The `fill` character defaults to a sp
 
 ```purus
 use p-string as s
-s.padstart[//;42;//; 5; //;0;//]  -- "00042"
-s.padend[//;hi;//; 5; //;.;//]    -- "hi..."
+s.padstart[///42///; 5; ///0///]  -- "00042"
+s.padend[///hi///; 5; ///.///]    -- "hi..."
 ```
 
 ## Split / Join
@@ -159,10 +159,10 @@ Returns an array of individual characters.
 
 ```purus
 use p-string as s
-s.split[//;a,b,c;//; //;,;//]   -- ["a", "b", "c"]
-s.words[//;hello  world;//]     -- ["hello", "world"]
-s.join[[//;a;//; //;b;//]; //;-;//]  -- "a-b"
-s.chars[//;hi;//]               -- ["h", "i"]
+s.split[///a,b,c///; ///,///]   -- ["a", "b", "c"]
+s.words[///hello  world///]     -- ["hello", "world"]
+s.join[[///a///; ///b///]; ///-///]  -- "a-b"
+s.chars[///hi///]               -- ["h", "i"]
 ```
 
 ## Slice
@@ -181,8 +181,8 @@ Returns the character for the given Unicode code point.
 
 ```purus
 use p-string as s
-s.slice[//;hello;//; 1; 3]   -- "el"
-s.charat[//;hello;//; 0]     -- "h"
-s.codeat[//;A;//; 0]         -- 65
+s.slice[///hello///; 1; 3]   -- "el"
+s.charat[///hello///; 0]     -- "h"
+s.codeat[///A///; 0]         -- 65
 s.fromcode[65]               -- "A"
 ```

@@ -1,4 +1,4 @@
-﻿---
+---
 title: Functions
 description: Function declarations and expressions in Purus.
 sidebar:
@@ -48,7 +48,7 @@ Simply omit the parameters:
 
 ```purus
 fn say-hello
-  console.log[//;Hello!;//]
+  console.log[///Hello!///]
 ```
 
 ```js
@@ -60,7 +60,7 @@ function say_hello() {
 With expression body:
 
 ```purus
-fn say-hello to console.log[//;Hello!;//]
+fn say-hello to console.log[///Hello!///]
 ```
 
 ```js
@@ -191,9 +191,9 @@ fetch(url).then((response) => {
 Use `[]` instead of `()`:
 
 ```purus
-greet[//;world;//]
+greet[///world///]
 add[1; 2]
-console.log[//;hello;//]
+console.log[///hello///]
 ```
 
 ```js
@@ -260,8 +260,8 @@ function f(_, _1, x) { return x; }
 
 ```purus
 switch status
-  case //;ok;// then //;good;//
-  case blank then //;unknown;//
+  case ///ok/// then ///good///
+  case blank then ///unknown///
 ```
 
 ```js
@@ -314,7 +314,7 @@ function* countUp(limit) {
 ```purus
 fn signals
   yield
-  console.log[//;resumed;//]
+  console.log[///resumed///]
   yield
 ```
 

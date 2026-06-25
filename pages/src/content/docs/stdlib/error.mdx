@@ -1,4 +1,4 @@
-﻿---
+---
 title: p-error
 description: Error creation and inspection utilities.
 sidebar:
@@ -36,15 +36,15 @@ Creates an `Error` with a `cause` (for error chaining).
 
 ```purus
 use p-error as e
-throw e.create[//;something went wrong;//]
-throw e.type[//;expected a string;//]
-throw e.range[//;index out of bounds;//]
+throw e.create[///something went wrong///]
+throw e.type[///expected a string///]
+throw e.range[///index out of bounds///]
 
 -- Error chaining
 try
   riskyOperation[]
 catch err
-  throw e.wrap[//;operation failed;//; err]
+  throw e.wrap[///operation failed///; err]
 ```
 
 ## Inspect Errors
@@ -66,13 +66,13 @@ Returns the error's cause (if set via `wrap` or the `cause` option).
 
 ```purus
 use p-error as e
-const err be e.type[//;invalid argument;//]
+const err be e.type[///invalid argument///]
 e.iserror[err]      -- true
 e.message[err]      -- "invalid argument"
 e.name[err]         -- "TypeError"
 e.stack[err]        -- "TypeError: invalid argument\n    at ..."
 
-const wrapped be e.wrap[//;failed;//; err]
+const wrapped be e.wrap[///failed///; err]
 e.cause[wrapped]    -- the original TypeError
 e.message[wrapped]  -- "failed"
 ```

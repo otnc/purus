@@ -1,4 +1,4 @@
-﻿---
+---
 title: p-datetime
 description: 日付と時刻のユーティリティ関数。
 sidebar:
@@ -52,7 +52,7 @@ ISO 8601形式の日付文字列をパースし、タイムスタンプを返し
 
 ```purus
 use p-datetime as dt
-const t be dt.fromiso[//;2026-04-08T00:00:00Z;//]
+const t be dt.fromiso[///2026-04-08T00:00:00Z///]
 ```
 
 ## コンポーネント抽出（ローカル）
@@ -105,8 +105,8 @@ console.log[dt.utchour[t]]  -- UTC時間
 ```purus
 use p-datetime as dt
 const t be dt.now[]
-console.log[dt.tzhour[t; //;America/New_York;//]]
-console.log[dt.tzhour[t; //;Asia/Tokyo;//]]
+console.log[dt.tzhour[t; ///America/New_York///]]
+console.log[dt.tzhour[t; ///Asia/Tokyo///]]
 ```
 
 ## フォーマット
@@ -134,9 +134,9 @@ dt.toiso[dt.now[]]  -- 例: "2026-04-08T05:00:00.000Z"
 ```purus
 use p-datetime as dt
 const t be dt.now[]
-dt.tolocale[t; //;en-US;//]
-dt.todate[t; //;ja-JP;//]
-dt.format[t; //;Asia/Tokyo;//; //;ja-JP;//]
+dt.tolocale[t; ///en-US///]
+dt.todate[t; ///ja-JP///]
+dt.format[t; ///Asia/Tokyo///; ///ja-JP///]
 ```
 
 ## 算術

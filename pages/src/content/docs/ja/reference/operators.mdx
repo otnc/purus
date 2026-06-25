@@ -1,4 +1,4 @@
-﻿---
+---
 title: 演算子
 description: Purusの演算子と優先順位。
 sidebar:
@@ -169,7 +169,7 @@ const partial be numbers[\2...5]  -- [2, 3, 4]
 スライスに代入することで配列の一部を置換できます:
 
 ```purus
-numbers[\2..4] be [//;a;//; //;b;//; //;c;//]
+numbers[\2..4] be [///a///; ///b///; ///c///]
 -- numbers は [0, 1, "a", "b", "c", 5, 6] になります
 ```
 
@@ -180,7 +180,7 @@ numbers[\2..4] be [//;a;//; //;b;//; //;c;//]
 ```purus
 const val be arr[\i]       -- arr[i]
 const item be obj[\key]    -- obj[key]
-arr[\0] be //;new;//        -- arr[0] = "new"
+arr[\0] be ///new///        -- arr[0] = "new"
 ```
 
 `\` プレフィックスにより、関数呼び出し（`f[x]`）とプロパティアクセス（`arr[\x]`）を区別します。
@@ -208,7 +208,7 @@ const deep = a?.b?.c;
 配列から変数に値を取り出します:
 
 ```purus
-const weather be [//;Sunny;//; //;Rainy;//]
+const weather be [///Sunny///; ///Rainy///]
 const [today; tomorrow] be weather
 
 -- 変数の値を入れ替える
@@ -220,7 +220,7 @@ const [today; tomorrow] be weather
 `object[...]` を使ってオブジェクトからプロパティを取り出します:
 
 ```purus
-const config be [host be //;localhost;//, port be 8080]
+const config be [host be ///localhost///, port be 8080]
 const object[host; port] be config
 ```
 
@@ -259,7 +259,7 @@ a ?? b ?? c;
 
 ```purus
 const port be config.port coal 3000      -- portがnull/undefinedの場合のみ3000を使用
-const name be user.name coal //;guest;//  -- nameがnull/undefinedの場合のみ"guest"を使用
+const name be user.name coal ///guest///  -- nameがnull/undefinedの場合のみ"guest"を使用
 ```
 
 ## 型チェック

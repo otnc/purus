@@ -1,4 +1,4 @@
-﻿---
+---
 title: p-error
 description: エラーの作成と検査ユーティリティ。
 sidebar:
@@ -36,15 +36,15 @@ use p-error as e
 
 ```purus
 use p-error as e
-throw e.create[//;何かがおかしい;//]
-throw e.type[//;文字列が期待されます;//]
-throw e.range[//;インデックスが範囲外;//]
+throw e.create[///何かがおかしい///]
+throw e.type[///文字列が期待されます///]
+throw e.range[///インデックスが範囲外///]
 
 -- エラーチェーン
 try
   riskyOperation[]
 catch err
-  throw e.wrap[//;操作に失敗;//; err]
+  throw e.wrap[///操作に失敗///; err]
 ```
 
 ## エラーの検査
@@ -66,13 +66,13 @@ catch err
 
 ```purus
 use p-error as e
-const err be e.type[//;不正な引数;//]
+const err be e.type[///不正な引数///]
 e.iserror[err]      -- true
 e.message[err]      -- "不正な引数"
 e.name[err]         -- "TypeError"
 e.stack[err]        -- "TypeError: 不正な引数\n    at ..."
 
-const wrapped be e.wrap[//;失敗;//; err]
+const wrapped be e.wrap[///失敗///; err]
 e.cause[wrapped]    -- 元のTypeError
 e.message[wrapped]  -- "失敗"
 ```

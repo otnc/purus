@@ -1,4 +1,4 @@
-﻿---
+---
 title: モジュール
 description: Purusのインポート、エクスポート、モジュールシステム。
 sidebar:
@@ -8,11 +8,11 @@ sidebar:
 ## ESMインポート
 
 ```purus
-import express from //;express;//
-import [Hono] from //;hono;//
-import [describe, it, expect] from //;vitest;//
-import axios, [AxiosError] from //;axios;//
-import all as fs from //;fs;//
+import express from ///express///
+import [Hono] from ///hono///
+import [describe, it, expect] from ///vitest///
+import axios, [AxiosError] from ///axios///
+import all as fs from ///fs///
 ```
 
 ```js
@@ -28,11 +28,11 @@ import * as fs from "fs";
 モジュールパスを先に書く構文も使用できます:
 
 ```purus
-from //;express;// import express
-from //;hono;// import [Hono]
-from //;vitest;// import [describe, it, expect]
-from //;axios;// import axios, [AxiosError]
-from //;fs;// import all as fs
+from ///express/// import express
+from ///hono/// import [Hono]
+from ///vitest/// import [describe, it, expect]
+from ///axios/// import axios, [AxiosError]
+from ///fs/// import all as fs
 ```
 
 上記の `import...from` 構文と同じJavaScriptにコンパイルされます。
@@ -42,8 +42,8 @@ from //;fs;// import all as fs
 バインディングなしでモジュールの副作用のみをインポートします:
 
 ```purus
-import //;dotenv/config;//
-import //;./polyfills;//
+import ///dotenv/config///
+import ///./polyfills///
 ```
 
 ```js
@@ -56,8 +56,8 @@ import "./polyfills";
 `with` キーワードを使用してインポート属性を指定できます:
 
 ```purus
-import package from //;./package.json;// with [ type be //;json;// ]
-import [name; version] from //;./package.json;// with [ type be //;json;// ]
+import package from ///./package.json/// with [ type be ///json/// ]
+import [name; version] from ///./package.json/// with [ type be ///json/// ]
 ```
 
 ```js
@@ -68,8 +68,8 @@ import { name, version } from "./package.json" with { type: "json" };
 `from...import` 構文でも `with` を使用できます:
 
 ```purus
-from //;./data.json;// import data with [ type be //;json;// ]
-from //;./package.json;// import [name, version] with [ type be //;json;// ]
+from ///./data.json/// import data with [ type be ///json/// ]
+from ///./package.json/// import [name, version] with [ type be ///json/// ]
 ```
 
 ```js
@@ -122,9 +122,9 @@ const s = { upper(str) { ... }, reverse(str) { ... } };
 
 ```purus
 public fn greet name to console.log[name]
-public const VERSION be //;1.0;//
+public const VERSION be ///1.0///
 export default fn main
-  console.log[//;hi;//]
+  console.log[///hi///]
 ```
 
 ```js
@@ -172,13 +172,13 @@ purus build --type module
 ### config.purus
 
 ```purus
-const type be //;module;//
+const type be ///module///
 ```
 
 または
 
 ```purus
-const type be //;commonjs;//
+const type be ///commonjs///
 ```
 
 値は `package.json` の `type` フィールドと同じです: `module`（ESM）または `commonjs`（CJS）。
@@ -188,10 +188,10 @@ const type be //;commonjs;//
 モジュールタイプが `commonjs` に設定されている場合、インポートとエクスポートは CJS 構文にコンパイルされます:
 
 ```purus
-import express from //;express;//
-import [Hono] from //;hono;//
-import all as fs from //;fs;//
-import //;dotenv/config;//
+import express from ///express///
+import [Hono] from ///hono///
+import all as fs from ///fs///
+import ///dotenv/config///
 ```
 
 ```js
@@ -202,7 +202,7 @@ require("dotenv/config");
 ```
 
 ```purus
-public const VERSION be //;1.0;//
+public const VERSION be ///1.0///
 export default 42
 ```
 
@@ -219,7 +219,7 @@ module.exports = 42;
 ## CommonJS
 
 ```purus
-const fs be require[//;fs;//]
+const fs be require[///fs///]
 ```
 
 ```js

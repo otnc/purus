@@ -1,4 +1,4 @@
-﻿# Purus Language Specification
+# Purus Language Specification
 
 **RFC — v0.11.0**
 
@@ -198,8 +198,8 @@ The following words are reserved and cannot be used as identifiers:
 |------|--------|---------|
 | Integer | Decimal digits | `42`, `-3` |
 | Float | Digits with `.` | `3.14`, `-0.5` |
-| String | `//;` delimiters | `;//hello//;` |
-| Interpolated string | `;//...[expr]...//;` | `;//Hello, [name]!//;` |
+| String | `///` delimiters | `///hello///` |
+| Interpolated string | `///...[expr]...///` | `///Hello, [name]!///` |
 | Regex | `/pattern/flags` | `/[a-z]+/gi` |
 | Boolean | `true` / `false` | `true` |
 | Null | `null` / `nil` | `null` |
@@ -230,7 +230,7 @@ A `#!` line at the beginning of a file is recognized and preserved:
 
 ```
 #!/usr/bin/env node
-const message be ;//Hello//;
+const message be ///Hello///
 ```
 
 ---
@@ -267,11 +267,11 @@ BigInt compiles directly to JavaScript BigInt literals. Arithmetic on BigInt req
 
 Purus has two string syntaxes that produce identical output:
 
-**Triple-slash strings** `;//...//;`:
+**Triple-slash strings** `///...///`:
 
 ```
-const greeting be ;//Hello, World//;
-const url be ;//https://api.example.com//;
+const greeting be ///Hello, World///
+const url be ///https://api.example.com///
 ```
 
 **Semicolon strings** `//;...;//` (since v0.11.0):
@@ -305,9 +305,9 @@ const url = "https://api.example.com";
 Embed expressions inside strings using `[expr]`:
 
 ```
-const name be ;//Alice//;
+const name be ///Alice///
 const age be 30
-const msg be ;//Hello, [name]! You are [age] years old.//;
+const msg be ///Hello, [name]! You are [age] years old.///
 ```
 
 Compiles to:
@@ -321,13 +321,13 @@ const msg = `Hello, ${name}! You are ${age} years old.`;
 Any valid Purus expression can appear inside brackets:
 
 ```
-const result be ;//[x] times 2 is [x mul 2]//;
+const result be ///[x] times 2 is [x mul 2]///
 ```
 
 Nested brackets are correctly handled — the lexer tracks bracket depth:
 
 ```
-const msg be ;//first: [arr[0]]//;
+const msg be ///first: [arr[0]]///
 ```
 
 Both string syntaxes support interpolation:
@@ -396,14 +396,14 @@ const items be list[1; 2; 3]
 **Bracket syntax:**
 
 ```
-const obj be [name be ;//Alice//;, age be 30]
+const obj be [name be ///Alice///, age be 30]
 const empty-obj be [be]    -- empty object
 ```
 
 **Explicit constructor:** `object[...]`:
 
 ```
-const person be object[name be ;//Alice//;, age be 30]
+const person be object[name be ///Alice///, age be 30]
 ```
 
 **Shorthand properties:**
@@ -554,7 +554,7 @@ const result = obj?.method(arg);
 Combine with `coal` for default values:
 
 ```
-const display be user\.name coal ;//anonymous//;
+const display be user\.name coal ///anonymous///
 ```
 
 ### 5.9 Type Check and Cast
@@ -564,7 +564,7 @@ const display be user\.name coal ;//anonymous//;
 | Purus | JS |
 |-------|----|
 | `typeof x` | `typeof x` |
-| `typeof x eq ;//string//;` | `typeof x === "string"` |
+| `typeof x eq ///string///` | `typeof x === "string"` |
 | `x instanceof Y` | `x instanceof Y` |
 
 **Type cast with `as`:**
@@ -632,7 +632,7 @@ let { host, port } = config;
 Property and index assignments use `be` without a declaration keyword:
 
 ```
-obj.field be ;//new value//;
+obj.field be ///new value///
 this.x be 10
 arr[\i] be 0
 ```
@@ -653,7 +653,7 @@ A declaration keyword may be used with dotted property access. When `obj` has no
 const p.x be 10    -- const p = {}; p.x = 10;
 const p.y be 20    -- p.y = 20;  (no re-init)
 
-let cfg.host be ;//localhost//;   -- let cfg = {}; cfg.host = "localhost";
+let cfg.host be ///localhost///   -- let cfg = {}; cfg.host = "localhost";
 let cfg.port be 3000              -- cfg.port = 3000;
 
 var state.count be 0              -- var state = {}; state.count = 0;
@@ -712,7 +712,7 @@ Simply omit the parameter list:
 
 ```
 fn say-hello
-  console.log[;//Hello!//;]
+  console.log[///Hello!///]
 ```
 
 ```js
@@ -724,7 +724,7 @@ function say_hello() {
 With expression body:
 
 ```
-fn say-hello to console.log[;//Hello!//;]
+fn say-hello to console.log[///Hello!///]
 ```
 
 ```js
@@ -825,9 +825,9 @@ async function fetch_data(url) {
 Use `[]` instead of `()`:
 
 ```
-greet[;//world//;]        -- greet("world")
+greet[///world///]        -- greet("world")
 add[1; 2]                -- add(1, 2)
-console.log[;//hello//;]  -- console.log("hello")
+console.log[///hello///]  -- console.log("hello")
 ```
 
 **Nested calls:** Use `;` to separate arguments to distinguish from nested function calls:
@@ -907,7 +907,7 @@ promise.then((result) => {
 With multi-line brackets, complex callback patterns become natural:
 
 ```
-app.get[;//path//;; async fn req; res
+app.get[///path///; async fn req; res
   const data be await fetch-data[]
   res.json[data]
 ]
@@ -989,11 +989,11 @@ fn infinite-ids
 
 ```
 if x lt 0
-  console.log[;//negative//;]
+  console.log[///negative///]
 elif x eq 0
-  console.log[;//zero//;]
+  console.log[///zero///]
 else
-  console.log[;//positive//;]
+  console.log[///positive///]
 ```
 
 `else if` is also accepted as an alternative to `elif`.
@@ -1028,8 +1028,8 @@ const result = condition ? 1 : 2;
 Statements can have postfix `if`, `unless`, or `for`:
 
 ```
-console.log[;//debug//;] if verbose
-console.log[;//skip//;] unless done
+console.log[///debug///] if verbose
+console.log[///skip///] unless done
 console.log[item] for item in list
 ```
 
@@ -1116,9 +1116,9 @@ for (let i = 0; i < 10; i++) {
 
 ```
 switch x
-  case 1 then ;//one//;
-  case 2 then ;//two//;
-  default ;//other//;
+  case 1 then ///one///
+  case 2 then ///two///
+  default ///other///
 ```
 
 **Block body in arms:**
@@ -1126,22 +1126,22 @@ switch x
 ```
 switch value
   case n if n gt 0
-    console.log[;//positive//;]
+    console.log[///positive///]
   default
-    console.log[;//non-positive//;]
+    console.log[///non-positive///]
 ```
 
 **Expression form** (compiled to IIFE):
 
 ```
 const label be switch status
-  case 200 then ;//ok//;
-  case 404 then ;//not found//;
-  default ;//unknown//;
+  case 200 then ///ok///
+  case 404 then ///not found///
+  default ///unknown///
 ```
 
 Switch arms support:
-- **Literal patterns:** `case 1`, `case ;//hello//;`, `case true`
+- **Literal patterns:** `case 1`, `case ///hello///`, `case true`
 - **Binding patterns:** `case n` (binds the value to `n`)
 - **Wildcard:** `default` (default arm, matches anything) or `case blank` (anonymous wildcard, no binding)
 - **Guards:** `case n if n gt 0` (additional condition)
@@ -1151,8 +1151,8 @@ Switch arms support:
 
 ```
 switch status
-  case ;//ok//; then ;//good//;
-  case blank then ;//unknown//;
+  case ///ok/// then ///good///
+  case blank then ///unknown///
 ```
 
 ### 8.10 Match / When (deprecated)
@@ -1164,9 +1164,9 @@ switch status
 
 ```
 match x
-  when 1 then ;//one//;
-  when 2 then ;//two//;
-  else ;//other//;
+  when 1 then ///one///
+  when 2 then ///two///
+  else ///other///
 ```
 
 **Block body in arms:**
@@ -1174,22 +1174,22 @@ match x
 ```
 match value
   when n if n gt 0
-    console.log[;//positive//;]
+    console.log[///positive///]
   else
-    console.log[;//non-positive//;]
+    console.log[///non-positive///]
 ```
 
 **Expression form** (compiled to IIFE):
 
 ```
 const label be match status
-  when 200 then ;//ok//;
-  when 404 then ;//not found//;
-  else ;//unknown//;
+  when 200 then ///ok///
+  when 404 then ///not found///
+  else ///unknown///
 ```
 
 Match arms support:
-- **Literal patterns:** `when 1`, `when ;//hello//;`, `when true`
+- **Literal patterns:** `when 1`, `when ///hello///`, `when true`
 - **Binding patterns:** `when n` (binds the value to `n`)
 - **Wildcard:** `else` (default arm, matches anything)
 - **Guards:** `when n if n gt 0` (additional condition)
@@ -1235,7 +1235,7 @@ Compiles to an IIFE with try/catch.
 ### 9.3 Throw
 
 ```
-throw new Error[;//something went wrong//;]
+throw new Error[///something went wrong///]
 throw err if condition    -- postfix if
 ```
 
@@ -1246,11 +1246,11 @@ throw err if condition    -- postfix if
 ### 10.1 ESM Import
 
 ```
-import express from ;//express//;
-import [Hono] from ;//hono//;
-import [describe; it; expect] from ;//vitest//;
-import axios, [AxiosError] from ;//axios//;
-import all as fs from ;//fs//;
+import express from ///express///
+import [Hono] from ///hono///
+import [describe; it; expect] from ///vitest///
+import axios, [AxiosError] from ///axios///
+import all as fs from ///fs///
 ```
 
 ```js
@@ -1266,10 +1266,10 @@ import * as fs from "fs";
 The `from...import` syntax places the module path first, followed by the import bindings:
 
 ```
-from ;//express//; import express
-from ;//react//; import [useState, useEffect]
-from ;//fs//; import all as fs
-from ;//axios//; import axios, [AxiosError]
+from ///express/// import express
+from ///react/// import [useState, useEffect]
+from ///fs/// import all as fs
+from ///axios/// import axios, [AxiosError]
 ```
 
 ```js
@@ -1364,31 +1364,31 @@ The `p-math` module is a direct alias for JS `Math` — all standard `Math` meth
 
 | Function | Description | Example |
 |----------|-------------|---------|
-| `len[str]` | String length | `s.len[;//hello//;]` → `5` |
-| `contains[str; sub]` | Check if contains substring | `s.contains[;//hello//;; ;//ell//;]` → `true` |
-| `startswith[str; prefix]` | Check prefix | `s.startswith[;//hello//;; ;//he//;]` → `true` |
-| `endswith[str; suffix]` | Check suffix | `s.endswith[;//hello//;; ;//lo//;]` → `true` |
-| `indexof[str; sub]` | First index of substring | `s.indexof[;//hello//;; ;//ll//;]` → `2` |
-| `count[str; sub]` | Count occurrences | `s.count[;//banana//;; ;//an//;]` → `2` |
-| `upper[str]` | Uppercase | `s.upper[;//hello//;]` → `;//HELLO//;` |
-| `lower[str]` | Lowercase | `s.lower[;//HELLO//;]` → `;//hello//;` |
-| `capitalize[str]` | Capitalize first char | `s.capitalize[;//hello//;]` → `;//Hello//;` |
-| `title[str]` | Title case | `s.title[;//hello world//;]` → `;//Hello World//;` |
-| `trim[str]` | Trim whitespace | `s.trim[;// hello //;]` → `;//hello//;` |
-| `reverse[str]` | Reverse string | `s.reverse[;//abc//;]` → `;//cba//;` |
-| `repeat[str; n]` | Repeat n times | `s.repeat[;//ab//;; 3]` → `;//ababab//;` |
-| `replace[str; old; new]` | Replace all occurrences | `s.replace[;//aabb//;; ;//a//;; ;//x//;]` → `;//xxbb//;` |
-| `padstart[str; len; fill]` | Pad start | `s.padstart[;//5//;; 3; ;//0//;]` → `;//005//;` |
-| `padend[str; len; fill]` | Pad end | `s.padend[;//5//;; 3; ;//0//;]` → `;//500//;` |
-| `split[str; sep]` | Split string | `s.split[;//a,b,c//;; ;//,//;]` → `[;//a//;; ;//b//;; ;//c//;]` |
-| `lines[str]` | Split by newlines | `s.lines[;//a\nb//;]` → `[;//a//;; ;//b//;]` |
-| `words[str]` | Split by whitespace | `s.words[;//foo bar//;]` → `[;//foo//;; ;//bar//;]` |
-| `join[arr; sep]` | Join array | `s.join[list[;//a//;; ;//b//;]; ;//,//;]` → `;//a,b//;` |
-| `chars[str]` | Split into chars | `s.chars[;//abc//;]` → `[;//a//;; ;//b//;; ;//c//;]` |
-| `slice[str; start; end]` | Slice substring | `s.slice[;//hello//;; 1; 3]` → `;//el//;` |
-| `charat[str; i]` | Char at index | `s.charat[;//hello//;; 0]` → `;//h//;` |
-| `codeat[str; i]` | Code point at index | `s.codeat[;//A//;; 0]` → `65` |
-| `fromcode[code]` | String from code point | `s.fromcode[65]` → `;//A//;` |
+| `len[str]` | String length | `s.len[///hello///]` → `5` |
+| `contains[str; sub]` | Check if contains substring | `s.contains[///hello///; ///ell///]` → `true` |
+| `startswith[str; prefix]` | Check prefix | `s.startswith[///hello///; ///he///]` → `true` |
+| `endswith[str; suffix]` | Check suffix | `s.endswith[///hello///; ///lo///]` → `true` |
+| `indexof[str; sub]` | First index of substring | `s.indexof[///hello///; ///ll///]` → `2` |
+| `count[str; sub]` | Count occurrences | `s.count[///banana///; ///an///]` → `2` |
+| `upper[str]` | Uppercase | `s.upper[///hello///]` → `///HELLO///` |
+| `lower[str]` | Lowercase | `s.lower[///HELLO///]` → `///hello///` |
+| `capitalize[str]` | Capitalize first char | `s.capitalize[///hello///]` → `///Hello///` |
+| `title[str]` | Title case | `s.title[///hello world///]` → `///Hello World///` |
+| `trim[str]` | Trim whitespace | `s.trim[/// hello ///]` → `///hello///` |
+| `reverse[str]` | Reverse string | `s.reverse[///abc///]` → `///cba///` |
+| `repeat[str; n]` | Repeat n times | `s.repeat[///ab///; 3]` → `///ababab///` |
+| `replace[str; old; new]` | Replace all occurrences | `s.replace[///aabb///; ///a///; ///x///]` → `///xxbb///` |
+| `padstart[str; len; fill]` | Pad start | `s.padstart[///5///; 3; ///0///]` → `///005///` |
+| `padend[str; len; fill]` | Pad end | `s.padend[///5///; 3; ///0///]` → `///500///` |
+| `split[str; sep]` | Split string | `s.split[///a,b,c///; ///,///]` → `[///a///; ///b///; ///c///]` |
+| `lines[str]` | Split by newlines | `s.lines[///a\nb///]` → `[///a///; ///b///]` |
+| `words[str]` | Split by whitespace | `s.words[///foo bar///]` → `[///foo///; ///bar///]` |
+| `join[arr; sep]` | Join array | `s.join[list[///a///; ///b///]; ///,///]` → `///a,b///` |
+| `chars[str]` | Split into chars | `s.chars[///abc///]` → `[///a///; ///b///; ///c///]` |
+| `slice[str; start; end]` | Slice substring | `s.slice[///hello///; 1; 3]` → `///el///` |
+| `charat[str; i]` | Char at index | `s.charat[///hello///; 0]` → `///h///` |
+| `codeat[str; i]` | Code point at index | `s.codeat[///A///; 0]` → `65` |
+| `fromcode[code]` | String from code point | `s.fromcode[65]` → `///A///` |
 
 **`p-datetime` module API:**
 
@@ -1399,7 +1399,7 @@ The `p-math` module is a direct alias for JS `Math` — all standard `Math` meth
 | `timestamp[]` | Unix timestamp (seconds) | `dt.timestamp[]` → `1712000000` |
 | `create[y; m; d; h; min; s; ms]` | Create local timestamp | `dt.create[2026; 4; 2]` → `...` |
 | `utccreate[y; m; d; h; min; s; ms]` | Create UTC timestamp | `dt.utccreate[2026; 4; 2]` → `...` |
-| `fromiso[str]` | Parse ISO 8601 | `dt.fromiso[;//2026-04-02T00:00:00Z//;]` → `...` |
+| `fromiso[str]` | Parse ISO 8601 | `dt.fromiso[///2026-04-02T00:00:00Z///]` → `...` |
 | `year[t]` | Extract year (local) | `dt.year[dt.now[]]` → `2026` |
 | `month[t]` | Extract month 1–12 (local) | `dt.month[dt.now[]]` → `4` |
 | `day[t]` | Extract day 1–31 (local) | `dt.day[dt.now[]]` → `2` |
@@ -1408,28 +1408,28 @@ The `p-math` module is a direct alias for JS `Math` — all standard `Math` meth
 | `utcyear[t]` | Extract year (UTC) | `dt.utcyear[dt.now[]]` → `2026` |
 | `utcmonth[t]` / `utcday[t]` / `utcweekday[t]` | Extract date parts (UTC) | `dt.utcmonth[dt.now[]]` → `4` |
 | `utchour[t]` / `utcminute[t]` / `utcsecond[t]` / `utcms[t]` | Extract time parts (UTC) | `dt.utchour[dt.now[]]` → `5` |
-| `tzyear[t; tz]` | Extract year in timezone | `dt.tzyear[dt.now[]; ;//America/New_York//;]` → `2026` |
-| `tzmonth[t; tz]` / `tzday[t; tz]` / `tzweekday[t; tz]` | Extract date parts in timezone | `dt.tzday[dt.now[]; ;//Asia/Tokyo//;]` → `2` |
-| `tzhour[t; tz]` / `tzminute[t; tz]` / `tzsecond[t; tz]` | Extract time parts in timezone | `dt.tzhour[dt.now[]; ;//America/New_York//;]` → `10` |
-| `toiso[t]` | Format as ISO 8601 | `dt.toiso[dt.now[]]` → `;//2026-04-02T...Z//;` |
-| `tolocale[t; locale; options]` | Locale string | `dt.tolocale[dt.now[]; ;//ja-JP//;]` → `...` |
-| `todate[t; locale; options]` | Date string | `dt.todate[dt.now[]; ;//en-US//;]` → `;//4/2/2026//;` |
-| `totime[t; locale; options]` | Time string | `dt.totime[dt.now[]; ;//en-US//;]` → `;//2:30:00 PM//;` |
-| `format[t; tz; locale; options]` | Format in timezone | `dt.format[dt.now[]; ;//America/New_York//;]` → `...` |
+| `tzyear[t; tz]` | Extract year in timezone | `dt.tzyear[dt.now[]; ///America/New_York///]` → `2026` |
+| `tzmonth[t; tz]` / `tzday[t; tz]` / `tzweekday[t; tz]` | Extract date parts in timezone | `dt.tzday[dt.now[]; ///Asia/Tokyo///]` → `2` |
+| `tzhour[t; tz]` / `tzminute[t; tz]` / `tzsecond[t; tz]` | Extract time parts in timezone | `dt.tzhour[dt.now[]; ///America/New_York///]` → `10` |
+| `toiso[t]` | Format as ISO 8601 | `dt.toiso[dt.now[]]` → `///2026-04-02T...Z///` |
+| `tolocale[t; locale; options]` | Locale string | `dt.tolocale[dt.now[]; ///ja-JP///]` → `...` |
+| `todate[t; locale; options]` | Date string | `dt.todate[dt.now[]; ///en-US///]` → `///4/2/2026///` |
+| `totime[t; locale; options]` | Time string | `dt.totime[dt.now[]; ///en-US///]` → `///2:30:00 PM///` |
+| `format[t; tz; locale; options]` | Format in timezone | `dt.format[dt.now[]; ///America/New_York///]` → `...` |
 | `adddays[t; n]` | Add days | `dt.adddays[dt.now[]; 7]` → `...` |
 | `addhours[t; n]` | Add hours | `dt.addhours[dt.now[]; 2]` → `...` |
 | `addminutes[t; n]` / `addseconds[t; n]` / `addms[t; n]` | Add time | ... |
 | `diff[a; b]` | Difference in ms | `dt.diff[t1; t2]` → `86400000` |
 | `diffdays[a; b]` / `diffhours[a; b]` / `diffminutes[a; b]` / `diffseconds[a; b]` | Difference in units | ... |
 | `offset[t]` | Local UTC offset (minutes) | `dt.offset[dt.now[]]` → `-540` |
-| `localtz[]` | Local timezone name | `dt.localtz[]` → `;//Asia/Tokyo//;` |
+| `localtz[]` | Local timezone name | `dt.localtz[]` → `///Asia/Tokyo///` |
 
 **`p-json` module API:**
 
 | Function | Description | Example |
 |----------|-------------|---------|
-| `parse[str]` | Parse JSON string | `j.parse[;//{"a":1}//;]` → `{ a: 1 }` |
-| `stringify[val]` | Convert to JSON string | `j.stringify[obj]` → `;//{"a":1}//;` |
+| `parse[str]` | Parse JSON string | `j.parse[///{"a":1}///]` → `{ a: 1 }` |
+| `stringify[val]` | Convert to JSON string | `j.stringify[obj]` → `///{"a":1}///` |
 | `prettify[val; indent]` | Pretty-print JSON | `j.prettify[obj; 2]` → formatted string |
 
 **`p-math` module — lowercase constant aliases:**
@@ -1446,22 +1446,22 @@ The `p-math` module is a direct alias for JS `Math` — all standard `Math` meth
 
 | Function | Description | Example |
 |----------|-------------|---------|
-| `keys[obj]` | Object keys | `o.keys[obj]` → `[;//a//;; ;//b//;]` |
+| `keys[obj]` | Object keys | `o.keys[obj]` → `[///a///; ///b///]` |
 | `values[obj]` | Object values | `o.values[obj]` → `[1; 2]` |
-| `entries[obj]` | Key-value pairs | `o.entries[obj]` → `[[;//a//;; 1]; [;//b//;; 2]]` |
-| `fromentries[arr]` | Object from entries | `o.fromentries[list[list[;//a//;; 1]]]` → `{ a: 1 }` |
+| `entries[obj]` | Key-value pairs | `o.entries[obj]` → `[[///a///; 1]; [///b///; 2]]` |
+| `fromentries[arr]` | Object from entries | `o.fromentries[list[list[///a///; 1]]]` → `{ a: 1 }` |
 | `assign[target; ...sources]` | Merge objects | `o.assign[a; b]` → merged object |
 | `freeze[obj]` | Freeze object | `o.freeze[obj]` |
 | `seal[obj]` | Seal object | `o.seal[obj]` |
 | `isfrozen[obj]` | Check if frozen | `o.isfrozen[obj]` → `true` |
 | `issealed[obj]` | Check if sealed | `o.issealed[obj]` → `true` |
-| `hasown[obj; key]` | Check own property | `o.hasown[obj; ;//a//;]` → `true` |
+| `hasown[obj; key]` | Check own property | `o.hasown[obj; ///a///]` → `true` |
 | `is[a; b]` | Object.is comparison | `o.is[nan; nan]` → `true` |
 | `len[obj]` | Number of keys | `o.len[obj]` → `2` |
 | `merge[...objs]` | Merge into new object | `o.merge[a; b]` → new merged object |
 | `clone[obj]` | Deep clone | `o.clone[obj]` → deep copy |
-| `pick[obj; keys]` | Pick keys | `o.pick[obj; list[;//a//;]]` → `{ a: 1 }` |
-| `omit[obj; keys]` | Omit keys | `o.omit[obj; list[;//a//;]]` → `{ b: 2 }` |
+| `pick[obj; keys]` | Pick keys | `o.pick[obj; list[///a///]]` → `{ a: 1 }` |
+| `omit[obj; keys]` | Omit keys | `o.omit[obj; list[///a///]]` → `{ b: 2 }` |
 
 **`p-number` module API:**
 
@@ -1471,12 +1471,12 @@ The `p-math` module is a direct alias for JS `Math` — all standard `Math` meth
 | `isinteger[val]` | Check integer | `n.isinteger[3.5]` → `false` |
 | `isnan[val]` | Check NaN | `n.isnan[nan]` → `true` |
 | `issafe[val]` | Safe integer check | `n.issafe[42]` → `true` |
-| `parsefloat[str]` | Parse float | `n.parsefloat[;//3.14//;]` → `3.14` |
-| `parseint[str; radix]` | Parse integer | `n.parseint[;//ff//;; 16]` → `255` |
-| `tofixed[num; digits]` | Fixed decimals | `n.tofixed[3.14159; 2]` → `;//3.14//;` |
-| `toprecision[num; digits]` | Precision string | `n.toprecision[123.456; 4]` → `;//123.5//;` |
-| `toexponential[num; digits]` | Exponential notation | `n.toexponential[12345; 2]` → `;//1.23e+4//;` |
-| `tostring[num; radix]` | Number to string | `n.tostring[255; 16]` → `;//ff//;` |
+| `parsefloat[str]` | Parse float | `n.parsefloat[///3.14///]` → `3.14` |
+| `parseint[str; radix]` | Parse integer | `n.parseint[///ff///; 16]` → `255` |
+| `tofixed[num; digits]` | Fixed decimals | `n.tofixed[3.14159; 2]` → `///3.14///` |
+| `toprecision[num; digits]` | Precision string | `n.toprecision[123.456; 4]` → `///123.5///` |
+| `toexponential[num; digits]` | Exponential notation | `n.toexponential[12345; 2]` → `///1.23e+4///` |
+| `tostring[num; radix]` | Number to string | `n.tostring[255; 16]` → `///ff///` |
 | `clamp[num; min; max]` | Clamp to range | `n.clamp[15; 0; 10]` → `10` |
 
 **`p-number` module — constants:**
@@ -1496,7 +1496,7 @@ The `p-math` module is a direct alias for JS `Math` — all standard `Math` meth
 | Function | Description | Example |
 |----------|-------------|---------|
 | `isarray[val]` | Check if array | `a.isarray[list[1; 2]]` → `true` |
-| `from[val]` | Array from iterable | `a.from[;//abc//;]` → `[;//a//;; ;//b//;; ;//c//;]` |
+| `from[val]` | Array from iterable | `a.from[///abc///]` → `[///a///; ///b///; ///c///]` |
 | `of[...args]` | Create array | `a.of[1; 2; 3]` → `[1; 2; 3]` |
 | `len[arr]` | Array length | `a.len[list[1; 2; 3]]` → `3` |
 | `first[arr]` | First element | `a.first[list[1; 2; 3]]` → `1` |
@@ -1504,7 +1504,7 @@ The `p-math` module is a direct alias for JS `Math` — all standard `Math` meth
 | `range[start; end; step]` | Number range | `a.range[0; 5]` → `[0; 1; 2; 3; 4]` |
 | `flatten[arr; depth]` | Flatten nested | `a.flatten[list[list[1; 2]; list[3]]]` → `[1; 2; 3]` |
 | `unique[arr]` | Remove duplicates | `a.unique[list[1; 2; 2; 3]]` → `[1; 2; 3]` |
-| `zip[...arrs]` | Zip arrays | `a.zip[list[1; 2]; list[;//a//;; ;//b//;]]` → `[[1; ;//a//;]; [2; ;//b//;]]` |
+| `zip[...arrs]` | Zip arrays | `a.zip[list[1; 2]; list[///a///; ///b///]]` → `[[1; ///a///]; [2; ///b///]]` |
 | `chunk[arr; size]` | Split into chunks | `a.chunk[list[1; 2; 3; 4]; 2]` → `[[1; 2]; [3; 4]]` |
 | `sum[arr]` | Sum numbers | `a.sum[list[1; 2; 3]]` → `6` |
 | `product[arr]` | Product of numbers | `a.product[list[2; 3; 4]]` → `24` |
@@ -1519,26 +1519,26 @@ The `p-math` module is a direct alias for JS `Math` — all standard `Math` meth
 
 | Function | Description | Example |
 |----------|-------------|---------|
-| `create[msg]` | Create Error | `e.create[;//oops//;]` |
-| `type[msg]` | Create TypeError | `e.type[;//bad type//;]` |
-| `range[msg]` | Create RangeError | `e.range[;//out of range//;]` |
-| `reference[msg]` | Create ReferenceError | `e.reference[;//not defined//;]` |
-| `syntax[msg]` | Create SyntaxError | `e.syntax[;//bad syntax//;]` |
-| `uri[msg]` | Create URIError | `e.uri[;//bad uri//;]` |
+| `create[msg]` | Create Error | `e.create[///oops///]` |
+| `type[msg]` | Create TypeError | `e.type[///bad type///]` |
+| `range[msg]` | Create RangeError | `e.range[///out of range///]` |
+| `reference[msg]` | Create ReferenceError | `e.reference[///not defined///]` |
+| `syntax[msg]` | Create SyntaxError | `e.syntax[///bad syntax///]` |
+| `uri[msg]` | Create URIError | `e.uri[///bad uri///]` |
 | `iserror[val]` | Check if Error | `e.iserror[err]` → `true` |
-| `message[err]` | Get message | `e.message[err]` → `;//oops//;` |
-| `name[err]` | Get name | `e.name[err]` → `;//Error//;` |
+| `message[err]` | Get message | `e.message[err]` → `///oops///` |
+| `name[err]` | Get name | `e.name[err]` → `///Error///` |
 | `stack[err]` | Get stack trace | `e.stack[err]` → stack string |
 | `cause[err]` | Get cause | `e.cause[err]` → underlying error |
-| `wrap[msg; cause]` | Wrap with cause | `e.wrap[;//failed//;; original-err]` |
+| `wrap[msg; cause]` | Wrap with cause | `e.wrap[///failed///; original-err]` |
 
 ### 10.4 Export / Public
 
 ```
 public fn helper to 42
-public const VERSION be ;//1.0//;
+public const VERSION be ///1.0///
 export default fn main
-  console.log[;//hi//;]
+  console.log[///hi///]
 ```
 
 ```js
@@ -1569,8 +1569,8 @@ Compiles to an IIFE (Immediately Invoked Function Expression).
 Import a module purely for its side effects (e.g., polyfills, configuration):
 
 ```
-import ;//dotenv/config//;
-import ;//./setup//;
+import ///dotenv/config///
+import ///./setup///
 ```
 
 ```js
@@ -1585,8 +1585,8 @@ No bindings are introduced — the module is simply executed.
 Import attributes allow specifying additional metadata for module imports using the `with` keyword:
 
 ```
-import package from ;//./package.json//; with [ type be ;//json//; ]
-import [name; version] from ;//./package.json//; with [ type be ;//json//; ]
+import package from ///./package.json/// with [ type be ///json/// ]
+import [name; version] from ///./package.json/// with [ type be ///json/// ]
 ```
 
 ```js
@@ -1599,7 +1599,7 @@ The `with` clause uses Purus's bracket syntax `[ key be value ]`, which compiles
 ### 10.8 CommonJS
 
 ```
-const fs be require[;//fs//;]
+const fs be require[///fs///]
 ```
 
 ```js
@@ -1611,7 +1611,7 @@ const fs = require("fs");
 Dynamic imports are supported through standard function call syntax:
 
 ```
-const mod be await import[;//./module.js//;]
+const mod be await import[///./module.js///]
 ```
 
 ### 10.10 Module Type Configuration
@@ -1621,7 +1621,7 @@ By default, `.purus` files compile as ES Modules (ESM). This can be configured t
 **Resolution order** (highest priority first):
 
 1. CLI: `purus build --type commonjs`
-2. `config.purus`: `const type be ;//commonjs//;`
+2. `config.purus`: `const type be ///commonjs///`
 3. `package.json`: `{ "type": "commonjs" }`
 4. Default: `module` (ESM)
 
@@ -1630,10 +1630,10 @@ Values match `package.json`'s `type` field: `module` or `commonjs`.
 **CommonJS output examples:**
 
 ```
-import express from ;//express//;
-import [Hono] from ;//hono//;
-import all as fs from ;//fs//;
-import ;//dotenv/config//;
+import express from ///express///
+import [Hono] from ///hono///
+import all as fs from ///fs///
+import ///dotenv/config///
 ```
 
 ```js
@@ -1644,7 +1644,7 @@ require("dotenv/config");
 ```
 
 ```
-public const VERSION be ;//1.0//;
+public const VERSION be ///1.0///
 export default 42
 ```
 
@@ -1693,7 +1693,7 @@ const partial be numbers[\1...4]   -- numbers.slice(1, 4)  — exclusive
 Assign to a slice to replace elements:
 
 ```
-numbers[\2..4] be [;//a//;; ;//b//;; ;//c//;]
+numbers[\2..4] be [///a///; ///b///; ///c///]
 ```
 
 ```js
@@ -1710,9 +1710,9 @@ Bracket expressions (function calls, arrays, objects) can span multiple lines. N
 
 ```
 const items be [
-  ;//apple//;,
-  ;//banana//;,
-  ;//cherry//;
+  ///apple///,
+  ///banana///,
+  ///cherry///
 ]
 ```
 
@@ -1721,7 +1721,7 @@ const items be [
 ```
 server.listen[
   port;
-  fn to console.log[;//started//;]
+  fn to console.log[///started///]
 ]
 ```
 
@@ -1729,7 +1729,7 @@ server.listen[
 
 ```
 const config be object[
-  host be ;//localhost//;,
+  host be ///localhost///,
   port be 3000,
   debug be true
 ]
@@ -1752,9 +1752,9 @@ Purus uses **indentation-based block structure** (off-side rule):
 ```
 fn example x
   if x gt 0                -- block level 1
-    console.log[;//pos//;] -- block level 2
+    console.log[///pos///] -- block level 2
   else
-    console.log[;//neg//;] -- block level 2
+    console.log[///neg///] -- block level 2
 ```
 
 ---
@@ -1811,8 +1811,8 @@ purus build --type commonjs    -- CommonJS
 **Configuration file** (`config.purus`):
 
 ```
-const type be ;//module//;       -- ES Modules (default)
-const type be ;//commonjs//;     -- CommonJS
+const type be ///module///       -- ES Modules (default)
+const type be ///commonjs///     -- CommonJS
 ```
 
 Resolution order: CLI `--type` > `config.purus` `type` > `package.json` `type` > default (`module`).
@@ -1965,7 +1965,7 @@ Static async methods combine both prefixes:
 
 ```
 class Service
-  static async fn load to await fetch[;//data//;]
+  static async fn load to await fetch[///data///]
 ```
 
 ```js
@@ -2020,7 +2020,7 @@ class Dog extends Animal
 
   fn speak
     super.speak[]
-    console.log[;//Woof!//;]
+    console.log[///Woof!///]
 ```
 
 ```js
@@ -2153,7 +2153,7 @@ class Secret {
 | Keyword | JS Output | Description |
 |---------|-----------|-------------|
 | `import` | `import` | ESM import |
-| `import ;//mod//;` | `import "mod"` | Side-effect import |
+| `import ///mod///` | `import "mod"` | Side-effect import |
 | `from` | `from` | Import source |
 | `export` | `export` | ESM export |
 | `default` | `default` | Default export |
@@ -2270,9 +2270,9 @@ class Secret {
 
 | Syntax | Description |
 |--------|-------------|
-| `;//text//;` | String literal (triple-slash) |
+| `///text///` | String literal (triple-slash) |
 | `//;text;//` | String literal (semicolon form — preferred when content contains `//`) |
-| `;//text [expr] text///` | Interpolated string |
+| `///text [expr] text///` | Interpolated string |
 | `//;text [expr] text;//` | Interpolated string (semicolon form) |
 
 ### Punctuation

@@ -1,4 +1,4 @@
-﻿---
+---
 title: 関数
 description: Purusの関数宣言と関数式。
 sidebar:
@@ -48,7 +48,7 @@ function double(x) { return x * 2; }
 
 ```purus
 fn say-hello
-  console.log[//;Hello!;//]
+  console.log[///Hello!///]
 ```
 
 ```js
@@ -60,7 +60,7 @@ function say_hello() {
 式本体の場合:
 
 ```purus
-fn say-hello to console.log[//;Hello!;//]
+fn say-hello to console.log[///Hello!///]
 ```
 
 ```js
@@ -191,9 +191,9 @@ fetch(url).then((response) => {
 `()` の代わりに `[]` を使います:
 
 ```purus
-greet[//;world;//]
+greet[///world///]
 add[1; 2]
-console.log[//;hello;//]
+console.log[///hello///]
 ```
 
 ```js
@@ -260,8 +260,8 @@ function f(_, _1, x) { return x; }
 
 ```purus
 switch status
-  case //;ok;// then //;good;//
-  case blank then //;unknown;//
+  case ///ok/// then ///good///
+  case blank then ///unknown///
 ```
 
 ```js
@@ -314,7 +314,7 @@ function* countUp(limit) {
 ```purus
 fn signals
   yield
-  console.log[//;resumed;//]
+  console.log[///resumed///]
   yield
 ```
 

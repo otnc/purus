@@ -1,4 +1,4 @@
-﻿---
+---
 title: Operators
 description: Purus operators and precedence.
 sidebar:
@@ -169,7 +169,7 @@ const partial be numbers[\2...5]  -- [2, 3, 4]
 Replace a portion of an array by assigning to a slice:
 
 ```purus
-numbers[\2..4] be [//;a;//; //;b;//; //;c;//]
+numbers[\2..4] be [///a///; ///b///; ///c///]
 -- numbers is now [0, 1, "a", "b", "c", 5, 6]
 ```
 
@@ -180,7 +180,7 @@ Use `\` inside brackets to access array elements or object properties by express
 ```purus
 const val be arr[\i]       -- arr[i]
 const item be obj[\key]    -- obj[key]
-arr[\0] be //;new;//        -- arr[0] = "new"
+arr[\0] be ///new///        -- arr[0] = "new"
 ```
 
 The `\` prefix distinguishes computed access from function calls: `f[x]` is a call, `arr[\x]` is property access.
@@ -208,7 +208,7 @@ const deep = a?.b?.c;
 Extract values from arrays into variables:
 
 ```purus
-const weather be [//;Sunny;//; //;Rainy;//]
+const weather be [///Sunny///; ///Rainy///]
 const [today; tomorrow] be weather
 
 -- Swap variables
@@ -220,7 +220,7 @@ const [today; tomorrow] be weather
 Use `object[...]` to destructure properties from an object:
 
 ```purus
-const config be [host be //;localhost;//, port be 8080]
+const config be [host be ///localhost///, port be 8080]
 const object[host; port] be config
 ```
 
@@ -259,7 +259,7 @@ This is different from `or`: `or` treats all falsy values (`false`, `0`, `""`, `
 
 ```purus
 const port be config.port coal 3000      -- uses 3000 only if port is null/undefined
-const name be user.name coal //;guest;//  -- uses "guest" only if name is null/undefined
+const name be user.name coal ///guest///  -- uses "guest" only if name is null/undefined
 ```
 
 ## Type Checks

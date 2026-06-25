@@ -1,4 +1,4 @@
-﻿-- classes.purus
+-- classes.purus
 -- Class syntax example
 
 -- Basic class
@@ -13,15 +13,15 @@ class Animal
   get fn name to this.name
 
   fn speak
-    console.log[//;[this.name] says [this.sound];//]
+    console.log[///[this.name] says [this.sound]///]
 
 -- Inheritance
 class Dog extends Animal
   fn new name
-    super[name; //;woof;//]
+    super[name; ///woof///]
 
   fn fetch item
-    console.log[//;[this.name] fetches the [item];//]
+    console.log[///[this.name] fetches the [item]///]
 
 -- Static methods and private fields
 class Counter
@@ -58,14 +58,14 @@ class Api
     this.base-url be base-url
 
   async fn fetch-data path
-    const url be //;[this.base-url][path];//
+    const url be ///[this.base-url][path]///
     const res be await fetch[url]
     return res.json[]
 
 -- Usage
-const dog be new Dog[//;Rex;//]
+const dog be new Dog[///Rex///]
 dog.speak[]
-dog.fetch[//;ball;//]
+dog.fetch[///ball///]
 
 const counter be Counter.create[]
 counter.increment[]
