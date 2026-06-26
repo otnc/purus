@@ -25,11 +25,6 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Purus',
-      ...(isArchive ? {
-        banner: {
-          content: 'This page is an archive of Purus v0.x documentation. For the latest, visit <a href="https://purus.work">purus.work</a>. / このページは Purus v0.x ドキュメントのアーカイブです。最新情報は <a href="https://purus.work">purus.work</a> をご覧ください。',
-        },
-      } : {}),
       customCss: ['./src/styles/custom.css'],
       expressiveCode: {
         shiki: {
@@ -41,6 +36,16 @@ export default defineConfig({
         replacesTitle: true,
       },
       head: [
+        ...(isArchive ? [
+          {
+            tag: 'style',
+            content: `.sl-archive-banner{background:#e6a817;color:#000;text-align:center;padding:.5rem 1rem;font-size:.875rem;font-weight:500}.sl-archive-banner a{color:#000;text-decoration:underline}`,
+          },
+          {
+            tag: 'script',
+            content: `document.addEventListener('DOMContentLoaded',function(){var b=document.createElement('div');b.className='sl-archive-banner';b.innerHTML='This page is an archive of Purus v0.x docs. For the latest, visit <a href="https://purus.work">purus.work</a>. / このページは v0.x ドキュメントのアーカイブです。最新は <a href="https://purus.work">purus.work</a> をご覧ください。';document.body.prepend(b)})`,
+          },
+        ] : []),
         {
           tag: 'meta',
           attrs: { property: 'og:type', content: 'website' },
