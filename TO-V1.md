@@ -165,6 +165,12 @@ puruslang/assets
 ### `puruslang/docs`
 
 - [ ] `pages/` の内容を移行
+- [ ] **`astro.config.mjs` 内のリンクを更新**
+  - `social` の GitHub リンク: `otnc/purus` → `puruslang/purus`
+  - `editLink.baseUrl`: `https://github.com/otnc/purus/edit/main/pages/` → `https://github.com/puruslang/docs/edit/main/`
+  - サイドバー Resources の RFC リンク: `otnc/purus/blob/main/RFC.md` → `puruslang/purus/blob/main/RFC.md`
+  - サイドバー Resources の CHANGELOG リンク: `otnc/purus/blob/main/CHANGELOG.md` → `puruslang/purus/blob/main/CHANGELOG.md`
+- [ ] **MDX ファイル内の `otnc/purus` 直リンクを一括置換**（`grep -r "otnc/purus" src/` で洗い出し）
 - [ ] Vercel プロジェクトを `puruslang/docs` に紐付け直し
 - [ ] `purus.work` ドメインを新プロジェクトに付け替え
 - [ ] Vercel でブランチごとのドメイン割り当てを設定
