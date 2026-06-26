@@ -36,6 +36,8 @@ jobs:
 
       - name: Build
         run: cd pages && npm run build
+        env:
+          archived: ${{ vars.archived }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
