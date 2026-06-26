@@ -1,8 +1,8 @@
-{
+﻿{
   "name": "purus",
   "displayName": "Purus",
   "description": "Purus language support — syntax highlighting, snippets, and file icons",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "publisher": "otoneko1102",
   "license": "Apache-2.0",
   "scripts": {
@@ -40,8 +40,15 @@
     "languages": [
       {
         "id": "purus",
-        "aliases": ["Purus", "purus"],
-        "extensions": [".purus", ".cpurus", ".mpurus"],
+        "aliases": [
+          "Purus",
+          "purus"
+        ],
+        "extensions": [
+          ".purus",
+          ".cpurus",
+          ".mpurus"
+        ],
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./icons/purus-icon-light.svg",
