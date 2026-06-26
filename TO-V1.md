@@ -20,16 +20,55 @@ otnc/purus
 
 ### v1 以降（`puruslang` org）
 
-| 新リポジトリ | 元ディレクトリ | 備考 |
+#### 既存リポジトリ
+
+| リポジトリ | 状態 | 説明 |
 |---|---|---|
-| `puruslang/purus` | `core/` + `examples/` | コンパイラ + サンプル |
+| `puruslang/.github` | 作成済み | org プロフィール（profile/README.md など）|
+| `puruslang/discussions` | 作成済み | コミュニティ discussions 専用 |
+| `puruslang/purus` | 作成済み（空） | コンパイラ本体（移行待ち）|
+| `puruslang/playground` | 作成済み | Web プレイグラウンド（後述）|
+
+#### 移行・新規作成が必要なリポジトリ
+
+| リポジトリ | 元ディレクトリ | 備考 |
+|---|---|---|
+| `puruslang/purus` | `core/` + `examples/` | コンパイラ + サンプル（空リポジトリに移行）|
 | `puruslang/docs` | `pages/` | ドキュメントサイト（Vercel）|
 | `puruslang/linter` | `linter/` | |
 | `puruslang/vscode-extension` | `extension/` | |
 | `puruslang/prettier-plugin` | `prettier-plugin/` | |
 | `puruslang/assets` | — | アイコン・SVG などの共有静的リソース |
 
-`otnc/purus` は 0.x のアーカイブとして残す（read-only / archived）。
+`otnc/purus` は 0.x のアーカイブとして残す（アーカイブ済み）。
+
+---
+
+## `puruslang/playground`
+
+Web 上で Purus のバージョンを選択してコードを実行できる REPL/プレイグラウンド。
+
+### 要件
+
+- バージョンセレクター（npm に公開済みの `purus` バージョンを一覧表示・選択できる）
+- エディタ（シンタックスハイライト付き Purus コード入力）
+- 実行結果の表示（コンパイル後 JS の出力 / 実行結果）
+- ブラウザ完結（サーバーサイド実行不要）
+
+### 技術的な検討事項
+
+- コンパイラ（`purus`）のブラウザ向けビルドが必要
+  - 現在の `purus` は Node.js CLI のみ。ブラウザ向けに WebAssembly または browser-compatible bundle が必要
+  - MoonBit は WebAssembly ターゲットをサポートしているため、WASM ビルドが有力
+- バージョン選択 → jsdelivr または npm CDN 経由でその版の WASM/JS を動的ロード
+
+### チェックリスト
+
+- [ ] コンパイラを WASM または browser bundle としてビルドできるか検証
+- [ ] バージョン一覧の取得方法（npm registry API: `https://registry.npmjs.org/purus`）
+- [ ] エディタ候補: CodeMirror 6（軽量）/ Monaco（VS Code 同等、重め）
+- [ ] サイト: Vercel または GitHub Pages でホスト
+- [ ] ドメイン: `play.purus.work` など
 
 ---
 
