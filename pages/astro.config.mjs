@@ -15,11 +15,11 @@ const isArchive = process.env.archived === 'true';
 const archiveBannerHead = isArchive ? [
   {
     tag: /** @type {'style'} */ ('style'),
-    content: `.sl-archive-banner{display:block;width:100%;background:#e6a817;color:#000;text-align:center;padding:.4rem 1rem;font-size:.85rem;font-weight:500;box-sizing:border-box}.sl-archive-banner a{color:#000;text-decoration:underline}`,
+    content: `.sl-archive-banner{background:#e6a817;color:#000;text-align:center;padding:.4rem 1rem;font-size:.85rem;font-weight:500}.sl-archive-banner a{color:#000;text-decoration:underline}header.header{top:var(--sl-archive-banner-height,0px)!important}`,
   },
   {
     tag: /** @type {'script'} */ ('script'),
-    content: `document.addEventListener('DOMContentLoaded',function(){var b=document.createElement('div');b.className='sl-archive-banner';b.innerHTML='This page is an archive of Purus v0.x docs. For the latest, visit <a href="https://purus.work">purus.work</a>. / このページは v0.x ドキュメントのアーカイブです。最新は <a href="https://purus.work">purus.work</a> をご覧ください。';var h=document.querySelector('header.header')||document.querySelector('header');if(h){h.prepend(b)}else{document.body.prepend(b)}})`,
+    content: `document.addEventListener('DOMContentLoaded',function(){var b=document.createElement('div');b.className='sl-archive-banner';b.innerHTML='This page is an archive of Purus v0.x docs. For the latest, visit <a href="https://purus.work">purus.work</a>. / このページは v0.x ドキュメントのアーカイブです。最新は <a href="https://purus.work">purus.work</a> をご覧ください。';var h=document.querySelector('header.header')||document.querySelector('header');if(h&&h.parentNode){h.parentNode.insertBefore(b,h);document.documentElement.style.setProperty('--sl-archive-banner-height',b.offsetHeight+'px')}else{document.body.prepend(b)}})`,
   },
 ] : [];
 
