@@ -91,13 +91,58 @@ puruslang/assets
 
 | ファイル | 備考 |
 |---|---|
-| `README.md` / `README-ja.md` | プロジェクト概要・インストール・使い方 |
+| `README.md` / `README-ja.md` | プロジェクト概要・インストール・使い方（badge 含む） |
 | `CHANGELOG.md` / `CHANGELOG-ja.md` | バージョン別変更履歴 |
 | `CONTRIBUTING.md` / `CONTRIBUTING-ja.md` | コントリビュート手順 |
 | `CODE_OF_CONDUCT.md` / `CODE_OF_CONDUCT-ja.md` | 行動規範（Contributor Covenant 推奨）|
+| `LICENSE` | Apache-2.0 ライセンス本文 |
 | `.github/ISSUE_TEMPLATE/` | バグ報告・機能要望テンプレート |
 | `.github/PULL_REQUEST_TEMPLATE.md` | PR テンプレート |
 | `.github/workflows/` | CI/CD ワークフロー |
+
+### README の badge
+
+各 README の badge は新リポジトリ URL に合わせて更新する。
+
+```md
+[![npm](https://img.shields.io/npm/v/purus)](https://www.npmjs.com/package/purus)
+[![license](https://img.shields.io/github/license/puruslang/purus)](https://github.com/puruslang/purus/blob/main/LICENSE)
+[![CI](https://github.com/puruslang/purus/actions/workflows/ci.yml/badge.svg)](https://github.com/puruslang/purus/actions)
+```
+
+各リポジトリの badge テンプレート：
+
+| badge | URL パターン |
+|---|---|
+| npm version | `https://img.shields.io/npm/v/<package>` |
+| license | `https://img.shields.io/github/license/puruslang/<repo>` |
+| CI status | `https://github.com/puruslang/<repo>/actions/workflows/ci.yml/badge.svg` |
+| VS Code installs | `https://img.shields.io/visual-studio-marketplace/i/puruslang.purus`（extension のみ）|
+
+### `package.json` / `moon.mod.json` の更新
+
+各パッケージの `repository`・`bugs`・`homepage` フィールドを新リポジトリ URL に変更する。
+
+```json
+{
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/puruslang/<repo>"
+  },
+  "bugs": {
+    "url": "https://github.com/puruslang/<repo>/issues"
+  },
+  "homepage": "https://purus.work"
+}
+```
+
+`moon.mod.json`（コンパイラ）：
+
+```json
+{
+  "repository": "https://github.com/puruslang/purus"
+}
+```
 
 ---
 
@@ -107,10 +152,12 @@ puruslang/assets
 
 - [ ] `core/` の内容を移行（git history ごと `git filter-repo` 推奨）
 - [ ] `examples/` を同リポジトリ内に含める
-- [ ] `README.md` / `README-ja.md` を書き直し
+- [ ] `README.md` / `README-ja.md` を書き直し（badge を `puruslang/purus` 向けに更新）
 - [ ] `CHANGELOG.md` / `CHANGELOG-ja.md` を引き継ぎ
 - [ ] `CONTRIBUTING.md` / `CONTRIBUTING-ja.md` を作成
 - [ ] `CODE_OF_CONDUCT.md` / `CODE_OF_CONDUCT-ja.md` を作成
+- [ ] `LICENSE`（Apache-2.0）を配置
+- [ ] `package.json` / `moon.mod.json` の `repository`・`bugs`・`homepage` を更新
 - [ ] `.github/` 整備（Issue テンプレート・PR テンプレート・Actions）
 - [ ] パッケージ名: `purus`（npm）
 - [ ] GitHub Actions: テスト・ビルド・npm publish ワークフロー
@@ -122,38 +169,43 @@ puruslang/assets
 - [ ] `purus.work` ドメインを新プロジェクトに付け替え
 - [ ] Vercel でブランチごとのドメイン割り当てを設定
 - [ ] `old.purus.work` を `otnc/purus` の Vercel プロジェクトに割り当て
-- [ ] アセット参照を `puruslang/assets` に変更
+- [ ] アセット参照を `puruslang/assets`（raw.githubusercontent.com）に変更
 - [ ] `.github/` 整備（docs 用 Issue テンプレート・Actions）
 
 ### `puruslang/linter`
 
 - [ ] `linter/` の内容を移行
-- [ ] `README.md` / `README-ja.md` を書き直し
+- [ ] `README.md` / `README-ja.md` を書き直し（badge を `puruslang/linter` 向けに更新）
 - [ ] `CHANGELOG.md` / `CHANGELOG-ja.md` を新規作成（0.x → 1.0.0 で引き継ぎ）
 - [ ] `CONTRIBUTING.md` / `CONTRIBUTING-ja.md` を作成
 - [ ] `CODE_OF_CONDUCT.md` / `CODE_OF_CONDUCT-ja.md` を作成
+- [ ] `LICENSE`（Apache-2.0）を配置
+- [ ] `package.json` の `repository`・`bugs`・`homepage` を更新
 - [ ] `.github/` 整備
 - [ ] パッケージ名: `@puruslang/linter`（npm）
 
 ### `puruslang/vscode-extension`
 
 - [ ] `extension/` の内容を移行
-- [ ] アイコンパスを `puruslang/assets` 参照に変更
-- [ ] `README.md` / `README-ja.md` を書き直し
+- [ ] アイコンパスを `puruslang/assets`（raw.githubusercontent.com）参照に変更
+- [ ] `README.md` / `README-ja.md` を書き直し（badge を `puruslang/vscode-extension` 向けに更新）
 - [ ] `CHANGELOG.md` / `CHANGELOG-ja.md` を新規作成
 - [ ] `CONTRIBUTING.md` / `CONTRIBUTING-ja.md` を作成
 - [ ] `CODE_OF_CONDUCT.md` / `CODE_OF_CONDUCT-ja.md` を作成
+- [ ] `LICENSE`（Apache-2.0）を配置
+- [ ] `package.json` の `repository`・`bugs`・`homepage` を更新、publisher を `puruslang` に変更
 - [ ] `.github/` 整備
-- [ ] VS Code Marketplace の publisher を `puruslang` に変更
 - [ ] バージョン: `1.0.0`
 
 ### `puruslang/prettier-plugin`
 
 - [ ] `prettier-plugin/` の内容を移行
-- [ ] `README.md` / `README-ja.md` を書き直し
+- [ ] `README.md` / `README-ja.md` を書き直し（badge を `puruslang/prettier-plugin` 向けに更新）
 - [ ] `CHANGELOG.md` / `CHANGELOG-ja.md` を新規作成
 - [ ] `CONTRIBUTING.md` / `CONTRIBUTING-ja.md` を作成
 - [ ] `CODE_OF_CONDUCT.md` / `CODE_OF_CONDUCT-ja.md` を作成
+- [ ] `LICENSE`（Apache-2.0）を配置
+- [ ] `package.json` の `repository`・`bugs`・`homepage` を更新
 - [ ] `.github/` 整備
 - [ ] パッケージ名: `@puruslang/prettier-plugin-purus`（npm）
 
