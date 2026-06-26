@@ -15,7 +15,7 @@ const isArchive = process.env.archived === 'true';
 const archiveBannerHead = isArchive ? [
   {
     tag: /** @type {'style'} */ ('style'),
-    content: `.sl-archive-banner{background:#e6a817;color:#000;text-align:center;padding:.5rem 1rem;font-size:.875rem;font-weight:500}.sl-archive-banner a{color:#000;text-decoration:underline}`,
+    content: `.sl-archive-banner{position:sticky;top:0;z-index:9999;background:#e6a817;color:#000;text-align:center;padding:.5rem 1rem;font-size:.875rem;font-weight:500}.sl-archive-banner a{color:#000;text-decoration:underline}`,
   },
   {
     tag: /** @type {'script'} */ ('script'),
