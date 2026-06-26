@@ -10,8 +10,8 @@ const purusGrammar = JSON.parse(
 purusGrammar.name = 'purus';
 
 // When deployed as old.purus.work (archived v0.x docs via GitHub Pages),
-// set ARCHIVE_MODE=true in the GitHub Actions workflow environment.
-const isArchive = process.env.ARCHIVE_MODE === 'true';
+// the GitHub Actions workflow passes vars.archived from otnc/purus repository variables.
+const isArchive = process.env.archived === 'true';
 
 // https://astro.build/config
 export default defineConfig({
