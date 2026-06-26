@@ -176,16 +176,8 @@ puruslang/assets
 - [ ] Vercel でブランチごとのドメイン割り当てを設定
 - [ ] `old.purus.work` を `otnc/purus` の GitHub Pages に割り当て（カスタムドメイン設定）
   - GitHub Pages は `docs/` フォルダから配信（現行の `outDir: '../docs'` そのまま）
-  - `otnc/purus` の Settings → Variables → Actions に `archived = true` を作成済み
-  - GitHub Actions の build ワークフローで `vars.archived` を渡す
-    ```yaml
-    - name: Build docs
-      run: npm run build
-      working-directory: pages
-      env:
-        archived: ${{ vars.archived }}
-    ```
-  - `archived=true` の時のみ全ページ上部にアーカイブバナーが表示される（実装済み）
+  - トップページ（EN/JA）にアーカイブ通知の Warning を表示（実装済み）
+  - `old.purus.work` のカスタムドメインを GitHub Pages に割り当てれば完成
 - [ ] アセット参照を `puruslang/assets`（raw.githubusercontent.com）に変更
 - [ ] `.github/` 整備（docs 用 Issue テンプレート・Actions）
 
