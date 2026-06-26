@@ -1,4 +1,4 @@
-﻿-- Modules and Imports
+-- Modules and Imports
 
 -- ES Module imports
 import [Hono] from //;hono;//

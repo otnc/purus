@@ -1,4 +1,4 @@
-﻿# Purus Language Specification
+# Purus Language Specification
 
 **RFC — v0.11.0**
 

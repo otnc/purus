@@ -1,4 +1,4 @@
-﻿-- Functions
+-- Functions
 
 -- Named function with block body
 fn greet name

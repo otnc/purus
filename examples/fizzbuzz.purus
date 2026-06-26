@@ -1,4 +1,4 @@
-﻿-- FizzBuzz in Purus
+-- FizzBuzz in Purus
 
 for let i be 1; i lt 101; i\add
   if i mod 15 eq 0
