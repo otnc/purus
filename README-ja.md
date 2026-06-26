@@ -1,12 +1,9 @@
-<div align="center">
-
 > [!WARNING]
+>   
 > **このリポジトリはアーカイブされました。**
 > `otnc/purus` は v0.x のモノレポであり、現在は積極的にメンテナンスされていません。
 > 開発は **[puruslang/purus](https://github.com/puruslang/purus)** に移行しました。
 > ドキュメント: **[purus.work](https://purus.work)** · v0.x ドキュメント: **[old.purus.work](https://old.purus.work)**
-
-</div>
 
 ---
 

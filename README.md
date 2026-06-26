@@ -1,12 +1,9 @@
-<div align="center">
-
 > [!WARNING]
+>   
 > **This repository is archived.**
 > `otnc/purus` was a v0.x monorepo and is no longer actively maintained.
 > Development continues at **[puruslang/purus](https://github.com/puruslang/purus)**.
 > Docs: **[purus.work](https://purus.work)** · Legacy docs (v0.x): **[old.purus.work](https://old.purus.work)**
-
-</div>
 
 ---
 
