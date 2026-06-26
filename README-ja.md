@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 [![Logo](https://raw.githubusercontent.com/otnc/purus/refs/heads/main/logo.png)](https://purus.work)
 

@@ -409,6 +409,15 @@ fn Parser::parse_param_list(self : Parser) -> Array[String] {
   let params : Array[String] = []
   while self.pos < self.tokens.length() {
     match self.peek() {
+      Blank => {
+        self.pos += 1
+        params.push("blank")
+        if self.peek() == Semicolon {
+          self.pos += 1
+        } else {
+          break
+        }
+      }
       Ident(s) => {
         self.pos += 1
         params.push(s)
@@ -748,6 +757,10 @@ fn Parser::parse_match_pattern(self : Parser) -> MatchPattern {
     Null_ | Nil_ => {
       self.pos += 1
       LitPat(NullLit)
+    }
+    Blank => {
+      self.pos += 1
+      BindPat("blank")
     }
     Ident(s) => {
       self.pos += 1

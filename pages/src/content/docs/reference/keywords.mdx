@@ -77,6 +77,7 @@ arr[\0] be value
 | `default` | _(switch default)_ | Default arm |
 | `match` | if-else chain | Match expression (deprecated) |
 | `when` | _(match arm)_ | Match case (deprecated) |
+| `blank` | `_` | Wildcard — ignored parameter or catch-all match arm |
 
 ## Modules
 
@@ -189,6 +190,17 @@ arr[\0] be value
 | `protected` | _(deprecated)_ | Deprecated alias for `private` |
 | `get` | `get` | Getter accessor |
 | `set` | `set` | Setter accessor |
+
+## Strings
+
+| Syntax | Description |
+|---|---|
+| `//;text;//` | String literal — **recommended** |
+| `///text///` | String literal — also valid (original syntax) |
+| `//;text [expr] text;//` | Interpolated string (recommended form) |
+| `///text [expr] text///` | Interpolated string (original form) |
+
+Both syntaxes produce identical JavaScript output. `//;...;//` is preferred for readability: the `;` delimiter does not conflict with `[expr]` interpolation, and `//` in content (e.g. URLs) is never confused with the closing `;//`.
 
 ## Punctuation
 

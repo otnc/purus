@@ -141,6 +141,9 @@ pub(all) enum TokenKind {
   // Interpolated string
   InterpStr(Array[String]) // alternating: lit, expr, lit, expr, ..., lit
 
+  // Wildcard
+  Blank
+
   // Special
   Shebang(String) // #!...
   Comment(String)

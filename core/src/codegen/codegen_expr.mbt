@@ -182,14 +182,7 @@ fn JsCodegen::gen_expr(self : JsCodegen, expr : @parser.Expr) -> Unit {
     }
     FnExpr(params, body) => {
       self.write("(")
-      let mut first = true
-      for p in params {
-        if !first {
-          self.write(", ")
-        }
-        self.write(js_ident(p))
-        first = false
-      }
+      self.gen_params(params)
       self.write(") => {\n")
       self.indent_level += 1
       for s in body {
@@ -201,14 +194,7 @@ fn JsCodegen::gen_expr(self : JsCodegen, expr : @parser.Expr) -> Unit {
     }
     FnExprTo(params, body_expr) => {
       self.write("(")
-      let mut first = true
-      for p in params {
-        if !first {
-          self.write(", ")
-        }
-        self.write(js_ident(p))
-        first = false
-      }
+      self.gen_params(params)
       self.write(") => ")
       self.gen_expr(body_expr)
     }
@@ -348,7 +334,7 @@ fn JsCodegen::gen_expr(self : JsCodegen, expr : @parser.Expr) -> Unit {
           BindPat(name) =>
             match arm.cond {
               Some(_) =>
-                if name != "_" {
+                if !is_blank(name) {
                   self.write_indent()
                   self.write("const ")
                   self.write(js_ident(name))
@@ -379,7 +365,7 @@ fn JsCodegen::gen_expr(self : JsCodegen, expr : @parser.Expr) -> Unit {
             self.write(") {\n")
           }
           BindPat(name) =>
-            if name == "_" {
+            if is_blank(name) {
               match arm.cond {
                 Some(c) => {
                   self.write("if (")
@@ -489,14 +475,7 @@ fn JsCodegen::gen_expr(self : JsCodegen, expr : @parser.Expr) -> Unit {
     }
     AsyncFnExpr(params, body) => {
       self.write("async (")
-      let mut first = true
-      for p in params {
-        if !first {
-          self.write(", ")
-        }
-        self.write(js_ident(p))
-        first = false
-      }
+      self.gen_params(params)
       self.write(") => {\n")
       self.indent_level += 1
       for s in body {
@@ -508,14 +487,7 @@ fn JsCodegen::gen_expr(self : JsCodegen, expr : @parser.Expr) -> Unit {
     }
     AsyncFnExprTo(params, body_expr) => {
       self.write("async (")
-      let mut first = true
-      for p in params {
-        if !first {
-          self.write(", ")
-        }
-        self.write(js_ident(p))
-        first = false
-      }
+      self.gen_params(params)
       self.write(") => ")
       self.gen_expr(body_expr)
     }

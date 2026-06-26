@@ -118,7 +118,7 @@ Returns a random element from the array.
 
 ```purus
 use p-random as r
-r.choice[[///red///; ///green///; ///blue///]]  -- e.g. "green"
+r.choice[[//;red;//; //;green;//; //;blue;//]]  -- e.g. "green"
 ```
 
 ### `choices[arr; k]`
@@ -126,7 +126,7 @@ Returns an array of `k` random elements (with replacement).
 
 ```purus
 use p-random as r
-r.choices[[///a///; ///b///; ///c///]; 5]  -- e.g. ["b", "a", "c", "a", "b"]
+r.choices[[//;a;//; //;b;//; //;c;//]; 5]  -- e.g. ["b", "a", "c", "a", "b"]
 ```
 
 ### `wchoices[arr; weights; k]`
@@ -134,7 +134,7 @@ Returns `k` weighted random selections. Each element's probability is proportion
 
 ```purus
 use p-random as r
-r.wchoices[[///rare///; ///common///]; [1; 9]; 10]
+r.wchoices[[//;rare;//; //;common;//]; [1; 9]; 10]
 -- mostly "common"
 ```
 

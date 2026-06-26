@@ -48,7 +48,7 @@ function double(x) { return x * 2; }
 
 ```purus
 fn say-hello
-  console.log[///Hello!///]
+  console.log[//;Hello!;//]
 ```
 
 ```js
@@ -60,7 +60,7 @@ function say_hello() {
 式本体の場合:
 
 ```purus
-fn say-hello to console.log[///Hello!///]
+fn say-hello to console.log[//;Hello!;//]
 ```
 
 ```js
@@ -191,9 +191,9 @@ fetch(url).then((response) => {
 `()` の代わりに `[]` を使います:
 
 ```purus
-greet[///world///]
+greet[//;world;//]
 add[1; 2]
-console.log[///hello///]
+console.log[//;hello;//]
 ```
 
 ```js
@@ -231,6 +231,45 @@ const m = { max: Math.max };
 console.log(m.max(1, 2));
 fn(a(1, 2), b(3, 4), c);
 outer(inner1(x), inner2(y, z));
+```
+
+## 無視するパラメータ（`blank`）
+
+`blank` を使うと、そのパラメータ位置を明示的に無視できます。`Array.from` の最初の引数（要素）が不要なコールバックなどで便利です。
+
+```purus
+-- 最初の引数を無視し、インデックスのみ使用
+const indices be Array.from[[length be 5]; fn blank; i to i]
+```
+
+```js
+const indices = Array.from({ length: 5 }, (_, i) => i);
+```
+
+複数の `blank` パラメータはstrictモードエラーを避けるため、JSでは `_`・`_1`・`_2`… のように連番になります：
+
+```purus
+fn f blank; blank; x to x
+```
+
+```js
+function f(_, _1, x) { return x; }
+```
+
+`switch` のcatch-allアームとしても使用できます：
+
+```purus
+switch status
+  case //;ok;// then //;good;//
+  case blank then //;unknown;//
+```
+
+```js
+if (status === "ok") {
+  "good";
+} else {
+  "unknown";
+}
 ```
 
 ## 型アノテーション（消去される）
@@ -275,7 +314,7 @@ function* countUp(limit) {
 ```purus
 fn signals
   yield
-  console.log[///resumed///]
+  console.log[//;resumed;//]
   yield
 ```
 

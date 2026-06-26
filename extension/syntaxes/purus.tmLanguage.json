@@ -6,6 +6,7 @@
     { "include": "#shebang" },
     { "include": "#comment-block" },
     { "include": "#comment-line" },
+    { "include": "#string-bracket" },
     { "include": "#string" },
     { "include": "#regex" },
     { "include": "#number" },
@@ -35,6 +36,31 @@
       "begin": "---",
       "end": "---",
       "name": "comment.block.purus"
+    },
+    "string-bracket": {
+      "begin": "//;",
+      "end": ";//",
+      "name": "string.quoted.semicolon.purus",
+      "patterns": [
+        {
+          "match": "\\\\[nt\\\\/\\[\\]]",
+          "name": "constant.character.escape.purus"
+        },
+        {
+          "begin": "\\[",
+          "end": "\\]",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.interpolation.begin.purus" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.interpolation.end.purus" }
+          },
+          "name": "meta.interpolation.purus",
+          "patterns": [
+            { "include": "source.purus" }
+          ]
+        }
+      ]
     },
     "string": {
       "begin": "///",
@@ -282,7 +308,7 @@
       ]
     },
     "other-keyword": {
-      "match": "(?<![a-zA-Z0-9_-])(new|delete|this|await|super|void)(?![a-zA-Z0-9_-])",
+      "match": "(?<![a-zA-Z0-9_-])(new|delete|this|await|super|void|blank)(?![a-zA-Z0-9_-])",
       "name": "keyword.other.purus"
     },
     "support": {

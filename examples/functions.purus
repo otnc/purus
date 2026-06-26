@@ -2,7 +2,7 @@
 
 -- Named function with block body
 fn greet name
-  console.log[///Hello, /// add name add ///!///]
+  console.log[//;Hello, ;// add name add //;!;//]
 
 -- Named function with expression body (no return)
 fn double x to x mul 2
@@ -12,7 +12,7 @@ fn triple x to return x mul 3
 
 -- Function with no arguments
 fn say-hello
-  console.log[///Hello!///]
+  console.log[//;Hello!;//]
 
 -- Function with no arguments (expression body)
 fn get-timestamp to Date.now[]
@@ -32,7 +32,7 @@ async fn fetch-data url
   return res
 
 -- Function calls
-greet[///World///]
+greet[//;World;//]
 say-hello[]
 const result be add-numbers[3; 4]
 

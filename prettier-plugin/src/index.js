@@ -19,6 +19,7 @@ const KEYWORDS = new Set([
   "break", "continue",
   "list", "object",
   "function",
+  "blank",
 ]);
 
 const BLOCK_STARTERS = new Set([
@@ -95,6 +96,19 @@ function tokenize(source) {
           j += 3;
           break;
         }
+        j++;
+      }
+      tokens.push({ type: "string", value: source.slice(i, j) });
+      i = j;
+      continue;
+    }
+
+    // Semicolon string //;...;//
+    if (source[i] === "/" && source[i + 1] === "/" && source[i + 2] === ";") {
+      let j = i + 3;
+      while (j < len) {
+        if (source[j] === "\\" && j + 1 < len) { j += 2; continue; }
+        if (source[j] === ";" && source[j + 1] === "/" && source[j + 2] === "/") { j += 3; break; }
         j++;
       }
       tokens.push({ type: "string", value: source.slice(i, j) });

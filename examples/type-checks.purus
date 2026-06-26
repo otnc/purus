@@ -3,17 +3,17 @@
 const value be 42
 
 -- Type check with typeof and eq
-if typeof value eq ///number///
-  console.log[///it's a number///]
+if typeof value eq //;number;//
+  console.log[//;it's a number;//]
 
 -- Type check with typeof
-if typeof value eq ///string///
-  console.log[///it's a string///]
+if typeof value eq //;string;//
+  console.log[//;it's a string;//]
 
 -- instanceof
 const date be new Date[]
 if date instanceof Date
-  console.log[///it's a Date///]
+  console.log[//;it's a Date;//]
 
 -- typeof operator
 const t be typeof value

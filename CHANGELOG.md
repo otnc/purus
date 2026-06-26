@@ -4,6 +4,50 @@ Change history for Purus syntax, specifications, and reserved keywords.
 
 ---
 
+## v0.11.0 (2026-06-26)
+
+### New Features
+
+- **`blank` keyword (wildcard)**: A new keyword for explicitly ignoring a function parameter or writing a catch-all pattern match arm. Chosen as the Purus-idiomatic replacement for the `_` (underscore) convention, which requires the Shift key — contrary to Purus's "no Shift key" design principle.
+
+  **As a function parameter:**
+  ```purus
+  -- Ignore the first argument (element), use only the index
+  const indices be Array.from[[length be 5]; fn blank; i to i]
+  ```
+  ```js
+  const indices = Array.from({ length: 5 }, (_, i) => i);
+  ```
+
+  Multiple `blank` parameters become `_`, `_1`, `_2`, … in JS output to avoid strict-mode duplicate parameter errors:
+  ```purus
+  fn f blank; blank; x to x
+  ```
+  ```js
+  function f(_, _1, x) { return x; }
+  ```
+
+  **As a `switch` / `match` catch-all arm:**
+  ```purus
+  switch status
+    case ///ok/// then ///good///
+    case blank then ///unknown///
+  ```
+
+- **`//;text;//` semicolon string syntax**: An alternative to `///text///` that avoids visual confusion with URLs. `;` serves as the inner delimiter, so `//` inside (e.g. `https://`) never conflicts with the closing `;//`. Supports the same `[expr]` interpolation and escape sequences as `///...///`.
+
+  ```purus
+  const url be //;https://api.example.com/v1;//
+  const msg be //;Hello, [name]!;//
+  ```
+
+  Use `\;` to include a literal `;` followed by `//`:
+  ```purus
+  const s be //;end\;// here;//   -- "end;// here"
+  ```
+
+---
+
 ## v0.10.1 (2026-05-09)
 
 ### New Features

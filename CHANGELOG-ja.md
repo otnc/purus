@@ -4,6 +4,50 @@ Purus の構文・仕様・予約語に関する変更履歴です。
 
 ---
 
+## v0.11.0 (2026/06/26)
+
+### New Features
+
+- **`blank` キーワード（ワイルドカード）**: 関数パラメータやパターンマッチのアームで使用できるワイルドカードキーワードを追加しました。Purus の「Shiftキー不要の英語キーワード」という設計理念に基づき、他言語でよく使われる `_`（アンダースコア）の代替として導入されました。
+
+  **関数パラメータとして使用：**
+  ```purus
+  -- コールバックの最初の引数（要素）を無視してインデックスだけ使う
+  const indices be Array.from[[length be 5]; fn blank; i to i]
+  ```
+  ```js
+  const indices = Array.from({ length: 5 }, (_, i) => i);
+  ```
+
+  複数の `blank` を使う場合、JSでは `_`・`_1`・`_2`… と連番になります（strictモードの重複パラメータエラーを回避）：
+  ```purus
+  fn f blank; blank; x to x
+  ```
+  ```js
+  function f(_, _1, x) { return x; }
+  ```
+
+  **`switch` / `match` のcatch-allアームとして使用：**
+  ```purus
+  switch status
+    case ///ok/// then ///good///
+    case blank then ///unknown///
+  ```
+
+- **`//;text;//` セミコロン文字列構文**: `///text///` の代替として追加されました。URLとの視覚的な混乱を避けるために設計されています。`;` を内側のデリミタとして使うため、内部の `//`（例: `https://`）が終端デリミタ `;//` と衝突しません。補完 `[expr]` とも役割が明確に分離されています。`///...///` と同様に `[expr]` 補完とエスケープシーケンスをサポートします。
+
+  ```purus
+  const url be //;https://api.example.com/v1;//
+  const msg be //;こんにちは、[name]さん！;//
+  ```
+
+  `;//` を内容に含める場合は `\;` でエスケープ：
+  ```purus
+  const s be //;end\;// here;//   -- "end;// here"
+  ```
+
+---
+
 ## v0.10.1 (2026/05/09)
 
 ### New Features

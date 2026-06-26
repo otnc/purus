@@ -167,6 +167,11 @@ pub fn Lexer::tokenize(self : Lexer) -> Array[Token] {
       self.scan_string()
       continue
     }
+    // Bracket string //;...;//
+    if ch == '/' && self.peek_at(1) == '/' && self.peek_at(2) == ';' {
+      self.scan_string_bracket()
+      continue
+    }
     // Regex /.../ but not //
     if ch == '/' && self.peek_at(1) != '/' {
       self.scan_regex()
@@ -390,6 +395,81 @@ fn Lexer::scan_string(self : Lexer) -> Unit {
       segments.push(buf.to_string())
       buf = StringBuilder::new()
       self.advance() |> ignore // skip [
+      let expr_buf = StringBuilder::new()
+      let mut depth = 1
+      while self.pos < self.chars.length() && depth > 0 {
+        let ch = self.peek()
+        if ch == '[' {
+          depth += 1
+        }
+        if ch == ']' {
+          depth -= 1
+          if depth == 0 {
+            self.advance() |> ignore
+            break
+          }
+        }
+        expr_buf.write_char(self.advance())
+      }
+      segments.push(expr_buf.to_string())
+      continue
+    }
+    buf.write_char(self.advance())
+  }
+  if has_interp {
+    segments.push(buf.to_string())
+    self.emit(InterpStr(segments), line, col)
+  } else {
+    self.emit(Str(buf.to_string()), line, col)
+  }
+}
+
+///|
+/// Scan a semicolon string: //;content;//
+/// Supports the same escape sequences and [expr] interpolation as ///...///
+fn Lexer::scan_string_bracket(self : Lexer) -> Unit {
+  let line = self.line
+  let col = self.col
+  // skip opening //;
+  self.advance() |> ignore
+  self.advance() |> ignore
+  self.advance() |> ignore
+  let segments : Array[String] = []
+  let mut buf = StringBuilder::new()
+  let mut has_interp = false
+  while self.pos < self.chars.length() {
+    // Closing: ;//
+    if self.peek() == ';' && self.peek_at(1) == '/' && self.peek_at(2) == '/' {
+      self.advance() |> ignore
+      self.advance() |> ignore
+      self.advance() |> ignore
+      break
+    }
+    // Escape sequences (same as ///...///, plus \; for literal semicolon)
+    if self.peek() == '\\' {
+      self.advance() |> ignore
+      let esc = self.advance()
+      match esc {
+        'n' => buf.write_char('\n')
+        't' => buf.write_char('\t')
+        '\\' => buf.write_char('\\')
+        '/' => buf.write_char('/')
+        '[' => buf.write_char('[')
+        ']' => buf.write_char(']')
+        ';' => buf.write_char(';')
+        _ => {
+          buf.write_char('\\')
+          buf.write_char(esc)
+        }
+      }
+      continue
+    }
+    // Interpolation [expr] (same depth-tracking as ///...//)
+    if self.peek() == '[' {
+      has_interp = true
+      segments.push(buf.to_string())
+      buf = StringBuilder::new()
+      self.advance() |> ignore
       let expr_buf = StringBuilder::new()
       let mut depth = 1
       while self.pos < self.chars.length() && depth > 0 {
@@ -670,6 +750,7 @@ fn Lexer::scan_ident(self : Lexer) -> Unit {
     "function" => Fn // JS compat (deprecated, use `fn`)
     "get" => Get_
     "set" => Set_
+    "blank" => Blank
     _ => Ident(word)
   }
   self.emit(kind, line, col)
