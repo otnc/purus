@@ -331,7 +331,35 @@ v1.0.0 の要件が固まり次第、分割作業に入る。それまでは `ot
 
 すでに存在するため、v1 移行に合わせて内容を更新する。
 
-- [ ] `profile/README.md` を更新（org の概要・各リポジトリへのリンク）
+### `profile/README.md` の更新
+
+現在の内容（確認済み）：
+```html
+<div align="center">
+  Write code without the Shift key. Beautiful, simple, and easy-to-use.
+  <a href="https://www.purus.work/">
+    <img src="https://www.purus.work/img/banner.png" width="600" alt="banner">
+  </a>
+  <a href="https://github.com/otoneko1102/purus">
+    <img src="./images/pin_purus.svg" width="600" alt="Readme Card">
+  </a>
+</div>
+```
+
+更新内容：
+- [ ] バナー画像を `puruslang/assets` の raw URL に変更
+  - 変更前: `https://www.purus.work/img/banner.png`
+  - 変更後: `https://raw.githubusercontent.com/puruslang/assets/main/banner/banner.png`
+- [ ] リンク先を `otnc/purus` → `puruslang/purus` に変更
+- [ ] Purus について説明を追記（何ができる言語か・特徴）
+- [ ] v0.x アーカイブへの案内を追記
+  - `otnc/purus` がアーカイブであること
+  - ドキュメントは `old.purus.work`
+- [ ] 各リポジトリへのリンク一覧を追記（purus・docs・linter・vscode-extension・prettier-plugin・playground）
+- [ ] `images/pin_purus.svg` のリンク・デザイン見直し（`otoneko1102` → `puruslang`）
+
+### org デフォルトファイル
+
 - [ ] org デフォルトの Issue テンプレートを追加（各リポジトリで個別設定しない場合のフォールバック）
 - [ ] org デフォルトの `CODE_OF_CONDUCT.md` を追加
 - [ ] org デフォルトの `CONTRIBUTING.md` を追加
