@@ -9,7 +9,8 @@ const purusGrammar = JSON.parse(
 );
 purusGrammar.name = 'purus';
 
-// When deployed as old.purus.work (archived v0.x docs), set ARCHIVE_MODE=true in Vercel env vars
+// When deployed as old.purus.work (archived v0.x docs via GitHub Pages),
+// set ARCHIVE_MODE=true in the GitHub Actions workflow environment.
 const isArchive = process.env.ARCHIVE_MODE === 'true';
 
 // https://astro.build/config

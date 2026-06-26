@@ -37,10 +37,10 @@ otnc/purus
 
 | URL | 内容 |
 |---|---|
-| `purus.work` | 最新ドキュメント（`puruslang/docs`、Vercel）|
+| `purus.work` | 最新ドキュメント（`puruslang/docs`、**Vercel**）|
 | `www.purus.work` | `purus.work` にリダイレクト（Vercel の www リダイレクト機能）|
-| `old.purus.work` | 0.x 時代のドキュメント（`otnc/purus` の `pages/`、Vercel）|
-| `v1.purus.work` | v1 のドキュメント（v2+ が出た時に退避）|
+| `old.purus.work` | 0.x 時代のドキュメント（`otnc/purus` の `pages/`、**GitHub Pages**）|
+| `v1.purus.work` | v1 のドキュメント（v2+ が出た時に退避、**Vercel** ブランチデプロイ）|
 
 ### バージョン別ドキュメントの管理（`puruslang/docs`）
 
@@ -168,8 +168,16 @@ puruslang/assets
 - [ ] Vercel プロジェクトを `puruslang/docs` に紐付け直し
 - [ ] `purus.work` ドメインを新プロジェクトに付け替え
 - [ ] Vercel でブランチごとのドメイン割り当てを設定
-- [ ] `old.purus.work` を `otnc/purus` の Vercel プロジェクトに割り当て
-  - Vercel の `otnc/purus` プロジェクト → Settings → Environment Variables に `ARCHIVE_MODE=true` を追加
+- [ ] `old.purus.work` を `otnc/purus` の GitHub Pages に割り当て（カスタムドメイン設定）
+  - GitHub Pages は `docs/` フォルダから配信（現行の `outDir: '../docs'` そのまま）
+  - GitHub Actions の build ワークフローに `ARCHIVE_MODE=true` を追加
+    ```yaml
+    - name: Build docs
+      run: npm run build
+      working-directory: pages
+      env:
+        ARCHIVE_MODE: 'true'
+    ```
   - これにより全ページ上部にアーカイブバナーが表示される（実装済み）
 - [ ] アセット参照を `puruslang/assets`（raw.githubusercontent.com）に変更
 - [ ] `.github/` 整備（docs 用 Issue テンプレート・Actions）
