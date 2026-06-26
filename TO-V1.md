@@ -20,25 +20,21 @@ otnc/purus
 
 ### v1 以降（`puruslang` org）
 
-#### 既存リポジトリ
+#### リポジトリ一覧（全9件）
 
-| リポジトリ | 状態 | 説明 |
-|---|---|---|
-| `puruslang/.github` | 作成済み | org プロフィール（profile/README.md など）|
-| `puruslang/discussions` | 作成済み | コミュニティ discussions 専用 |
-| `puruslang/purus` | 作成済み（空） | コンパイラ本体（移行待ち）|
-| `puruslang/playground` | 作成済み | Web プレイグラウンド（後述）|
+| リポジトリ | 公開設定 | 状態 | 移行元 |
+|---|---|---|---|
+| `puruslang/.github` | Public | プロフィールあり | — |
+| `puruslang/discussions` | Public | 空 | — |
+| `puruslang/playground` | Public | 空 | — |
+| `puruslang/purus` | Private | 空 | `core/` + `examples/` |
+| `puruslang/docs` | Private | 空 | `pages/` |
+| `puruslang/linter` | Public | 空 | `linter/` |
+| `puruslang/vscode-extension` | Private | 空 | `extension/` |
+| `puruslang/prettier-plugin` | Private | 空 | `prettier-plugin/` |
+| `puruslang/assets` | Private | 空 | — |
 
-#### 移行・新規作成が必要なリポジトリ
-
-| リポジトリ | 元ディレクトリ | 備考 |
-|---|---|---|
-| `puruslang/purus` | `core/` + `examples/` | コンパイラ + サンプル（空リポジトリに移行）|
-| `puruslang/docs` | `pages/` | ドキュメントサイト（Vercel）|
-| `puruslang/linter` | `linter/` | |
-| `puruslang/vscode-extension` | `extension/` | |
-| `puruslang/prettier-plugin` | `prettier-plugin/` | |
-| `puruslang/assets` | — | アイコン・SVG などの共有静的リソース |
+全リポジトリ作成済み（空）。以下の作業で各リポジトリを充填していく。
 
 `otnc/purus` は 0.x のアーカイブとして残す（アーカイブ済み）。
 
