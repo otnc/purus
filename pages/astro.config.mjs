@@ -19,7 +19,7 @@ const archiveBannerHead = isArchive ? [
   },
   {
     tag: /** @type {'script'} */ ('script'),
-    content: `document.addEventListener('DOMContentLoaded',function(){var r=document.documentElement;var isJa=r.lang==='ja'||location.pathname.startsWith('/ja/');var msg=isJa?'このページは Purus v0.x ドキュメントのアーカイブです。最新情報は <a href="https://purus.work">purus.work</a> をご覧ください。':'This page is an archive of Purus v0.x docs. For the latest, visit <a href="https://purus.work">purus.work</a>.';var b=document.createElement('div');b.className='sl-archive-banner';b.innerHTML=msg;document.body.prepend(b);var bh=b.offsetHeight;r.style.setProperty('--sl-archive-banner-height',bh+'px');var orig=getComputedStyle(r).getPropertyValue('--sl-nav-height').trim();if(orig){r.style.setProperty('--sl-nav-height','calc('+orig+' + '+bh+'px)')}})`,
+    content: `document.addEventListener('DOMContentLoaded',function(){var r=document.documentElement;var isJa=r.lang==='ja'||location.pathname.startsWith('/ja/');var msg=isJa?'このページは Purus v0.x ドキュメントのアーカイブです。最新情報は <a href="https://purus.work">purus.work</a> をご覧ください。':'This page is an archive of Purus v0.x docs. For the latest, visit <a href="https://purus.work">purus.work</a>.';var b=document.createElement('div');b.className='sl-archive-banner';b.innerHTML=msg;document.body.prepend(b);var bh=b.offsetHeight;r.style.setProperty('--sl-archive-banner-height',bh+'px');document.body.style.paddingTop=bh+'px';var orig=getComputedStyle(r).getPropertyValue('--sl-nav-height').trim();if(orig){r.style.setProperty('--sl-nav-height','calc('+orig+' + '+bh+'px)')}})`,
   },
 ] : [];
 
