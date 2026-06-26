@@ -10,7 +10,7 @@ const is-active be true
 let score be 100
 score add be 50
 var food be //;apple;//
-dessert be //;banana;//
+let dessert be //;banana;//
 
 -- Underscores in identifiers (equivalent to hyphens)
 const my_variable be 42
