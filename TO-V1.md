@@ -432,9 +432,23 @@ DNS 設定は本人が行う。
 
 ---
 
-## 未決事項
+## バージョン統一
 
-- v0.x → v1.0.0 の破壊的変更の範囲（言語仕様の変更はあるか）
-- `puruslang/playground` のリリース時期（v1 と同時か、後回しか）
-- Vercel の team プランが必要か（private リポジトリ連携の制限確認）
-- 告知方法の詳細（未定）
+core・linter・prettier-plugin・vscode-extension すべて **v1.0.0** で揃える。
+
+## v0.x → v1.0.0 の変更点
+
+言語仕様の破壊的変更なし。変更点は以下のみ：
+- Node.js 最低要件を v20 → v22 に引き上げ
+
+## playground のリリース時期
+
+v1 と同時でも後回しでもどちらでもよい。
+
+## Vercel private リポジトリ制限への対応
+
+`puruslang/docs` はあらかじめ Public にしておくことで team プラン不要で Vercel 連携できる。
+
+## 告知
+
+本人が行う。
