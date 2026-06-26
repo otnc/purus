@@ -79,9 +79,8 @@ puruslang/assets
 └── README.md
 ```
 
-- 各リポジトリの `README.md`、docs からは GitHub raw URL または jsDelivr CDN 経由で参照
+- 各リポジトリの `README.md`、docs からは GitHub raw URL 経由で参照
   - 例: `https://raw.githubusercontent.com/puruslang/assets/main/icons/purus-icon-light.svg`
-  - CDN: `https://cdn.jsdelivr.net/gh/puruslang/assets/icons/purus-icon-light.svg`
 - 現在 `extension/icons/` にあるアセットを移行し、extension からは `assets` リポジトリを参照先に変更
 
 ---
@@ -186,7 +185,7 @@ v1.0.0 の要件が固まり次第、分割作業に入る。それまでは `ot
 
 ## 未決事項
 
-- npm scope 名: `@puruslang/` か `@purus/` か
+- npm scope: `@puruslang/` はすでに使用中（linter・prettier-plugin はそのまま）。コンパイラ本体（`puruslang/purus`）は現行どおり scope なし `purus` のまま
 - VS Code Marketplace publisher の作成・移管手順
 - CI/CD: GitHub Actions の secrets を各リポジトリに再設定
 - `puruslang/.github` リポジトリ（org デフォルトの Issue テンプレート・行動規範の一元管理）を作るか
