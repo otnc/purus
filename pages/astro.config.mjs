@@ -9,6 +9,9 @@ const purusGrammar = JSON.parse(
 );
 purusGrammar.name = 'purus';
 
+// When deployed as old.purus.work (archived v0.x docs), set ARCHIVE_MODE=true in Vercel env vars
+const isArchive = process.env.ARCHIVE_MODE === 'true';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://purus.work',
@@ -21,6 +24,11 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Purus',
+      ...(isArchive ? {
+        banner: {
+          content: 'This page is an archive of Purus v0.x documentation. For the latest, visit <a href="https://purus.work">purus.work</a>. / このページは Purus v0.x ドキュメントのアーカイブです。最新情報は <a href="https://purus.work">purus.work</a> をご覧ください。',
+        },
+      } : {}),
       customCss: ['./src/styles/custom.css'],
       expressiveCode: {
         shiki: {

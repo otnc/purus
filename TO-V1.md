@@ -169,6 +169,8 @@ puruslang/assets
 - [ ] `purus.work` ドメインを新プロジェクトに付け替え
 - [ ] Vercel でブランチごとのドメイン割り当てを設定
 - [ ] `old.purus.work` を `otnc/purus` の Vercel プロジェクトに割り当て
+  - Vercel の `otnc/purus` プロジェクト → Settings → Environment Variables に `ARCHIVE_MODE=true` を追加
+  - これにより全ページ上部にアーカイブバナーが表示される（実装済み）
 - [ ] アセット参照を `puruslang/assets`（raw.githubusercontent.com）に変更
 - [ ] `.github/` 整備（docs 用 Issue テンプレート・Actions）
 
