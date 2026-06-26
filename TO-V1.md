@@ -183,9 +183,37 @@ v1.0.0 の要件が固まり次第、分割作業に入る。それまでは `ot
 
 ---
 
+## `puruslang/.github` の整備
+
+すでに存在するため、v1 移行に合わせて内容を更新する。
+
+- [ ] `profile/README.md` を更新（org の概要・各リポジトリへのリンク）
+- [ ] org デフォルトの Issue テンプレートを追加（各リポジトリで個別設定しない場合のフォールバック）
+- [ ] org デフォルトの `CODE_OF_CONDUCT.md` を追加
+- [ ] org デフォルトの `CONTRIBUTING.md` を追加
+- [ ] org デフォルトの `SECURITY.md` を追加（脆弱性報告先）
+
+---
+
+## Secrets・CI/CD の移行
+
+現在 `otnc/purus` のリポジトリ Secrets として管理しているものを、`puruslang` org の Organization Secrets に昇格させる。
+
+| Secret | 用途 | 移行先 |
+|---|---|---|
+| `VSCE_PAT` | VS Code Marketplace publish | `puruslang` org secret |
+| `NPM_TOKEN` | npm publish（linter・prettier-plugin 等） | `puruslang` org secret |
+| その他 CI 用トークン | Vercel deploy token など | `puruslang` org secret または各リポジトリ secret |
+
+手順：
+1. `puruslang` org → Settings → Secrets and variables → Actions → New organization secret
+2. Access を必要なリポジトリ（`All repositories` または個別選択）に設定
+3. 各リポジトリの workflow で `secrets.VSCE_PAT` 等をそのまま参照できる（変更不要）
+4. 移行完了後に `otnc/purus` のリポジトリ secrets を削除
+
+---
+
 ## 未決事項
 
 - npm scope: `@puruslang/` はすでに使用中（linter・prettier-plugin はそのまま）。コンパイラ本体（`puruslang/purus`）は現行どおり scope なし `purus` のまま
 - VS Code Marketplace publisher の作成・移管手順
-- CI/CD: GitHub Actions の secrets を各リポジトリに再設定
-- `puruslang/.github` リポジトリ（org デフォルトの Issue テンプレート・行動規範の一元管理）を作るか
