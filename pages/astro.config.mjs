@@ -15,11 +15,11 @@ const isArchive = process.env.archived === 'true';
 const archiveBannerHead = isArchive ? [
   {
     tag: /** @type {'style'} */ ('style'),
-    content: `.sl-archive-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:#e6a817;color:#000;text-align:center;padding:.35rem 1rem;font-size:.85rem;font-weight:500;box-sizing:border-box}.sl-archive-banner a{color:#000;text-decoration:underline}header.header{top:var(--sl-archive-banner-height,0px)!important}`,
+    content: `.sl-archive-banner{position:sticky;top:0;z-index:calc(var(--sl-z-index-navbar,50) + 1);background:#e6a817;color:#000;text-align:center;padding:.35rem 1rem;font-size:.85rem;font-weight:500;box-sizing:border-box;width:100%}.sl-archive-banner a{color:#000;text-decoration:underline}header.header{top:var(--sl-archive-banner-height,0px)!important}`,
   },
   {
     tag: /** @type {'script'} */ ('script'),
-    content: `document.addEventListener('DOMContentLoaded',function(){var r=document.documentElement;var isJa=r.lang==='ja'||location.pathname.startsWith('/ja/');var msg=isJa?'このページは Purus v0.x ドキュメントのアーカイブです。最新情報は <a href="https://purus.work">purus.work</a> をご覧ください。':'This page is an archive of Purus v0.x docs. For the latest, visit <a href="https://purus.work">purus.work</a>.';var b=document.createElement('div');b.className='sl-archive-banner';b.innerHTML=msg;document.body.prepend(b);var bh=b.offsetHeight;r.style.setProperty('--sl-archive-banner-height',bh+'px');document.body.style.paddingTop=bh+'px';var orig=getComputedStyle(r).getPropertyValue('--sl-nav-height').trim();if(orig){r.style.setProperty('--sl-nav-height','calc('+orig+' + '+bh+'px)')}})`,
+    content: `document.addEventListener('DOMContentLoaded',function(){var r=document.documentElement;var isJa=r.lang==='ja'||location.pathname.startsWith('/ja/');var msg=isJa?'このページは Purus v0.x ドキュメントのアーカイブです。最新情報は <a href="https://purus.work">purus.work</a> をご覧ください。':'This page is an archive of Purus v0.x docs. For the latest, visit <a href="https://purus.work">purus.work</a>.';var b=document.createElement('div');b.className='sl-archive-banner';b.setAttribute('role','alert');b.innerHTML=msg;var page=document.querySelector('.page');var hdr=page&&page.querySelector('header.header');if(hdr){page.insertBefore(b,hdr)}else{(page||document.body).prepend(b);hdr=document.querySelector('header.header')||document.querySelector('header')}var bh=b.offsetHeight;var navH=hdr?hdr.offsetHeight:56;r.style.setProperty('--sl-archive-banner-height',bh+'px');r.style.setProperty('--sl-nav-height',(bh+navH)+'px')})`,
   },
 ] : [];
 
