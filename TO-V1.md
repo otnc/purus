@@ -385,7 +385,115 @@ v1.0.0 の要件が固まり次第、分割作業に入る。それまでは `ot
 
 ---
 
+## 移行の順序
+
+依存関係があるため、以下の順で進める。
+
+1. **`puruslang/assets`** — 他のすべてが参照するため最初に充填
+2. **`puruslang/purus`** — コンパイラ本体（他ツールが依存）
+3. **`puruslang/linter`** / **`puruslang/prettier-plugin`** / **`puruslang/vscode-extension`**（並行可）
+4. **`puruslang/docs`** — 各ツールの情報が揃ってから
+5. **`puruslang/.github`** — profile 更新・org デフォルトファイル
+6. **DNS 切り替え・Vercel 付け替え**
+7. **v1.0.0 npm publish・GitHub Release**
+
+---
+
+## git history の保持方針
+
+| リポジトリ | 移行元 | git history | 方法 |
+|---|---|---|---|
+| `puruslang/purus` | `core/` | 保持 | `git filter-repo --subdirectory-filter core` |
+| `puruslang/linter` | `linter/` | 保持 | `git filter-repo --subdirectory-filter linter` |
+| `puruslang/prettier-plugin` | `prettier-plugin/` | 保持 | `git filter-repo --subdirectory-filter prettier-plugin` |
+| `puruslang/vscode-extension` | `extension/` | 保持 | `git filter-repo --subdirectory-filter extension` |
+| `puruslang/docs` | `pages/` | 保持 | `git filter-repo --subdirectory-filter pages` |
+| `puruslang/assets` | 各所からファイルを移動 | 不要（新規）| — |
+
+`git filter-repo` は `pip install git-filter-repo` で入れる。
+
+---
+
+## リポジトリの公開タイミング
+
+| リポジトリ | 現在 | 公開タイミング |
+|---|---|---|
+| `puruslang/purus` | Private | v1.0.0 リリース日 |
+| `puruslang/docs` | Private | DNS 切り替え前日（テスト後） |
+| `puruslang/linter` | Public | 移行完了後すぐ |
+| `puruslang/vscode-extension` | Private | Marketplace 公開日 |
+| `puruslang/prettier-plugin` | Private | npm publish 日 |
+| `puruslang/assets` | Private | `purus` が public になる前日 |
+
+---
+
+## VS Code Marketplace publisher 移管
+
+現在: publisher `otoneko1102`、拡張機能 ID `otoneko1102.purus`
+
+v1 では publisher `puruslang` に変更 → 拡張機能 ID が `puruslang.purus` に変わる。
+**既存ユーザーの自動更新は効かない**（ID が変わるため）。
+
+### 手順
+
+1. Azure DevOps で publisher `puruslang` を作成
+2. `puruslang.purus` として新規 publish（`package.json` の `publisher: "puruslang"`）
+3. 旧拡張機能 `otoneko1102.purus` を **deprecated** に設定し、説明文に移行先を記載
+4. README / リリースノートで移行を周知
+
+### チェックリスト
+
+- [ ] Azure DevOps で `puruslang` publisher を作成
+- [ ] `package.json` の `publisher` を `puruslang` に変更
+- [ ] `vsce publish` で `puruslang.purus` として初回 publish
+- [ ] 旧 `otoneko1102.purus` を deprecated に設定
+
+---
+
+## DNS・ドメイン設定
+
+`purus.work` の DNS を管理しているレジストラ/サービスで以下を設定する。
+
+| レコード | 種別 | 向き先 |
+|---|---|---|
+| `purus.work` | A / CNAME | Vercel（`puruslang/docs` プロジェクト）|
+| `www.purus.work` | CNAME | Vercel（www リダイレクト設定）|
+| `old.purus.work` | CNAME | `otnc.github.io`（GitHub Pages）|
+| `v1.purus.work` | CNAME | Vercel（`v1` ブランチデプロイ）|
+| `play.purus.work` | CNAME | Vercel または GitHub Pages（playground）|
+
+`old.purus.work` は GitHub Pages 側の `CNAME` ファイルも必要（`otnc/purus` の `docs/CNAME`）。
+
+---
+
+## `puruslang/discussions` の設定
+
+- [ ] リポジトリの Discussions 機能を有効化
+- [ ] カテゴリを作成（例: Announcements・General・Q&A・Ideas・Show and Tell）
+- [ ] 各リポジトリの README に discussions へのリンクを追記
+- [ ] `puruslang/.github` の org デフォルト discussions リンクを設定
+
+---
+
+## v1.0.0 リリース当日の手順
+
+1. `puruslang/assets` に全アセットを push・公開
+2. `puruslang/purus` を public に変更
+3. `puruslang/purus` で `git tag v1.0.0` → GitHub Release 作成
+4. npm publish（`purus@1.0.0`）
+5. `puruslang/linter` npm publish（`@puruslang/linter@1.0.0`）
+6. `puruslang/prettier-plugin` npm publish（`@puruslang/prettier-plugin-purus@1.0.0`）
+7. `puruslang/vscode-extension` を public に変更 → `vsce publish`（`puruslang.purus@1.0.0`）
+8. `puruslang/docs` を public に変更 → DNS を `puruslang/docs` に切り替え
+9. `old.purus.work` DNS・CNAME を設定
+10. `puruslang/.github` profile README を更新
+11. X（Twitter）・その他 SNS でリリースを告知
+
+---
+
 ## 未決事項
 
 - npm scope: `@puruslang/` はすでに使用中（linter・prettier-plugin はそのまま）。コンパイラ本体（`puruslang/purus`）は現行どおり scope なし `purus` のまま
-- VS Code Marketplace publisher の作成・移管手順
+- v0.x → v1.0.0 の破壊的変更の範囲（言語仕様の変更はあるか）
+- `puruslang/playground` のリリース時期（v1 と同時か、後回しか）
+- Vercel の team プランが必要か（private リポジトリ連携の制限確認）
