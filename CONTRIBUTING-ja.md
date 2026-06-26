@@ -19,7 +19,7 @@ purus/
 
 ## 必要な環境
 
-- [Node.js](https://nodejs.org/) >= 18
+- [Node.js](https://nodejs.org/) >= 20
 - [MoonBit](https://www.moonbitlang.com/) (コンパイラ開発の場合)
 - [Git](https://git-scm.com/)
 

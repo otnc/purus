@@ -19,7 +19,7 @@ purus/
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) >= 18
+- [Node.js](https://nodejs.org/) >= 20
 - [MoonBit](https://www.moonbitlang.com/) (for compiler development)
 - [Git](https://git-scm.com/)
 

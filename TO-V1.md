@@ -238,6 +238,42 @@ puruslang/assets
 
 ---
 
+## Node.js バージョン要件の引き上げ（v22 以上）
+
+v1.0.0 リリース時に Node.js の最低要件を v20 → **v22** に引き上げる。以下のすべての箇所を更新すること。
+
+### `package.json` の `engines` フィールド
+
+| ファイル | 現在 | v1 |
+|---|---|---|
+| `core/package.json` | `"node": ">=20"` | `"node": ">=22"` |
+| `linter/package.json` | 要確認・追加 | `"node": ">=22"` |
+| `prettier-plugin/package.json` | 要確認・追加 | `"node": ">=22"` |
+| `extension/package.json` | 要確認・追加 | `"node": ">=22"` |
+
+### GitHub Actions ワークフロー（`node-version`）
+
+以下すべての `node-version: "20"` → `"22"` に変更：
+
+- `.github/workflows/ci.yml`
+- `.github/workflows/release.yml`
+- `.github/workflows/linter-release.yml`
+- `.github/workflows/prettier-plugin-release.yml`
+- `.github/workflows/extension-release.yml`
+- `.github/workflows/docs.yml`
+
+### ドキュメント
+
+| ファイル | 内容 |
+|---|---|
+| `CONTRIBUTING.md` / `CONTRIBUTING-ja.md` | `>= 20` → `>= 22` |
+| `pages/.../getting-started/installation.mdx`（EN/JA） | Node.js v20 の記述を v22 に更新 |
+| `CHANGELOG.md` / `CHANGELOG-ja.md` | v1.0.0 エントリに Node.js v22 必須を記載 |
+
+> **Note:** `RFC.md` には Node.js の最低バージョンの明示的な記載はないため更新不要。
+
+---
+
 ## 移行タイミング
 
 v1.0.0 の要件が固まり次第、分割作業に入る。それまでは `otnc/purus` モノレポで開発を継続する。
